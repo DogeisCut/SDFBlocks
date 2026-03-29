@@ -93,11 +93,36 @@ Still using loops for hats though
                 - Default: 0,0,0
 
 - [ ] Control
+    - [ ] if [CONDITION] then [DO]
+        - Mutator: Modify else and else if chains.
 
 - [ ] Operators
+    - Decide if there should be a shadowed checkbox for booleans and if some of these should be dropdowns.
+    - [ ] [A] + [B]
+    - [ ] [A] - [B]
+    - [ ] [A] * [B]
+    - [ ] [A] / [B]
+    - [ ] [A] ^ [B]
+    - [ ] [A] = [B]
+
+    - [ ] [A] ≠ [B]
+    - [ ] [A] < [B]
+    - [ ] [A] ≤ [B]
+    - [ ] [A] > [B]
+    - [ ] [A] ≥ [B]
+
+    - [ ] [A] and [B]
+    - [ ] [A] or [B]
+    - [ ] not [BOOLEAN]
+
+    - [ ] true
+    - [ ] false
 
 - [ ] Sensing
     - Only really contains stuff like screen size, and timer.
+
+- [ ] Labeling
+    - just steal whatever i did in Fluffblocks lol
 
 - [ ] Variables
 
