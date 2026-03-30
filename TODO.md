@@ -66,7 +66,7 @@ Still using loops for hats though
                 - Default: 1.0
 
 - [ ] SDF Operations
-    - [ ] smooth union [A] with [B] at [SMOOTHNESS] smoothness
+    - [X] smooth union [A] with [B] at [SMOOTHNESS] smoothness
         - Function: Smoothly unions two SDFs at a specified smoothness level.
         - Output: SDF
         - Inputs:
@@ -82,6 +82,9 @@ Still using loops for hats though
                 - Default: 0.5
 
 - [ ] Transform Operations
+    - [ ] current transform
+        - Function: Provides the current vector3 transform value so colors or whatever may do as they please with it.
+        - Output: Vector3
     - [ ] translate by [POSITION]
         - Function: Translates the target SDF
         - Top Notch: Transform

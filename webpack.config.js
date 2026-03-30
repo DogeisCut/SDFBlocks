@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Base config that applies to either development or production mode.
 const config = {
-  entry: './src/index.ts',
+  entry: './src/editor.ts',
   output: {
     // Compile the source files into a bundle.
     filename: 'bundle.js',
@@ -12,7 +12,15 @@ const config = {
   },
   // Enable webpack-dev-server to get hot refresh of the app.
   devServer: {
-    static: './build',
+    static: [
+      {
+        directory: path.join(__dirname, 'build'), // Your compiled code
+      },
+      {
+        directory: path.join(__dirname, 'public'), // Your static assets
+        publicPath: '/', // Serves content from public/ at the root
+      },
+    ],
   },
   module: {
     rules: [
