@@ -80,5 +80,5 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_nothing"] = function (block, gene
 BlocklyGLSL.gLSLGenerator.forBlock["primatives_sphere"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC)
     const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC)
-    return [`sdSphere(${SURFACE}, ${RADIUS})`, BlocklyGLSL.Order.NONE]
+    return [`sdSphere(position, ${SURFACE}, ${RADIUS})`, BlocklyGLSL.Order.NONE]
 };
