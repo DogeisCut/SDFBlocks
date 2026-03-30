@@ -7,7 +7,7 @@ const blockStyles = {
     surfaces_blocks: {
         colourPrimary: "#6fe2b2",
     },
-    sdfs_blocks: {
+    primatives_blocks: {
         colourPrimary: "#5b81ff",
     },
     combiners_blocks: {

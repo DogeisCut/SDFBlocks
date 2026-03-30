@@ -39,9 +39,9 @@ const toolbox = `
         ${block("surfaces_create_surface", value("COLOR", shadowColor("#ffffff")), value("ROUGHNESS", shadowUnitFloat(1)), value("METALLICITY", shadowUnitFloat(0)), value("EMISSION", shadowUnitFloat(0)))}
     </category>
 
-    <category name="SDFs" colour="${c.sdfs_blocks.colourPrimary}">
-        ${block("sdfs_nothing")}
-        ${block("sdfs_sphere", value("SURFACE", shadow("values_surface")), value("RADIUS", shadowFloat(1)))}
+    <category name="Primatives" colour="${c.primatives_blocks.colourPrimary}">
+        ${block("primatives_nothing")}
+        ${block("primatives_sphere", value("SURFACE", shadow("values_surface")), value("RADIUS", shadowFloat(1)))}
     </category>
 
     <category name="Combiners" colour="${c.combiners_blocks.colourPrimary}">

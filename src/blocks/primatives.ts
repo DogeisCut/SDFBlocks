@@ -1,7 +1,7 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
-Blockly.Blocks["sdfs_nothing"] = {
+Blockly.Blocks["primatives_nothing"] = {
     init: function () {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("nothing")
@@ -10,7 +10,7 @@ Blockly.Blocks["sdfs_nothing"] = {
     },
 };
 
-Blockly.Blocks["sdfs_sphere"] = {
+Blockly.Blocks["primatives_sphere"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create sphere")
@@ -23,11 +23,11 @@ Blockly.Blocks["sdfs_sphere"] = {
 
 
 
-BlocklyGLSL.gLSLGenerator.forBlock["sdfs_nothing"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primatives_nothing"] = function (block, generator) {
     return [`position`, BlocklyGLSL.Order.NONE]
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["sdfs_sphere"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primatives_sphere"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC)
     const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC)
     return [`sdSphere(${SURFACE}, ${RADIUS})`, BlocklyGLSL.Order.NONE]
