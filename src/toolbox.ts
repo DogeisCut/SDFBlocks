@@ -39,16 +39,14 @@ const toolbox = `
     <category name="SDFs" colour="${c.sdfs_blocks.colourPrimary}">
         ${block("sdfs_nothing")}
         ${block("sdfs_sphere", value("SURFACE", shadow("surfaces_generic_surface")), value("RADIUS", shadowFloat(1)))}
-    </category>
-
-    <category name="SDF Operations" colour="${c.sdf_operations_blocks.colourPrimary}">
+        <label text="SDF Operations"></label>
         ${block("sdf_operations_union", value("A", shadow("sdfs_nothing")), value("B", shadow("sdfs_nothing")))}
         ${block("sdf_operations_smooth_union", value("A", shadow("sdfs_nothing")), value("B", shadow("sdfs_nothing")), value("SMOOTHNESS", shadowFloat(5)))}
     </category>
 
-    <category name="Transform Operations" colour="${c.transform_operations_blocks.colourPrimary}">
-        ${block("transfom_operations_current_transform")}
-        ${block("transform_operations_translate", value("POSITION", shadow("values_vector3")))}
+    <category name="Transforms" colour="${c.transforms_blocks.colourPrimary}">
+        ${block("transfoms_current_transform")}
+        ${block("transforms_translate", value("POSITION", shadow("values_vector3")))}
     </category>
 
     <category name="Color" colour="${c.color_blocks.colourPrimary}">

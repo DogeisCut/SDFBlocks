@@ -5,15 +5,15 @@ const blockStyles = {
         colourPrimary: "#535553",
     },
     surfaces_blocks: {
-        colourPrimary: "#6bade4",
+        colourPrimary: "#5b81ff",
     },
     sdfs_blocks: {
-        colourPrimary: "#5b86ff",
+        colourPrimary: "#3c3ad6",
     },
     sdf_operations_blocks: {
         colourPrimary: "#3c3ad6",
     },
-    transform_operations_blocks: {
+    transforms_blocks: {
         colourPrimary: "#8132a1",
     },
     color_blocks: {
@@ -38,7 +38,7 @@ const blockStyles = {
         colourPrimary: "#54cf43",
     },
     sensing_blocks: {
-        colourPrimary: "#6bdce4",
+        colourPrimary: "#6bc8e4",
     },
     labeling_blocks: {
         colourPrimary: "#999999",
