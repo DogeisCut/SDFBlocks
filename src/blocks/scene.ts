@@ -1,15 +1,32 @@
 import * as Blockly from "blockly";
-import * as BlocklyJS from "blockly/javascript";
+import * as BlocklyWebGL from "../generators/webgl";
 
 Blockly.Blocks["scene"] = {
   init: function () {
         this.setInputsInline(true);
-        this.appendStatementInput("INIT").setCheck("default").appendField("init:")
-        this.appendValueInput("SDF").setCheck("SDF").appendField("scene:");
+        this.appendStatementInput("SCENE").setCheck("default").appendField("scene:")
         this.setStyle("scene_blocks");
         this.setDeletable(false);
-        //this.setMovable(false);
         this.setEditable(false);
+    },
+};
+
+Blockly.Blocks["scene_current_scene"] = {
+  init: function () {
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField("current scene")
+        this.setOutput(true, "SDF")
+        this.setStyle("scene_blocks");
+    },
+};
+
+Blockly.Blocks["scene_set_scene"] = {
+  init: function () {
+        this.setInputsInline(true);
+        this.setNextStatement(true, "default");
+        this.setPreviousStatement(true, "default");
+        this.appendValueInput("SDF").setCheck("SDF").appendField("set scene to")
+        this.setStyle("scene_blocks");
     },
 };
 
@@ -37,6 +54,28 @@ Blockly.Blocks["scene_set_fog"] = {
 
 
 
-BlocklyJS.javascriptGenerator.forBlock["scene"] = function (block, generator) {
-	return `\n`;
+BlocklyWebGL.webGLGenerator.forBlock["scene"] = function (block, generator) {
+    const code = []
+    let target = block.getInput("SCENE")?.connection?.targetBlock()
+    if (!target) {
+        return ``
+    }
+    while (target) {
+        code.push(generator.blockToCode(target, false))
+        target = target.getNextBlock()
+    }
+	return code.join("\n");
+};
+
+BlocklyWebGL.webGLGenerator.forBlock["scene_current_scene"] = function (block, generator) {
+	return [`scene`, BlocklyWebGL.Order.NONE];
+};
+
+BlocklyWebGL.webGLGenerator.forBlock["scene_set_scene"] = function (block, generator) {
+    const SDF = generator.valueToCode(block, "SDF", BlocklyWebGL.Order.ATOMIC)
+	return `scene = ${SDF};`;
+};
+
+BlocklyWebGL.webGLGenerator.forBlock["scene_set_clear_color"] = function (block, generator) {
+	return ``;
 };

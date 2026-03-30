@@ -1,11 +1,10 @@
 import * as Blockly from "blockly";
-import * as BlocklyJS from "blockly/javascript";
+import * as BlocklyWebGL from "../generators/webgl";
 
 Blockly.Blocks["sdfs_nothing"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendDummyInput()
-            .appendField("nothing")
+        this.appendDummyInput().appendField("nothing")
         this.setOutput(true, "SDF")
         this.setStyle("sdfs_blocks");
     },
@@ -16,7 +15,6 @@ Blockly.Blocks["sdfs_sphere"] = {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create sphere")
         this.appendValueInput("SURFACE").setCheck("Surface").appendField("surface:")
-        this.appendStatementInput("TRANSFORM").setCheck("Transform").appendField("transform:")
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:")
         this.setOutput(true, "SDF")
         this.setStyle("sdfs_blocks");
@@ -25,10 +23,12 @@ Blockly.Blocks["sdfs_sphere"] = {
 
 
 
-BlocklyJS.javascriptGenerator.forBlock["sdfs_nothing"] = function (block, generator) {
-    return `\n`;
+BlocklyWebGL.webGLGenerator.forBlock["sdfs_nothing"] = function (block, generator) {
+    return [`position`, BlocklyWebGL.Order.NONE]
 };
 
-BlocklyJS.javascriptGenerator.forBlock["sdfs_sphere"] = function (block, generator) {
-    return `\n`;
+BlocklyWebGL.webGLGenerator.forBlock["sdfs_sphere"] = function (block, generator) {
+    const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyWebGL.Order.ATOMIC)
+    const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyWebGL.Order.ATOMIC)
+    return [`sdSphere(${SURFACE}, ${RADIUS})`, BlocklyWebGL.Order.NONE]
 };

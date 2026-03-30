@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyJS from "blockly/javascript";
+import * as BlocklyWebGL from "../generators/webgl";
 
 Blockly.Blocks["color_r_g_b"] = {
     init: function () {
@@ -26,10 +26,10 @@ Blockly.Blocks["color_blend"] = {
 
 
 
-BlocklyJS.javascriptGenerator.forBlock["color_r_g_b"] = function (block, generator) {
+BlocklyWebGL.webGLGenerator.forBlock["color_r_g_b"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyJS.javascriptGenerator.forBlock["color_blend"] = function (block, generator) {
+BlocklyWebGL.webGLGenerator.forBlock["color_blend"] = function (block, generator) {
     return `\n`;
 };

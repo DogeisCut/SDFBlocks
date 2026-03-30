@@ -1,12 +1,11 @@
 import * as Blockly from 'blockly';
 import { registerContinuousToolbox } from '@blockly/continuous-toolbox';
-import { javascriptGenerator } from 'blockly/javascript';
+import { webGLGenerator } from "./generators/webgl";
 import toolbox from './toolbox';
 import theme from './theme';
 import './index.css';
 
 Object.keys(Blockly.Blocks).forEach(key => delete Blockly.Blocks[key]);
-Object.keys(javascriptGenerator.forBlock).forEach(key => delete javascriptGenerator.forBlock[key]);
 
 const context = require.context('./blocks', false, /\.ts$/);
 context.keys().forEach(context);
@@ -77,16 +76,10 @@ ws.getToolbox()?.refreshSelection();
 const sceneBlock = ws.newBlock('scene');
 sceneBlock.initSvg();
 
-const sceneShadow = ws.newBlock('sdfs_nothing');
-sceneShadow.setShadow(true);
-sceneShadow.initSvg();
-
-sceneBlock.getInput("SDF")?.connection?.connect(sceneShadow?.outputConnection)
-
 ws.addChangeListener(Blockly.Events.disableOrphans);
 
 const compile = () => {
-    const code = javascriptGenerator.workspaceToCode(ws as Blockly.Workspace);
+    const code = webGLGenerator.workspaceToCode(ws as Blockly.Workspace);
     if (codeDiv) codeDiv.textContent = code;
 
     if (outputDiv) outputDiv.innerHTML = '';

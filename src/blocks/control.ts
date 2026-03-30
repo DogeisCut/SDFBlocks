@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyJS from "blockly/javascript";
+import * as BlocklyWebGL from "../generators/webgl";
 
 Blockly.Blocks["control_if"] = {
     init: function () {
@@ -29,10 +29,15 @@ Blockly.Blocks["control_if_else"] = {
 
 
 
-BlocklyJS.javascriptGenerator.forBlock["control_if"] = function (block, generator) {
-    return `\n`;
+BlocklyWebGL.webGLGenerator.forBlock["control_if"] = function (block, generator) {
+    const CONDITION = generator.valueToCode(block, "CONDITION", BlocklyWebGL.Order.ATOMIC) || false
+    const DO = generator.statementToCode(block, "DO")
+    return `if (${CONDITION}) {\n${DO}\n}`;
 };
 
-BlocklyJS.javascriptGenerator.forBlock["control_if_else"] = function (block, generator) {
-    return `\n`;
+BlocklyWebGL.webGLGenerator.forBlock["control_if_else"] = function (block, generator) {
+    const CONDITION = generator.valueToCode(block, "CONDITION", BlocklyWebGL.Order.ATOMIC) || false
+    const DO = generator.statementToCode(block, "DO")
+    const ELSE = generator.statementToCode(block, "ELSE")
+    return `if (${CONDITION}) {\n${DO}\n} else {\n${ELSE}\n}`;
 };

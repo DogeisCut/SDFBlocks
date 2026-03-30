@@ -27,6 +27,9 @@ function shadowColor(color: string = "#ff0000"): string {
 const c = theme.blockStyles
 const toolbox = `
     <category name="Scene" colour="${c.scene_blocks.colourPrimary}">
+        ${block("scene_current_scene")}
+        ${block("scene_set_scene", value("SDF", shadow("sdfs_nothing")))}
+        ${sep(50)}
         ${block("scene_set_clear_color", value("COLOR", shadowColor("#000000")))}
         ${block("scene_set_fog", value("MIN", shadowFloat(100)), value("MAX", shadowFloat(1000)))}
     </category>
@@ -39,14 +42,16 @@ const toolbox = `
     <category name="SDFs" colour="${c.sdfs_blocks.colourPrimary}">
         ${block("sdfs_nothing")}
         ${block("sdfs_sphere", value("SURFACE", shadow("surfaces_generic_surface")), value("RADIUS", shadowFloat(1)))}
-        <label text="SDF Operations"></label>
-        ${block("sdf_operations_union", value("A", shadow("sdfs_nothing")), value("B", shadow("sdfs_nothing")))}
-        ${block("sdf_operations_smooth_union", value("A", shadow("sdfs_nothing")), value("B", shadow("sdfs_nothing")), value("SMOOTHNESS", shadowFloat(5)))}
+    </category>
+
+    <category name="Combiners" colour="${c.combiners_blocks.colourPrimary}">
+        ${block("combiners_union", value("A", shadow("sdfs_nothing")), value("B", shadow("sdfs_nothing")))}
+        ${block("combiners_smooth_union", value("A", shadow("sdfs_nothing")), value("B", shadow("sdfs_nothing")), value("SMOOTHNESS", shadowFloat(5)))}
     </category>
 
     <category name="Transforms" colour="${c.transforms_blocks.colourPrimary}">
         ${block("transfoms_current_transform")}
-        ${block("transforms_translate", value("POSITION", shadow("values_vector3")))}
+        ${block("transforms_translate", value("SDF", shadow("sdfs_nothing")), value("POSITION", shadow("values_vector3")))}
     </category>
 
     <category name="Color" colour="${c.color_blocks.colourPrimary}">

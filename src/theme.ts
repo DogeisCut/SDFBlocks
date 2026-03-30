@@ -5,12 +5,12 @@ const blockStyles = {
         colourPrimary: "#535553",
     },
     surfaces_blocks: {
-        colourPrimary: "#5b81ff",
+        colourPrimary: "#6fe2b2",
     },
     sdfs_blocks: {
-        colourPrimary: "#3c3ad6",
+        colourPrimary: "#5b81ff",
     },
-    sdf_operations_blocks: {
+    combiners_blocks: {
         colourPrimary: "#3c3ad6",
     },
     transforms_blocks: {
