@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["combiners_union"] = {
     init: function () {
@@ -27,15 +27,15 @@ Blockly.Blocks["combiners_smooth_union"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["combiners_union"] = function (block, generator) {
-    const A = generator.valueToCode(block, "A", BlocklyWebGL.Order.ATOMIC)
-    const B = generator.valueToCode(block, "B", BlocklyWebGL.Order.ATOMIC)
-    return [`opUnion(${A}, ${B})`, BlocklyWebGL.Order.NONE];
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_union"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`opUnion(${A}, ${B})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["combiners_smooth_union"] = function (block, generator) {
-    const A = generator.valueToCode(block, "A", BlocklyWebGL.Order.ATOMIC)
-    const B = generator.valueToCode(block, "B", BlocklyWebGL.Order.ATOMIC)
-    const SMOOTHNESS = generator.valueToCode(block, "SMOOTHNESS", BlocklyWebGL.Order.ATOMIC)
-    return [`opSmoothUnion(${A}, ${B}, ${SMOOTHNESS});`, BlocklyWebGL.Order.NONE];
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_union"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    const SMOOTHNESS = generator.valueToCode(block, "SMOOTHNESS", BlocklyGLSL.Order.ATOMIC)
+    return [`opSmoothUnion(${A}, ${B}, ${SMOOTHNESS});`, BlocklyGLSL.Order.NONE];
 };

@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["scene"] = {
   init: function () {
@@ -54,7 +54,7 @@ Blockly.Blocks["scene_set_fog"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["scene"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["scene"] = function (block, generator) {
     const code = []
     let target = block.getInput("SCENE")?.connection?.targetBlock()
     if (!target) {
@@ -67,15 +67,15 @@ BlocklyWebGL.webGLGenerator.forBlock["scene"] = function (block, generator) {
 	return code.join("\n");
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["scene_current_scene"] = function (block, generator) {
-	return [`scene`, BlocklyWebGL.Order.NONE];
+BlocklyGLSL.gLSLGenerator.forBlock["scene_current_scene"] = function (block, generator) {
+	return [`scene`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["scene_set_scene"] = function (block, generator) {
-    const SDF = generator.valueToCode(block, "SDF", BlocklyWebGL.Order.ATOMIC)
+BlocklyGLSL.gLSLGenerator.forBlock["scene_set_scene"] = function (block, generator) {
+    const SDF = generator.valueToCode(block, "SDF", BlocklyGLSL.Order.ATOMIC)
 	return `scene = ${SDF};`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["scene_set_clear_color"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["scene_set_clear_color"] = function (block, generator) {
 	return ``;
 };

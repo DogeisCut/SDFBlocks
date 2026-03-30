@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 import { EventType } from "blockly/core/events/type";
 
 Blockly.Blocks["labeling_label"] = {
@@ -88,13 +88,13 @@ Blockly.Blocks["labeling_label"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["labeling_label"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["labeling_label"] = function (block, generator) {
     const label = block.getFieldValue("LABEL");
 
     // TODO: fix the "(block as any)" with proper type stuff
     if ((block as any).mode_ === 'input') { 
-        const value = generator.valueToCode(block, "VALUE", BlocklyWebGL.Order.ATOMIC) || 'null';
-        return [`${value}`, BlocklyWebGL.Order.ATOMIC];
+        const value = generator.valueToCode(block, "VALUE", BlocklyGLSL.Order.ATOMIC) || 'null';
+        return [`${value}`, BlocklyGLSL.Order.ATOMIC];
     } else if ((block as any).mode_ === 'stack') {
         const code = []
         let target = block.getInput("DO")?.connection?.targetBlock()

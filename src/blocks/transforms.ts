@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["transfoms_current_transform"] = {
     init: function () {
@@ -24,12 +24,12 @@ Blockly.Blocks["transforms_translate"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["transfoms_current_transform"] = function (block, generator) {
-    return [`position`, BlocklyWebGL.Order.NONE];
+BlocklyGLSL.gLSLGenerator.forBlock["transfoms_current_transform"] = function (block, generator) {
+    return [`position`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["transforms_translate"] = function (block, generator) {
-    const SDF = generator.valueToCode(block, "SDF", BlocklyWebGL.Order.ATOMIC)
-    const POSITION = generator.valueToCode(block, "POSITION", BlocklyWebGL.Order.ATOMIC)
-    return [`opTranslate(${SDF}, ${POSITION})`, BlocklyWebGL.Order.NONE];
+BlocklyGLSL.gLSLGenerator.forBlock["transforms_translate"] = function (block, generator) {
+    const SDF = generator.valueToCode(block, "SDF", BlocklyGLSL.Order.ATOMIC)
+    const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC)
+    return [`opTranslate(${SDF}, ${POSITION})`, BlocklyGLSL.Order.NONE];
 };

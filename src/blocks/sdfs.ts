@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["sdfs_nothing"] = {
     init: function () {
@@ -23,12 +23,12 @@ Blockly.Blocks["sdfs_sphere"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["sdfs_nothing"] = function (block, generator) {
-    return [`position`, BlocklyWebGL.Order.NONE]
+BlocklyGLSL.gLSLGenerator.forBlock["sdfs_nothing"] = function (block, generator) {
+    return [`position`, BlocklyGLSL.Order.NONE]
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["sdfs_sphere"] = function (block, generator) {
-    const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyWebGL.Order.ATOMIC)
-    const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyWebGL.Order.ATOMIC)
-    return [`sdSphere(${SURFACE}, ${RADIUS})`, BlocklyWebGL.Order.NONE]
+BlocklyGLSL.gLSLGenerator.forBlock["sdfs_sphere"] = function (block, generator) {
+    const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC)
+    const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC)
+    return [`sdSphere(${SURFACE}, ${RADIUS})`, BlocklyGLSL.Order.NONE]
 };

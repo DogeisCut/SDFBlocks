@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 
-export const webGLGenerator = new Blockly.CodeGenerator('WebGL');
+export const gLSLGenerator = new Blockly.CodeGenerator('GLSL');
 
 export enum Order {
     ATOMIC = 0,

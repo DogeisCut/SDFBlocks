@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 import { registerContinuousToolbox } from '@blockly/continuous-toolbox';
-import { webGLGenerator } from "./generators/webgl";
+import { gLSLGenerator } from "./generators/glsl";
 import toolbox from './toolbox';
 import theme from './theme';
 import './index.css';
@@ -79,7 +79,7 @@ sceneBlock.initSvg();
 ws.addChangeListener(Blockly.Events.disableOrphans);
 
 const compile = () => {
-    const code = webGLGenerator.workspaceToCode(ws as Blockly.Workspace);
+    const code = gLSLGenerator.workspaceToCode(ws as Blockly.Workspace);
     if (codeDiv) codeDiv.textContent = code;
 
     if (outputDiv) outputDiv.innerHTML = '';

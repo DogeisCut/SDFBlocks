@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["operators_add"] = {
     init: function () {
@@ -53,22 +53,22 @@ Blockly.Blocks["operators_power"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["operators_add"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["operators_add"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["operators_subtract"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["operators_subtract"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["operators_multiply"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["operators_multiply"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["operators_divide"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["operators_divide"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["operators_power"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["operators_power"] = function (block, generator) {
     return `\n`;
 };

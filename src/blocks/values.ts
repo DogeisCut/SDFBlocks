@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 import {FieldColourHsvSliders} from '@blockly/field-colour-hsv-sliders';
 
 Blockly.Blocks["values_color"] = {
@@ -78,7 +78,7 @@ Blockly.Blocks["values_surface"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["values_color"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator) {
     function hexToRgb(hex: string) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
@@ -89,40 +89,40 @@ BlocklyWebGL.webGLGenerator.forBlock["values_color"] = function (block, generato
     }
     const COLOR = block.getFieldValue("COLOR");
     const convertedColor = hexToRgb(COLOR) ?? { r: 0, g: 0, b: 0 }
-    return [`vec3(${convertedColor.r/255}, ${convertedColor.g/255}, ${convertedColor.b/255})`, BlocklyWebGL.Order.NONE];
+    return [`vec3(${convertedColor.r/255}, ${convertedColor.g/255}, ${convertedColor.b/255})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["values_float"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["values_float"] = function (block, generator) {
     const NUMBER = block.getFieldValue("NUMBER");
-    return [`${NUMBER}`, BlocklyWebGL.Order.NONE];
+    return [`${NUMBER}`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["values_unit_float"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["values_unit_float"] = function (block, generator) {
     const NUMBER = block.getFieldValue("NUMBER");
-    return [`${NUMBER}`, BlocklyWebGL.Order.NONE];
+    return [`${NUMBER}`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["values_vector2"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["values_vector2"] = function (block, generator) {
     const X = block.getFieldValue("X");
     const Y = block.getFieldValue("Y");
-    return [`vec2(${X}, ${Y})`, BlocklyWebGL.Order.NONE];
+    return [`vec2(${X}, ${Y})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["values_vector3"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["values_vector3"] = function (block, generator) {
     const X = block.getFieldValue("X");
     const Y = block.getFieldValue("Y");
     const Z = block.getFieldValue("Z");
-    return [`vec3(${X}, ${Y}, ${Z})`, BlocklyWebGL.Order.NONE];
+    return [`vec3(${X}, ${Y}, ${Z})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["values_vector4"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["values_vector4"] = function (block, generator) {
     const X = block.getFieldValue("X");
     const Y = block.getFieldValue("Y");
     const Z = block.getFieldValue("Z");
     const W = block.getFieldValue("W");
-    return [`vec3(${X}, ${Y}, ${Z}, ${W})`, BlocklyWebGL.Order.NONE];
+    return [`vec3(${X}, ${Y}, ${Z}, ${W})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["values_surface"] = function (block, generator) {
-    return [`makeSurface(0.0, vec3(0.0), 1.0, 0.0, 0.0)`, BlocklyWebGL.Order.NONE];
+BlocklyGLSL.gLSLGenerator.forBlock["values_surface"] = function (block, generator) {
+    return [`makeSurface(0.0, vec3(0.0), 1.0, 0.0, 0.0)`, BlocklyGLSL.Order.NONE];
 };

@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["vectors_vector2"] = {
     init: function () {
@@ -72,30 +72,30 @@ Blockly.Blocks["vectors_w_of"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["vectors_vector2"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector2"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["vectors_vector3"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector3"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["vectors_vector4"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector4"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["vectors_x_of"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_x_of"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["vectors_y_of"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_y_of"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["vectors_z_of"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_z_of"] = function (block, generator) {
     return `\n`;
 };
 
-BlocklyWebGL.webGLGenerator.forBlock["vectors_w_of"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_w_of"] = function (block, generator) {
     return `\n`;
 };

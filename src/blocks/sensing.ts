@@ -1,5 +1,5 @@
 import * as Blockly from "blockly";
-import * as BlocklyWebGL from "../generators/webgl";
+import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["sensing_timer"] = {
     init: function () {
@@ -13,6 +13,6 @@ Blockly.Blocks["sensing_timer"] = {
 
 
 
-BlocklyWebGL.webGLGenerator.forBlock["sensing_timer"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["sensing_timer"] = function (block, generator) {
     return `\n`;
 };
