@@ -1,7 +1,7 @@
 {
-  "name": "marchblocks",
+  "name": "march-blocks",
   "version": "1.0.0",
-  "description": "A sample app using Blockly",
+  "description": "A Blockly based web app for creating/modeling raymarched art/scenes using blocks.",
   "main": "index.js",
   "private": true,
   "scripts": {
