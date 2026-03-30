@@ -6,7 +6,7 @@ Blockly.Blocks["primatives_nothing"] = {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("nothing")
         this.setOutput(true, "SDF")
-        this.setStyle("sdfs_blocks");
+        this.setStyle("primatives_blocks");
     },
 };
 
@@ -17,7 +17,7 @@ Blockly.Blocks["primatives_sphere"] = {
         this.appendValueInput("SURFACE").setCheck("Surface").appendField("surface:")
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:")
         this.setOutput(true, "SDF")
-        this.setStyle("sdfs_blocks");
+        this.setStyle("primatives_blocks");
     },
 };
 

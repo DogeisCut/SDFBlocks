@@ -30,6 +30,17 @@ Blockly.Blocks["scene_set_scene"] = {
     },
 };
 
+Blockly.Blocks["scene_append_to_scene"] = {
+  init: function () {
+        this.setInputsInline(true);
+        this.setNextStatement(true, "default");
+        this.setPreviousStatement(true, "default");
+        this.appendValueInput("SDF").setCheck("SDF").appendField("append")
+        this.appendDummyInput().appendField("to scene")
+        this.setStyle("scene_blocks");
+    },
+};
+
 Blockly.Blocks["scene_set_clear_color"] = {
   init: function () {
         this.setInputsInline(true);
@@ -74,6 +85,11 @@ BlocklyGLSL.gLSLGenerator.forBlock["scene_current_scene"] = function (block, gen
 BlocklyGLSL.gLSLGenerator.forBlock["scene_set_scene"] = function (block, generator) {
     const SDF = generator.valueToCode(block, "SDF", BlocklyGLSL.Order.ATOMIC)
 	return `scene = ${SDF};`;
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["scene_append_to_scene"] = function (block, generator) {
+    const SDF = generator.valueToCode(block, "SDF", BlocklyGLSL.Order.ATOMIC)
+	return `scene = opUnion(scene, ${SDF});`;
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["scene_set_clear_color"] = function (block, generator) {

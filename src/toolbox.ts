@@ -28,7 +28,8 @@ const c = theme.blockStyles
 const toolbox = `
     <category name="Scene" colour="${c.scene_blocks.colourPrimary}">
         ${block("scene_current_scene")}
-        ${block("scene_set_scene", value("SDF", shadow("sdfs_nothing")))}
+        ${block("scene_set_scene", value("SDF", shadow("values_sdf")))}
+        ${block("scene_append_to_scene", value("SDF", shadow("values_sdf")))}
         ${sep(50)}
         ${block("scene_set_clear_color", value("COLOR", shadowColor("#000000")))}
         ${block("scene_set_fog", value("MIN", shadowFloat(100)), value("MAX", shadowFloat(1000)))}
