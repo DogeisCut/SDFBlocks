@@ -5,7 +5,7 @@ const blockStyles = {
         colourPrimary: "#535553",
     },
     surfaces_blocks: {
-        colourPrimary: "#6bbee4",
+        colourPrimary: "#6bade4",
     },
     sdfs_blocks: {
         colourPrimary: "#5b86ff",

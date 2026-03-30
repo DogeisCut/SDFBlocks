@@ -52,6 +52,8 @@ const toolbox = `
     </category>
 
     <category name="Color" colour="${c.color_blocks.colourPrimary}">
+        ${block("color_r_g_b", value("R", shadowUnitFloat(1)), value("G", shadowUnitFloat(0)), value("B", shadowUnitFloat(0)))}
+        ${sep(50)}
         ${block("color_blend", value("A", shadowColor()), value("B", shadowColor("#000000")), value("BY", shadowUnitFloat()))}
     </category>
 
@@ -67,21 +69,30 @@ const toolbox = `
     </category>
 
     <category name="Control" colour="${c.control_blocks.colourPrimary}">
+        ${block("control_if")}
+        ${block("control_if_else")}
     </category>
 
     <category name="Operators" colour="${c.operators_blocks.colourPrimary}">
+        ${block("operators_add", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_subtract", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_multiply", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_divide", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_power", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
     </category>
 
     <category name="Sensing" colour="${c.sensing_blocks.colourPrimary}">
+        ${block("sensing_timer")}
     </category>
 
     <category name="Labeling" colour="${c.labeling_blocks.colourPrimary}">
+        ${block("labeling_label")}
     </category>
 
-    <category name="Variables" colour="${c.variables_blocks.colourPrimary}">
+    <category name="Variables" colour="${c.variables_blocks.colourPrimary}" custom="VARIABLE">
     </category>
 
-    <category name="Functions" colour="${c.functions_blocks.colourPrimary}">
+    <category name="Functions" colour="${c.functions_blocks.colourPrimary}" custom="PROCEDURE">
     </category>
 `;
 
