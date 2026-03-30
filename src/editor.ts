@@ -1,4 +1,5 @@
 import * as Blockly from 'blockly';
+import "./renderers/helios"
 import { registerContinuousToolbox } from '@blockly/continuous-toolbox';
 import * as Compiler from "./compilier";
 import toolbox from './toolbox';
