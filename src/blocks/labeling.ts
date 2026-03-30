@@ -86,6 +86,11 @@ Blockly.Blocks["labeling_label"] = {
     },
 };
 
+Blockly.Blocks["labeling_placeholder"] = {
+    init: function () {
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["labeling_label"] = function (block, generator) {

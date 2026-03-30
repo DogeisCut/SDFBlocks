@@ -12,6 +12,11 @@ Blockly.Blocks["color_r_g_b"] = {
     },
 };
 
+Blockly.Blocks["color_h_s_v"] = {
+    init: function () {
+    },
+};
+
 Blockly.Blocks["color_blend"] = {
     init: function () {
         this.setInputsInline(true);
@@ -24,5 +29,19 @@ Blockly.Blocks["color_blend"] = {
     },
 };
 
+Blockly.Blocks["color_get_r"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["color_get_g"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["color_get_b"] = {
+    init: function () {
+    },
+};
 
 

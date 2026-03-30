@@ -51,6 +51,16 @@ Blockly.Blocks["scene_set_clear_color"] = {
     },
 };
 
+Blockly.Blocks["scene_customize_shadows"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["scene_customize_shading"] = {
+    init: function () {
+    },
+};
+
 Blockly.Blocks["scene_set_fog"] = {
   init: function () {
         this.setInputsInline(false);
@@ -90,8 +100,4 @@ BlocklyGLSL.gLSLGenerator.forBlock["scene_set_scene"] = function (block, generat
 BlocklyGLSL.gLSLGenerator.forBlock["scene_append_to_scene"] = function (block, generator) {
     const SDF = generator.valueToCode(block, "SDF", BlocklyGLSL.Order.ATOMIC)
 	return `scene = opUnion(scene, ${SDF});`;
-};
-
-BlocklyGLSL.gLSLGenerator.forBlock["scene_set_clear_color"] = function (block, generator) {
-	return ``;
 };

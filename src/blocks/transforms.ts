@@ -22,6 +22,26 @@ Blockly.Blocks["transforms_translate"] = {
     },
 };
 
+Blockly.Blocks["transforms_rotate_around_axis"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["transforms_repeat"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["transforms_twist"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["transforms_bend"] = {
+    init: function () {
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["transfoms_current_transform"] = function (block, generator) {

@@ -12,7 +12,6 @@ Blockly.Blocks["combiners_union"] = {
     },
 };
 
-
 Blockly.Blocks["combiners_smooth_union"] = {
     init: function () {
         this.setInputsInline(false);
@@ -22,6 +21,36 @@ Blockly.Blocks["combiners_smooth_union"] = {
         this.appendValueInput("SMOOTHNESS").setCheck("Number").appendField("smoothness:")
         this.setOutput(true, "SDF")
         this.setStyle("combiners_blocks");
+    },
+};
+
+Blockly.Blocks["combiners_subtract"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["combiners_smooth_subtract"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["combiners_intersect"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["combiners_smooth_intersect"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["combiners_paint"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["combiners_smooth_paint"] = {
+    init: function () {
     },
 };
 

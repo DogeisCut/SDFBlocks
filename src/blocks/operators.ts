@@ -51,6 +51,97 @@ Blockly.Blocks["operators_power"] = {
     },
 };
 
+Blockly.Blocks["operators_modulus"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_rounding"] = {
+    init: function () {
+    },
+};
+
+
+Blockly.Blocks["operators_trig"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_unary"] = { // square root of, fractional of, negate, absolute value of, sign of, exp, log, exp2, log2
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_mix"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_bounds"] = { // min and max
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_clamp"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_equals"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_not_equals"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_less_than"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_less_than_or_equal"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_greater_than"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_greater_than_or_equal"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_and"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_or"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_not"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_true"] = { // these might not be neccisary with the checkbox value. though i hate the checkbox field in blockly so i might just shadow false instead
+    init: function () {
+    },
+};
+
+Blockly.Blocks["operators_false"] = {
+    init: function () {
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_add"] = function (block, generator) {

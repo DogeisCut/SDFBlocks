@@ -85,6 +85,11 @@ Blockly.Blocks["values_sdf"] = {
     },
 };
 
+Blockly.Blocks["values_boolean"] = {
+    init: function () {
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator) {

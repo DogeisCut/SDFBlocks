@@ -27,6 +27,41 @@ Blockly.Blocks["control_if_else"] = {
     },
 };
 
+Blockly.Blocks["control_repeat"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["control_loop_index"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["control_while"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["control_do_while"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["control_continue"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["control_break"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["control_discard"] = {
+    init: function () {
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["control_if"] = function (block, generator) {

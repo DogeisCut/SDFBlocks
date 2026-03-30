@@ -70,5 +70,34 @@ Blockly.Blocks["vectors_w_of"] = {
     },
 };
 
+Blockly.Blocks["vectors_vector2_z"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["vectors_vector3_w"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["vectors_components2"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["vectors_components3"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["vectors_components4"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["vectors_length_of"] = {
+    init: function () {
+    },
+};
 
 

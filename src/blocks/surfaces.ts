@@ -10,6 +10,10 @@ Blockly.Blocks["surfaces_generic_surface"] = {
     },
 };
 
+Blockly.Blocks["surfaces_create_surface_mutator_surface"] = { // Optional params
+    init: function () {
+    },
+};
 Blockly.Blocks["surfaces_create_surface"] = {
     init: function () {
         this.setInputsInline(false);

@@ -21,6 +21,56 @@ Blockly.Blocks["primatives_sphere"] = {
     },
 };
 
+Blockly.Blocks["primatives_plane"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_box"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_round_box"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_cone"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_torus"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_capsule"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_capped_cylinder"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_rounded_cylinder"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_round_cone"] = {
+    init: function () {
+    },
+};
+
+Blockly.Blocks["primatives_ellipsoid"] = {
+    init: function () {
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["primatives_nothing"] = function (block, generator) {
