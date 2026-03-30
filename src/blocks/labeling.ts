@@ -23,24 +23,27 @@ Blockly.Blocks["labeling_label"] = {
                 this.removeInput("DO", true);
                 break;
             case 'stack':
+                const previousCheck = this.previousConnection?.targetConnection?.check
                 this.setOutput(false);
-                this.setPreviousStatement(true);
-                this.setNextStatement(true);
+                this.setPreviousStatement(true, previousCheck);
+                this.setNextStatement(true, previousCheck);
                 this.removeInput("VALUE", true);
                 if (!this.getInput("DO")) {
-                    this.appendStatementInput("DO").setCheck("default")
+                    this.appendStatementInput("DO").setCheck(previousCheck)
                 }
                 break;
             case 'input':
-                this.setOutput(true);
+                const outputCheck = this.outputConnection?.targetConnection?.check
+                this.setOutput(true, outputCheck);
                 this.setPreviousStatement(false);
                 this.setNextStatement(false);
                 let valueInput = this.getInput("VALUE")
                 if (!valueInput) {
                     valueInput = this.appendValueInput("VALUE");
                     this.moveInputBefore("VALUE", "LABEL_TEXT");
+                    
                 }
-                valueInput.setCheck(this.outputConnection?.targetConnection?.check);
+                valueInput.setCheck(outputCheck);
                 this.removeInput("DO", true);
                 break;
         }
