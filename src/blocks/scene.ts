@@ -4,7 +4,8 @@ import * as BlocklyGLSL from "../generators/glsl";
 Blockly.Blocks["scene"] = {
   init: function () {
         this.setInputsInline(true);
-        this.appendStatementInput("SCENE").setCheck("default").appendField("scene:")
+        this.appendDummyInput().appendField("scene")
+        this.appendStatementInput("SCENE").setCheck("default")
         this.setStyle("scene_blocks");
         this.setDeletable(false);
         this.setEditable(false);
