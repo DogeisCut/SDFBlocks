@@ -41,17 +41,17 @@ const toolbox = `
 
     <category name="SDFs" colour="${c.sdfs_blocks.colourPrimary}">
         ${block("sdfs_nothing")}
-        ${block("sdfs_sphere", value("SURFACE", shadow("surfaces_generic_surface")), value("RADIUS", shadowFloat(1)))}
+        ${block("sdfs_sphere", value("SURFACE", shadow("values_surface")), value("RADIUS", shadowFloat(1)))}
     </category>
 
     <category name="Combiners" colour="${c.combiners_blocks.colourPrimary}">
-        ${block("combiners_union", value("A", shadow("sdfs_nothing")), value("B", shadow("sdfs_nothing")))}
-        ${block("combiners_smooth_union", value("A", shadow("sdfs_nothing")), value("B", shadow("sdfs_nothing")), value("SMOOTHNESS", shadowFloat(5)))}
+        ${block("combiners_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
+        ${block("combiners_smooth_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("SMOOTHNESS", shadowFloat(5)))}
     </category>
 
     <category name="Transforms" colour="${c.transforms_blocks.colourPrimary}">
         ${block("transfoms_current_transform")}
-        ${block("transforms_translate", value("SDF", shadow("sdfs_nothing")), value("POSITION", shadow("values_vector3")))}
+        ${block("transforms_translate", value("SDF", shadow("values_sdf")), value("POSITION", shadow("values_vector3")))}
     </category>
 
     <category name="Color" colour="${c.color_blocks.colourPrimary}">

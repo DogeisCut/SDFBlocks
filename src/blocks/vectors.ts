@@ -72,30 +72,3 @@ Blockly.Blocks["vectors_w_of"] = {
 
 
 
-BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector2"] = function (block, generator) {
-    return `\n`;
-};
-
-BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector3"] = function (block, generator) {
-    return `\n`;
-};
-
-BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector4"] = function (block, generator) {
-    return `\n`;
-};
-
-BlocklyGLSL.gLSLGenerator.forBlock["vectors_x_of"] = function (block, generator) {
-    return `\n`;
-};
-
-BlocklyGLSL.gLSLGenerator.forBlock["vectors_y_of"] = function (block, generator) {
-    return `\n`;
-};
-
-BlocklyGLSL.gLSLGenerator.forBlock["vectors_z_of"] = function (block, generator) {
-    return `\n`;
-};
-
-BlocklyGLSL.gLSLGenerator.forBlock["vectors_w_of"] = function (block, generator) {
-    return `\n`;
-};

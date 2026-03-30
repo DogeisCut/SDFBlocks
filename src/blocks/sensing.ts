@@ -14,5 +14,5 @@ Blockly.Blocks["sensing_timer"] = {
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["sensing_timer"] = function (block, generator) {
-    return `\n`;
+    return [`u_time`, BlocklyGLSL.Order.NONE];
 };

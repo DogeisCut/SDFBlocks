@@ -26,10 +26,3 @@ Blockly.Blocks["color_blend"] = {
 
 
 
-BlocklyGLSL.gLSLGenerator.forBlock["color_r_g_b"] = function (block, generator) {
-    return `\n`;
-};
-
-BlocklyGLSL.gLSLGenerator.forBlock["color_blend"] = function (block, generator) {
-    return `\n`;
-};

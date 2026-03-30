@@ -54,21 +54,31 @@ Blockly.Blocks["operators_power"] = {
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_add"] = function (block, generator) {
-    return `\n`;
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`${A} + ${B}`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_subtract"] = function (block, generator) {
-    return `\n`;
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`${A} - ${B}`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_multiply"] = function (block, generator) {
-    return `\n`;
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`${A} * ${B}`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_divide"] = function (block, generator) {
-    return `\n`;
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`${A} / ${B}`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_power"] = function (block, generator) {
-    return `\n`;
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`pow(${A}, ${B})`, BlocklyGLSL.Order.NONE];
 };

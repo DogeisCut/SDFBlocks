@@ -76,6 +76,15 @@ Blockly.Blocks["values_surface"] = {
     },
 };
 
+Blockly.Blocks["values_sdf"] = {
+    init: function () {
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField("sdf")
+        this.setOutput(true, "SDF")
+        this.setStyle("sdfs_blocks");
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator) {
@@ -124,5 +133,9 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_vector4"] = function (block, generato
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_surface"] = function (block, generator) {
-    return [`makeSurface(0.0, vec3(0.0), 1.0, 0.0, 0.0)`, BlocklyGLSL.Order.NONE];
+    return [`makeSurface(vec3(0.0), 1.0, 0.0, 0.0)`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["values_sdf"] = function (block, generator) {
+    return [`position`, BlocklyGLSL.Order.NONE];
 };

@@ -1,3 +1,3 @@
-# SDFblocks
+# MarchBlocks
 
-See: [TODO.MD](https://github.com/DogeisCut/SDFBlocks/blob/main/TODO.md)
+See: [TODO.MD](https://github.com/DogeisCut/MarchBlocks/blob/main/TODO.md)

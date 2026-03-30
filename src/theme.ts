@@ -56,8 +56,8 @@ const blockStyles = {
     },
 };
 
-const theme = Blockly.Theme.defineTheme('SDFBlocks', {
-    name: "SDFBlocks",
+const theme = Blockly.Theme.defineTheme('MarchBlocks', {
+    name: "MarchBlocks",
     base: Blockly.Themes.Classic,
     startHats: true,
     blockStyles,
