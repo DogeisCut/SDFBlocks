@@ -29,7 +29,7 @@ Blockly.Blocks["vectors_vector4"] = {
         this.appendValueInput("Y").setCheck("Number").appendField("y:")
         this.appendValueInput("Z").setCheck("Number").appendField("z:")
         this.appendValueInput("W").setCheck("Number").appendField("w:")
-        this.setOutput(true, "Vector3")
+        this.setOutput(true, "Vector4")
         this.setStyle("vector4_blocks");
     },
 };
