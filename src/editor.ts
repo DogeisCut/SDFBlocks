@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 import { registerContinuousToolbox } from '@blockly/continuous-toolbox';
-import { gLSLGenerator } from "./generators/glsl";
+import * as Compiler from "./compilier";
 import toolbox from './toolbox';
 import theme from './theme';
 import './index.css';
@@ -10,8 +10,6 @@ Object.keys(Blockly.Blocks).forEach(key => delete Blockly.Blocks[key]);
 const context = require.context('./blocks', false, /\.ts$/);
 context.keys().forEach(context);
 
-const codeDiv = document.getElementById('generatedCode')?.firstChild;
-const outputDiv = document.getElementById('output');
 const blocklyDiv = document.getElementById('blocklyDiv');
 
 if (!blocklyDiv) {
@@ -78,13 +76,6 @@ sceneBlock.initSvg();
 
 ws.addChangeListener(Blockly.Events.disableOrphans);
 
-const compile = () => {
-    const code = gLSLGenerator.workspaceToCode(ws as Blockly.Workspace);
-    if (codeDiv) codeDiv.textContent = code;
-
-    if (outputDiv) outputDiv.innerHTML = '';
-};
-
 if (ws) {
     ws.addChangeListener((e: Blockly.Events.Abstract) => {
         if (
@@ -94,7 +85,7 @@ if (ws) {
         ) {
             return;
         }
-        compile();
+        Compiler.compile(ws);
     });
 }
 
