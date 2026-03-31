@@ -1,145 +1,44 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
-type GLSLType = "Number" | "Vector2" | "Vector3" | "Vector4" | "Color";
-const anyCheck: GLSLType[] = ["Number", "Vector2", "Vector3", "Vector4", "Color"];
-
-const typeToShadowMap: Record<GLSLType, string> = {
-    "Number": "values_float",
-    "Vector2": "values_vector2",
-    "Vector3": "values_vector3",
-    "Vector4": "values_vector4",
-    "Color": "values_color"
-};
-
-const updateShadow = (block: Blockly.BlockSvg, inputName: string, targetType: GLSLType) => {
-    const input = block.getInput(inputName);
-    if (!input || !input.connection) return;
-
-    const currentTarget = input.connection.targetBlock();
-    const shadowType = typeToShadowMap[targetType];
-
-    if (!currentTarget || (currentTarget.isShadow() && currentTarget.type !== shadowType)) {
-        
-        if (currentTarget) {
-            currentTarget.dispose(false);
-        }
-
-        const newShadow = block.workspace.newBlock(shadowType);
-        newShadow.setShadow(true);
-        newShadow.initSvg(); 
-
-        const shadowConn = newShadow.outputConnection;
-        if (shadowConn) {
-            input.connection.connect(shadowConn);
-        }
-    }
-};
-
-// This function is PAIN
-const updateBinaryOperator = (block: Blockly.BlockSvg, operator: '+' | '-' | '*' | '/'): void => {
-    if (block.isInFlyout || (block.workspace as Blockly.WorkspaceSvg).isDragging()) return;
-
-    const inputA = block.getInput("A");
-    const inputB = block.getInput("B");
-    if (!inputA || !inputB) return;
-
-    const connA = inputA.connection?.targetConnection;
-    const connB = inputB.connection?.targetConnection;
-
-    const typeA = (connA?.getSourceBlock().isShadow() ? null : connA?.getCheck()?.[0]) as GLSLType | null;
-    const typeB = (connB?.getSourceBlock().isShadow() ? null : connB?.getCheck()?.[0]) as GLSLType | null;
-
-    if (operator === '/') {
-        if (typeA && typeA !== "Number") {
-            inputB.setCheck(["Number", typeA]);
-            block.setOutput(true, typeA);
-            updateShadow(block, "B", typeB || "Number");
-        } else if (typeA === "Number") {
-            inputB.setCheck("Number");
-            block.setOutput(true, "Number");
-            updateShadow(block, "B", "Number");
-        } else if (typeB && typeB !== "Number") {
-            inputA.setCheck(typeB);
-            block.setOutput(true, typeB);
-            updateShadow(block, "A", typeB);
-        } else {
-            inputA.setCheck(anyCheck);
-            inputB.setCheck(anyCheck);
-            block.setOutput(true, anyCheck);
-            updateShadow(block, "A", "Number");
-            updateShadow(block, "B", "Number");
-        }
-    } else if (operator === '*') {
-        if (typeA && typeA !== "Number") {
-            inputB.setCheck(["Number", typeA]);
-            block.setOutput(true, typeA);
-        } else if (typeB && typeB !== "Number") {
-            inputA.setCheck(["Number", typeB]);
-            block.setOutput(true, typeB);
-        } else {
-            inputA.setCheck(anyCheck);
-            inputB.setCheck(anyCheck);
-            block.setOutput(true, anyCheck);
-        }
-    } else {
-        const matchType = typeA || typeB || "Number";
-        inputA.setCheck(matchType);
-        inputB.setCheck(matchType);
-        block.setOutput(true, matchType);
-    }
-};
-
 Blockly.Blocks["operators_add"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck(anyCheck);
-        this.appendValueInput("B").setCheck(anyCheck).appendField("+");
-        this.setOutput(true, anyCheck);
+        this.appendValueInput("A").setCheck("Number");
+        this.appendValueInput("B").setCheck("Number").appendField("+");
+        this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
-    onchange: function (this: Blockly.BlockSvg) {
-        updateBinaryOperator(this, '+');
-    }
 };
 
 Blockly.Blocks["operators_subtract"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck(anyCheck);
-        this.appendValueInput("B").setCheck(anyCheck).appendField("-");
-        this.setOutput(true, anyCheck);
+        this.appendValueInput("A").setCheck("Number");
+        this.appendValueInput("B").setCheck("Number").appendField("-");
+        this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
-    onchange: function (this: Blockly.BlockSvg) {
-        updateBinaryOperator(this, '-');
-    }
 };
 
 Blockly.Blocks["operators_multiply"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck(anyCheck);
-        this.appendValueInput("B").setCheck(anyCheck).appendField("*");
-        this.setOutput(true, anyCheck);
+        this.appendValueInput("A").setCheck("Number");
+        this.appendValueInput("B").setCheck("Number").appendField("*");
+        this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
-    onchange: function (this: Blockly.BlockSvg) {
-        updateBinaryOperator(this, '*');
-    }
 };
 
 Blockly.Blocks["operators_divide"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck(anyCheck);
-        this.appendValueInput("B").setCheck(anyCheck).appendField("/");
-        this.setOutput(true, anyCheck);
+        this.appendValueInput("A").setCheck("Number");
+        this.appendValueInput("B").setCheck("Number").appendField("/");
+        this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
-    onchange: function (this: Blockly.BlockSvg) {
-        updateBinaryOperator(this, '/');
-    }
 };
 
 Blockly.Blocks["operators_power"] = {

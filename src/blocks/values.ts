@@ -14,15 +14,6 @@ Blockly.Blocks["values_color"] = {
     },
 };
 
-Blockly.Blocks["values_none"] = {
-    init() {
-        this.setInputsInline(true);
-        this.appendDummyInput()
-        this.setOutput(true);
-        this.setStyle("values");
-    }
-};
-
 Blockly.Blocks["values_float"] = {
     init() {
         this.setInputsInline(true);

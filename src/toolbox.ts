@@ -12,9 +12,6 @@ function shadow(type: string, ...extra: string[]): string {
 function sep(sep: number = 30): string {
     return `<sep gap="${sep}"></sep>`;
 }
-function shadowNone(): string {
-    return `<shadow type="values_none"></shadow>`;
-}
 function shadowFloat(value: number = 10): string {
     return `<shadow type="values_float"><field name="NUMBER">${value}</field></shadow>`;
 }
