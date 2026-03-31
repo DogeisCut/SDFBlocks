@@ -7,11 +7,15 @@ const outputDiv = document.getElementById('output');
 // TODO: this is where the actual shader would be recompiled. But for now we just show the source.
 // It doesn't matter if the source is ugly since the user will not be seeing it anyways.
 export function compile(workspace: Blockly.Workspace) {
-    const code = makeFragmentSource(BlocklyGLSL.gLSLGenerator.workspaceToCode(workspace));
+    const code = makeFragmentSource(indent(BlocklyGLSL.gLSLGenerator.workspaceToCode(workspace)));
     if (codeDiv) codeDiv.textContent = code;
 
     if (outputDiv) outputDiv.innerHTML = '';
 };
+
+export function indent(string: string) {
+    return string.split("\n").join("\n    ")
+}
 
 // TODO: this is copy and pasted directly from another project; In order for this to function properly, the surfaces system must be modified and all ops need to take in the new system.
 // In other words: this whole thing needs a refactor and will not work off the bat.

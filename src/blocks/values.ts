@@ -14,6 +14,15 @@ Blockly.Blocks["values_color"] = {
     },
 };
 
+Blockly.Blocks["values_none"] = {
+    init() {
+        this.setInputsInline(true);
+        this.appendDummyInput()
+        this.setOutput(true);
+        this.setStyle("values");
+    }
+};
+
 Blockly.Blocks["values_float"] = {
     init() {
         this.setInputsInline(true);
@@ -29,6 +38,16 @@ Blockly.Blocks["values_unit_float"] = {
         this.setInputsInline(true);
         this.appendDummyInput()
             .appendField(new Blockly.FieldNumber(0, 0, 1), "NUMBER");
+        this.setOutput(true, "Number");
+        this.setStyle("values");
+    }
+};
+
+Blockly.Blocks["values_positive_integer"] = {
+    init() {
+        this.setInputsInline(true);
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldNumber(0, 0, null, 1), "NUMBER");
         this.setOutput(true, "Number");
         this.setStyle("values");
     }
@@ -92,6 +111,10 @@ Blockly.Blocks["values_boolean"] = {
 
 
 
+BlocklyGLSL.gLSLGenerator.forBlock["values_none"] = function (block, generator) {
+    return [`0.0`, BlocklyGLSL.Order.NONE];
+};
+
 BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator) {
     function hexToRgb(hex: string) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -103,15 +126,20 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator)
     }
     const COLOR = block.getFieldValue("COLOR");
     const convertedColor = hexToRgb(COLOR) ?? { r: 0, g: 0, b: 0 }
-    return [`vec3(${convertedColor.r/255}, ${convertedColor.g/255}, ${convertedColor.b/255})`, BlocklyGLSL.Order.NONE];
+    return [`vec3(float(${convertedColor.r/255}), float(${convertedColor.g/255}), float(${convertedColor.b/255}))`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_float"] = function (block, generator) {
     const NUMBER = block.getFieldValue("NUMBER");
-    return [`${NUMBER}`, BlocklyGLSL.Order.NONE];
+    return [`float(${NUMBER})`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_unit_float"] = function (block, generator) {
+    const NUMBER = block.getFieldValue("NUMBER");
+    return [`float(${NUMBER})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["values_positive_integer"] = function (block, generator) {
     const NUMBER = block.getFieldValue("NUMBER");
     return [`${NUMBER}`, BlocklyGLSL.Order.NONE];
 };
@@ -119,14 +147,14 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_unit_float"] = function (block, gener
 BlocklyGLSL.gLSLGenerator.forBlock["values_vector2"] = function (block, generator) {
     const X = block.getFieldValue("X");
     const Y = block.getFieldValue("Y");
-    return [`vec2(${X}, ${Y})`, BlocklyGLSL.Order.NONE];
+    return [`vec2(float(${X}), float(${Y}))`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_vector3"] = function (block, generator) {
     const X = block.getFieldValue("X");
     const Y = block.getFieldValue("Y");
     const Z = block.getFieldValue("Z");
-    return [`vec3(${X}, ${Y}, ${Z})`, BlocklyGLSL.Order.NONE];
+    return [`vec3(float(${X}), float(${Y}), float(${Z}))`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_vector4"] = function (block, generator) {
@@ -134,7 +162,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_vector4"] = function (block, generato
     const Y = block.getFieldValue("Y");
     const Z = block.getFieldValue("Z");
     const W = block.getFieldValue("W");
-    return [`vec3(${X}, ${Y}, ${Z}, ${W})`, BlocklyGLSL.Order.NONE];
+    return [`vec3(float(${X}), float(${Y}), float(${Z}), float(${W}))`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_surface"] = function (block, generator) {

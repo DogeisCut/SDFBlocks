@@ -18,7 +18,7 @@ Blockly.Blocks["combiners_smooth_union"] = {
         this.appendDummyInput().appendField("smooth union")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
         this.appendValueInput("B").setCheck("SDF").appendField("b:")
-        this.appendValueInput("SMOOTHNESS").setCheck("Number").appendField("smoothness:")
+        this.appendValueInput("AMOUNT").setCheck("Number").appendField("amount:")
         this.setOutput(true, "SDF")
         this.setStyle("combiners_blocks");
     },
@@ -26,31 +26,70 @@ Blockly.Blocks["combiners_smooth_union"] = {
 
 Blockly.Blocks["combiners_subtract"] = {
     init: function () {
+        this.setInputsInline(false);
+        this.appendDummyInput().appendField("subtract")
+        this.appendValueInput("A").setCheck("SDF").appendField("a:")
+        this.appendValueInput("B").setCheck("SDF").appendField("b:")
+        this.setOutput(true, "SDF")
+        this.setStyle("combiners_blocks");
     },
 };
 
 Blockly.Blocks["combiners_smooth_subtract"] = {
     init: function () {
+        this.setInputsInline(false);
+        this.appendDummyInput().appendField("smooth suubtract")
+        this.appendValueInput("A").setCheck("SDF").appendField("a:")
+        this.appendValueInput("B").setCheck("SDF").appendField("b:")
+        this.appendValueInput("AMOUNT").setCheck("Number").appendField("amount:")
+        this.setOutput(true, "SDF")
+        this.setStyle("combiners_blocks");
     },
 };
 
 Blockly.Blocks["combiners_intersect"] = {
     init: function () {
+        this.setInputsInline(false);
+        this.appendDummyInput().appendField("intersect")
+        this.appendValueInput("A").setCheck("SDF").appendField("a:")
+        this.appendValueInput("B").setCheck("SDF").appendField("b:")
+        this.setOutput(true, "SDF")
+        this.setStyle("combiners_blocks");
     },
 };
 
 Blockly.Blocks["combiners_smooth_intersect"] = {
     init: function () {
+        this.setInputsInline(false);
+        this.appendDummyInput().appendField("smooth intersect")
+        this.appendValueInput("A").setCheck("SDF").appendField("a:")
+        this.appendValueInput("B").setCheck("SDF").appendField("b:")
+        this.appendValueInput("AMOUNT").setCheck("Number").appendField("amount:")
+        this.setOutput(true, "SDF")
+        this.setStyle("combiners_blocks");
     },
 };
 
 Blockly.Blocks["combiners_paint"] = {
     init: function () {
+        this.setInputsInline(false);
+        this.appendDummyInput().appendField("paint")
+        this.appendValueInput("A").setCheck("SDF").appendField("a:")
+        this.appendValueInput("B").setCheck("SDF").appendField("b:")
+        this.setOutput(true, "SDF")
+        this.setStyle("combiners_blocks");
     },
 };
 
 Blockly.Blocks["combiners_smooth_paint"] = {
     init: function () {
+        this.setInputsInline(false);
+        this.appendDummyInput().appendField("smooth paint")
+        this.appendValueInput("A").setCheck("SDF").appendField("a:")
+        this.appendValueInput("B").setCheck("SDF").appendField("b:")
+        this.appendValueInput("AMOUNT").setCheck("Number").appendField("amount:")
+        this.setOutput(true, "SDF")
+        this.setStyle("combiners_blocks");
     },
 };
 

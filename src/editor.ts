@@ -16,11 +16,11 @@ const blocklyDiv = document.getElementById('blocklyDiv');
 if (!blocklyDiv) {
     throw new Error(`div with id 'blocklyDiv' not found`);
 }
-const toolboxElement = document.createElement("toolbox");
+const toolboxElement = document.createElement("xml");
 toolboxElement.innerHTML = toolbox;
 registerContinuousToolbox();
 const ws = Blockly.inject(blocklyDiv, {
-	toolbox: { "kind": "categoryToolbox", "contents": [] },
+	toolbox: toolboxElement,
 	collapse: true,
 	comments: true,
 	css: true,
@@ -69,16 +69,26 @@ const ws = Blockly.inject(blocklyDiv, {
 	},
 });
 
-ws.updateToolbox(toolboxElement);
-ws.getToolbox()?.refreshSelection();
+const defaultWorkspaceElement = document.createElement("xml")
+defaultWorkspaceElement.innerHTML = `<block type="scene" id="scene" deletable="false" editable="false" x="0" y="0">
+	<statement name="SCENE">
+		<block type="scene_set_scene">
+			<value name="SDF">
+				<shadow type="values_sdf"></shadow>
+			</value>
+		</block>
+	</statement>
+</block>`
 
-const sceneBlock = ws.newBlock('scene');
-sceneBlock.initSvg();
+Blockly.Xml.domToWorkspace(defaultWorkspaceElement, ws)
 
 ws.addChangeListener(Blockly.Events.disableOrphans);
 
 if (ws) {
-    ws.addChangeListener((e: Blockly.Events.Abstract) => {
+	ws.addChangeListener((e: Blockly.Events.Abstract) => {
+		if (e.type == Blockly.Events.FINISHED_LOADING) {
+			ws.centerOnBlock("scene")
+		}
         if (
             e.isUiEvent ||
             e.type == Blockly.Events.FINISHED_LOADING ||

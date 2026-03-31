@@ -29,36 +29,71 @@ Blockly.Blocks["control_if_else"] = {
 
 Blockly.Blocks["control_repeat"] = {
     init: function () {
-    },
-};
-
-Blockly.Blocks["control_loop_index"] = {
-    init: function () {
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, "default");
+        this.setNextStatement(true, "default");
+        this.appendValueInput("TIMES").setCheck("Number").appendField("repeat")
+        this.appendStatementInput("DO").setCheck("default")
+        this.setStyle("control_blocks");
     },
 };
 
 Blockly.Blocks["control_while"] = {
     init: function () {
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, "default");
+        this.setNextStatement(true, "default");
+        this.appendValueInput("CONDITION").setCheck("Boolean").appendField("while")
+        this.appendStatementInput("DO").setCheck("default")
+        this.setStyle("control_blocks");
     },
 };
 
 Blockly.Blocks["control_do_while"] = {
     init: function () {
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, "default");
+        this.setNextStatement(true, "default");
+        this.appendDummyInput().appendField("do")
+        this.appendStatementInput("DO").setCheck("default")
+        this.appendValueInput("CONDITION").setCheck("Boolean").appendField("while")
+        this.setStyle("control_blocks");
+    },
+};
+
+Blockly.Blocks["control_loop_index"] = {
+    init: function () {
+        this.setInputsInline(true);
+        this.setOutput(true, "Number")
+        this.appendDummyInput().appendField("loop index")
+        this.setStyle("control_blocks");
     },
 };
 
 Blockly.Blocks["control_continue"] = {
     init: function () {
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, "default");
+        this.appendDummyInput().appendField("continue")
+        this.setStyle("control_blocks");
     },
 };
 
 Blockly.Blocks["control_break"] = {
     init: function () {
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, "default");
+        this.appendDummyInput().appendField("break")
+        this.setStyle("control_blocks");
     },
 };
 
 Blockly.Blocks["control_discard"] = {
     init: function () {
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, "default");
+        this.appendDummyInput().appendField("discard")
+        this.setStyle("control_blocks");
     },
 };
 

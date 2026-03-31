@@ -12,11 +12,26 @@ function shadow(type: string, ...extra: string[]): string {
 function sep(sep: number = 30): string {
     return `<sep gap="${sep}"></sep>`;
 }
+function shadowNone(): string {
+    return `<shadow type="values_none"></shadow>`;
+}
 function shadowFloat(value: number = 10): string {
     return `<shadow type="values_float"><field name="NUMBER">${value}</field></shadow>`;
 }
 function shadowUnitFloat(value: number = 0.5): string {
     return `<shadow type="values_unit_float"><field name="NUMBER">${value}</field></shadow>`;
+}
+function shadowPositiveInteger(value: number = 0.5): string {
+    return `<shadow type="values_positive_integer"><field name="NUMBER">${value}</field></shadow>`;
+}
+function shadowVector2(x: number = 0, y: number = 0): string {
+    return `<shadow type="values_vector2"><field name="X">${x}</field><field name="Y">${y}</field></shadow>`;
+}
+function shadowVector3(x: number = 0, y: number = 0, z: number = 0): string {
+    return `<shadow type="values_vector3"><field name="X">${x}</field><field name="Y">${y}</field><field name="Z">${z}</field></shadow>`;
+}
+function shadowVector4(x: number = 0, y: number = 0, z: number = 0, w: number = 0): string {
+    return `<shadow type="values_vector4"><field name="X">${x}</field><field name="Y">${y}</field><field name="Z">${z}</field><field name="W">${w}</field></shadow>`;
 }
 function shadowBoolean(value: boolean = false): string {
     return `<shadow type="values_boolean"><field name="BOOLEAN">${value ? 'TRUE' : 'FALSE'}</field></shadow>`;
@@ -45,32 +60,54 @@ const toolbox = `
     <category name="Primatives" colour="${c.primatives_blocks.colourPrimary}">
         ${block("primatives_nothing")}
         ${block("primatives_sphere", value("SURFACE", shadow("values_surface")), value("RADIUS", shadowFloat(1)))}
-        ${block("primatives_plane")}
-        ${block("primatives_box")}
-        ${block("primatives_round_box")}
-        ${block("primatives_cone")}
-        ${block("primatives_torus")}
-        ${block("primatives_capsule")}
-        ${block("primatives_capped_cylinder")}
-        ${block("primatives_rounded_cylinder")}
-        ${block("primatives_round_cone")}
-        ${block("primatives_ellipsoid")}
+        ${block("primatives_box", value("SURFACE", shadow("values_surface")), value("SIZE", shadowVector3(1,1,1)))}
+        ${block("primatives_round_box", value("SURFACE", shadow("values_surface")), value("SIZE", shadowVector3(1,1,1)), value("RADIUS", shadowFloat(1)))}
+        ${block("primatives_box_frame", value("SURFACE", shadow("values_surface")), value("SIZE", shadowVector3(1,1,1)), value("THICKNESS", shadowFloat(1)))}
+        ${block("primatives_torus", value("SURFACE", shadow("values_surface")), value("RADII", shadowVector2(1,1)))}
+        ${block("primatives_capped_torus", value("SURFACE", shadow("values_surface")), value("RADII", shadowVector2(1,1)), value("START", shadowFloat(0)), value("END", shadowFloat(90)))}
+        ${block("primatives_link", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_infinite_cylinder", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_cone", value("SURFACE", shadow("values_surface")), value("ANGLES", shadowVector2()), value("HEIGHT", shadowFloat(1)))}
+        ${block("primatives_infinite_cone", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_plane", value("SURFACE", shadow("values_surface")), value("NORMAL", shadowVector3(0,1,0)), value("HEIGHT", shadowFloat(0)))}
+        ${block("primatives_hexagonal_prism", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_capsule", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_vertical_capsule", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_vertical_capped_cylinder", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_arbitrary_capped_cylinder", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_rounded_cylinder", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_simple_capped_cone", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_capped_cone", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_solid_angle", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_cut_sphere", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_cut_hollow_sphere", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_pitted_sphere", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_simple_round_cone", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_round_cone", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_vesica_segment", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_rhombus", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_octahedron", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_pyramid", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_triangle", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_quad", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_ellipsoid", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_triangular_prism", value("SURFACE", shadow("values_surface")))}
     </category>
 
     <category name="Combiners" colour="${c.combiners_blocks.colourPrimary}">
         ${block("combiners_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("SMOOTHNESS", shadowFloat(5)))}
-        ${block("combiners_subtract")}
-        ${block("combiners_smooth_subtract")}
-        ${block("combiners_intersect")}
-        ${block("combiners_smooth_intersect")}
-        ${block("combiners_paint")}
-        ${block("combiners_smooth_paint")}
+        ${block("combiners_smooth_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_subtract", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
+        ${block("combiners_smooth_subtract", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_intersect", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
+        ${block("combiners_smooth_intersect", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_paint", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
+        ${block("combiners_smooth_paint", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
     </category>
 
     <category name="Transforms" colour="${c.transforms_blocks.colourPrimary}">
         ${block("transfoms_current_transform")}
-        ${block("transforms_translate", value("SDF", shadow("values_sdf")), value("POSITION", shadow("values_vector3")))}
+        ${block("transforms_translate", value("SDF", shadow("values_sdf")), value("POSITION", shadowVector3()))}
         ${block("transforms_rotate_around_axis")}
         ${block("transforms_repeat")}
         ${block("transforms_twist")}
@@ -93,10 +130,10 @@ const toolbox = `
         ${block("vectors_vector3", value("X", shadowFloat(0)), value("Y", shadowFloat(0)), value("Z", shadowFloat(0)))}
         ${block("vectors_vector4", value("X", shadowFloat(0)), value("Y", shadowFloat(0)), value("Z", shadowFloat(0)), value("W", shadowFloat(0)))}
         ${sep(50)}
-        ${block("vectors_x_of", value("VECTOR", shadow("values_vector2")))}
-        ${block("vectors_y_of", value("VECTOR", shadow("values_vector2")))}
-        ${block("vectors_z_of", value("VECTOR", shadow("values_vector3")))}
-        ${block("vectors_w_of", value("VECTOR", shadow("values_vector4")))}
+        ${block("vectors_x_of", value("VECTOR", shadowVector2()))}
+        ${block("vectors_y_of", value("VECTOR", shadowVector2()))}
+        ${block("vectors_z_of", value("VECTOR", shadowVector3()))}
+        ${block("vectors_w_of", value("VECTOR", shadowVector4()))}
         ${sep(50)}
         ${block("vectors_vector2_z")}
         ${block("vectors_vector3_w")}
@@ -112,7 +149,7 @@ const toolbox = `
         ${block("control_if")}
         ${block("control_if_else")}
         ${sep(50)}
-        ${block("control_repeat")}
+        ${block("control_repeat", value("TIMES", shadowPositiveInteger(0)))}
         ${block("control_while")}
         ${block("control_do_while")}
         ${block("control_loop_index")}
@@ -128,25 +165,23 @@ const toolbox = `
         ${block("operators_multiply", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${block("operators_divide", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${block("operators_power", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
-        ${block("operators_modulus")}
+        ${block("operators_modulus", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${sep(50)}
-        ${block("operators_rounding")}
+        ${block("operators_rounding", value("NUMBER", shadowFloat(0)))}
+        ${block("operators_trig", value("NUMBER", shadowFloat(0)))}
+        ${block("operators_unary", value("NUMBER", shadowFloat(0)))}
         ${sep(50)}
-        ${block("operators_trig")}
+        ${block("operators_mix", value("A", shadowFloat(0)), value("B", shadowFloat(0)), value("BY", shadowFloat(0)))}
         ${sep(50)}
-        ${block("operators_unary")}
+        ${block("operators_bounds", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_clamp", value("NUMBER", shadowFloat(0)), value("MIN", shadowFloat(0)), value("MAX", shadowFloat(0)))}
         ${sep(50)}
-        ${block("operators_mix")}
-        ${sep(50)}
-        ${block("operators_bounds")}
-        ${block("operators_clamp")}
-        ${sep(50)}
-        ${block("operators_equals")}
-        ${block("operators_not_equals")}
-        ${block("operators_less_than")}
-        ${block("operators_less_than_or_equal")}
-        ${block("operators_greater_than")}
-        ${block("operators_greater_than_or_equal")}
+        ${block("operators_equals", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_not_equals", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_less_than", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_less_than_or_equal", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_greater_than", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
+        ${block("operators_greater_than_or_equal", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${sep(50)}
         ${block("operators_and")}
         ${block("operators_or")}
@@ -159,8 +194,8 @@ const toolbox = `
     <category name="Sensing" colour="${c.sensing_blocks.colourPrimary}">
         ${block("sensing_timer")}
         ${sep(50)}
-        ${block("sensing_set_camera_position")}
-        ${block("sensing_set_camera_angle")}
+        ${block("sensing_set_camera_position", value("POSITION", shadowVector3()))}
+        ${block("sensing_set_camera_angle", value("ANGLE", shadowVector3()))}
         ${sep(50)}
         ${block("sensing_camera_position")}
         ${block("sensing_camera_angle")}
