@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["transfoms_current_transform"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("current transform")
         this.setOutput(true, "Vector3")
@@ -12,7 +12,7 @@ Blockly.Blocks["transfoms_current_transform"] = {
 
 
 Blockly.Blocks["transforms_translate"] = {
-  init: function () {
+  init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("translate")
         this.appendValueInput("SDF").setCheck("SDF").appendField("sdf:")
@@ -23,22 +23,22 @@ Blockly.Blocks["transforms_translate"] = {
 };
 
 Blockly.Blocks["transforms_rotate_around_axis"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["transforms_repeat"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["transforms_twist"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["transforms_bend"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 

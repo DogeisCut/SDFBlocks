@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["surfaces_generic_surface"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("generic surface")
         this.setOutput(true, "Surface")
@@ -11,11 +11,11 @@ Blockly.Blocks["surfaces_generic_surface"] = {
 };
 
 Blockly.Blocks["surfaces_create_surface_mutator_surface"] = { // Optional params
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 Blockly.Blocks["surfaces_create_surface"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create surface")
         this.appendValueInput("COLOR").setCheck("Color").appendField("color:")

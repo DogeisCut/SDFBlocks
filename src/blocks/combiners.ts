@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["combiners_union"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("union")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
@@ -13,7 +13,7 @@ Blockly.Blocks["combiners_union"] = {
 };
 
 Blockly.Blocks["combiners_smooth_union"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("smooth union")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
@@ -25,7 +25,7 @@ Blockly.Blocks["combiners_smooth_union"] = {
 };
 
 Blockly.Blocks["combiners_subtract"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("subtract")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
@@ -36,7 +36,7 @@ Blockly.Blocks["combiners_subtract"] = {
 };
 
 Blockly.Blocks["combiners_smooth_subtract"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("smooth suubtract")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
@@ -48,7 +48,7 @@ Blockly.Blocks["combiners_smooth_subtract"] = {
 };
 
 Blockly.Blocks["combiners_intersect"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("intersect")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
@@ -59,7 +59,7 @@ Blockly.Blocks["combiners_intersect"] = {
 };
 
 Blockly.Blocks["combiners_smooth_intersect"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("smooth intersect")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
@@ -71,7 +71,7 @@ Blockly.Blocks["combiners_smooth_intersect"] = {
 };
 
 Blockly.Blocks["combiners_paint"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("paint")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
@@ -82,7 +82,7 @@ Blockly.Blocks["combiners_paint"] = {
 };
 
 Blockly.Blocks["combiners_smooth_paint"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("smooth paint")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")

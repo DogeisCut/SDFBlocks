@@ -4,7 +4,7 @@ import {FieldColourHsvSliders} from '@blockly/field-colour-hsv-sliders';
 
 
 Blockly.Blocks["color_color"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("color").appendField(new FieldColourHsvSliders("#ff0000"), "COLOR")
         this.setOutput(true, ["Color", "Vector3"])
@@ -13,7 +13,7 @@ Blockly.Blocks["color_color"] = {
 };
 
 Blockly.Blocks["color_r_g_b"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("R").setCheck("Number").appendField("r:")
         this.appendValueInput("G").setCheck("Number").appendField("g:")
@@ -24,7 +24,7 @@ Blockly.Blocks["color_r_g_b"] = {
 };
 
 Blockly.Blocks["color_h_s_v"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("H").setCheck("Number").appendField("h:")
         this.appendValueInput("S").setCheck("Number").appendField("s:")
@@ -35,7 +35,7 @@ Blockly.Blocks["color_h_s_v"] = {
 };
 
 Blockly.Blocks["color_hex"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("hex").appendField(new Blockly.FieldTextInput("#ff0000"), "COLOR") // TODO: validator
         this.setOutput(true, ["Color", "Vector3"])

@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["control_if"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");
@@ -14,7 +14,7 @@ Blockly.Blocks["control_if"] = {
 };
 
 Blockly.Blocks["control_if_else"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");
@@ -28,7 +28,7 @@ Blockly.Blocks["control_if_else"] = {
 };
 
 Blockly.Blocks["control_repeat"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");
@@ -39,7 +39,7 @@ Blockly.Blocks["control_repeat"] = {
 };
 
 Blockly.Blocks["control_while"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");
@@ -50,7 +50,7 @@ Blockly.Blocks["control_while"] = {
 };
 
 Blockly.Blocks["control_do_while"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");
@@ -62,7 +62,7 @@ Blockly.Blocks["control_do_while"] = {
 };
 
 Blockly.Blocks["control_loop_index"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setOutput(true, "Number")
         this.appendDummyInput().appendField("loop index")
@@ -71,7 +71,7 @@ Blockly.Blocks["control_loop_index"] = {
 };
 
 Blockly.Blocks["control_continue"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.appendDummyInput().appendField("continue")
@@ -80,7 +80,7 @@ Blockly.Blocks["control_continue"] = {
 };
 
 Blockly.Blocks["control_break"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.appendDummyInput().appendField("break")
@@ -89,7 +89,7 @@ Blockly.Blocks["control_break"] = {
 };
 
 Blockly.Blocks["control_discard"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.appendDummyInput().appendField("discard")

@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["scene"] = {
-  init: function () {
+  init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("scene")
         this.appendStatementInput("SCENE").setCheck("default")
@@ -13,7 +13,7 @@ Blockly.Blocks["scene"] = {
 };
 
 Blockly.Blocks["scene_current_scene"] = {
-  init: function () {
+  init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("current scene")
         this.setOutput(true, "SDF")
@@ -22,7 +22,7 @@ Blockly.Blocks["scene_current_scene"] = {
 };
 
 Blockly.Blocks["scene_set_scene"] = {
-  init: function () {
+  init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setNextStatement(true, "default");
         this.setPreviousStatement(true, "default");
@@ -32,7 +32,7 @@ Blockly.Blocks["scene_set_scene"] = {
 };
 
 Blockly.Blocks["scene_append_to_scene"] = {
-  init: function () {
+  init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setNextStatement(true, "default");
         this.setPreviousStatement(true, "default");
@@ -43,7 +43,7 @@ Blockly.Blocks["scene_append_to_scene"] = {
 };
 
 Blockly.Blocks["scene_set_clear_color"] = {
-  init: function () {
+  init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");
@@ -53,17 +53,17 @@ Blockly.Blocks["scene_set_clear_color"] = {
 };
 
 Blockly.Blocks["scene_customize_shadows"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["scene_customize_shading"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["scene_set_fog"] = {
-  init: function () {
+  init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");

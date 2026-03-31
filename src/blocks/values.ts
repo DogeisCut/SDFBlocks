@@ -3,7 +3,7 @@ import * as BlocklyGLSL from "../generators/glsl";
 import {FieldColourHsvSliders} from '@blockly/field-colour-hsv-sliders';
 
 Blockly.Blocks["values_color"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField(
             new FieldColourHsvSliders(),
@@ -45,7 +45,7 @@ Blockly.Blocks["values_positive_integer"] = {
 };
 
 Blockly.Blocks["values_vector2"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("x:").appendField(new Blockly.FieldNumber(0), "X")
         this.appendDummyInput().appendField("y:").appendField(new Blockly.FieldNumber(0), "Y")
@@ -55,7 +55,7 @@ Blockly.Blocks["values_vector2"] = {
 };
 
 Blockly.Blocks["values_vector3"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("x:").appendField(new Blockly.FieldNumber(0), "X")
         this.appendDummyInput().appendField("y:").appendField(new Blockly.FieldNumber(0), "Y")
@@ -66,7 +66,7 @@ Blockly.Blocks["values_vector3"] = {
 };
 
 Blockly.Blocks["values_vector4"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("x:").appendField(new Blockly.FieldNumber(0), "X")
         this.appendDummyInput().appendField("y:").appendField(new Blockly.FieldNumber(0), "Y")
@@ -78,7 +78,7 @@ Blockly.Blocks["values_vector4"] = {
 };
 
 Blockly.Blocks["values_surface"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("surface")
         this.setOutput(true, "Surface")
@@ -87,7 +87,7 @@ Blockly.Blocks["values_surface"] = {
 };
 
 Blockly.Blocks["values_sdf"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("sdf")
         this.setOutput(true, "SDF")
@@ -96,7 +96,7 @@ Blockly.Blocks["values_sdf"] = {
 };
 
 Blockly.Blocks["values_boolean"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField(new Blockly.FieldDropdown(
             [

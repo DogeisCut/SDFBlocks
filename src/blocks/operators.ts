@@ -84,7 +84,7 @@ happy man.
 */
 
 Blockly.Blocks["operators_add"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]);
         this.appendValueInput("B").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("+");
@@ -94,7 +94,7 @@ Blockly.Blocks["operators_add"] = {
 };
 
 Blockly.Blocks["operators_subtract"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]);
         this.appendValueInput("B").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("-");
@@ -104,7 +104,7 @@ Blockly.Blocks["operators_subtract"] = {
 };
 
 Blockly.Blocks["operators_multiply"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]);
         this.appendValueInput("B").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("*");
@@ -114,7 +114,7 @@ Blockly.Blocks["operators_multiply"] = {
 };
 
 Blockly.Blocks["operators_divide"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]);
         this.appendValueInput("B").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("/");
@@ -124,7 +124,7 @@ Blockly.Blocks["operators_divide"] = {
 };
 
 Blockly.Blocks["operators_power"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]);
         this.appendValueInput("B").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("^");
@@ -134,7 +134,7 @@ Blockly.Blocks["operators_power"] = {
 };
 
 Blockly.Blocks["operators_modulus"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]);
         this.appendValueInput("B").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("mod");
@@ -144,7 +144,7 @@ Blockly.Blocks["operators_modulus"] = {
 };
 
 Blockly.Blocks["operators_rounding"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("NUMBER").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField(
             new Blockly.FieldDropdown(
@@ -162,7 +162,7 @@ Blockly.Blocks["operators_rounding"] = {
 
 
 Blockly.Blocks["operators_trig"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("NUMBER").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField(
             new Blockly.FieldDropdown(
@@ -179,7 +179,7 @@ Blockly.Blocks["operators_trig"] = {
 };
 
 Blockly.Blocks["operators_unary"] = { // square root of, fractional of, negate, absolute value of, sign of, exp, log, exp2, log2
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("NUMBER").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField(
             new Blockly.FieldDropdown(
@@ -202,7 +202,7 @@ Blockly.Blocks["operators_unary"] = { // square root of, fractional of, negate, 
 };
 
 Blockly.Blocks["operators_mix"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("mix");
         this.appendValueInput("B").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("and");
@@ -213,7 +213,7 @@ Blockly.Blocks["operators_mix"] = {
 };
 
 Blockly.Blocks["operators_bounds"] = { // min and max
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField(
             new Blockly.FieldDropdown(
@@ -230,7 +230,7 @@ Blockly.Blocks["operators_bounds"] = { // min and max
 };
 
 Blockly.Blocks["operators_clamp"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("NUMBER").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("clamp");
         this.appendValueInput("MIN").setCheck(["Number", "Vector2", "Vector3", "Vector4", "Color"]).appendField("between");
@@ -241,7 +241,7 @@ Blockly.Blocks["operators_clamp"] = {
 };
 
 Blockly.Blocks["operators_equals"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A");
         this.appendValueInput("B").appendField("=");
@@ -251,7 +251,7 @@ Blockly.Blocks["operators_equals"] = {
 };
 
 Blockly.Blocks["operators_not_equals"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A");
         this.appendValueInput("B").appendField("≠");
@@ -261,7 +261,7 @@ Blockly.Blocks["operators_not_equals"] = {
 };
 
 Blockly.Blocks["operators_less_than"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck("Number");
         this.appendValueInput("B").setCheck("Number").appendField("<");
@@ -271,7 +271,7 @@ Blockly.Blocks["operators_less_than"] = {
 };
 
 Blockly.Blocks["operators_less_than_or_equal"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck("Number");
         this.appendValueInput("B").setCheck("Number").appendField("≤");
@@ -281,7 +281,7 @@ Blockly.Blocks["operators_less_than_or_equal"] = {
 };
 
 Blockly.Blocks["operators_greater_than"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck("Number");
         this.appendValueInput("B").setCheck("Number").appendField(">");
@@ -291,7 +291,7 @@ Blockly.Blocks["operators_greater_than"] = {
 };
 
 Blockly.Blocks["operators_greater_than_or_equal"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck("Number");
         this.appendValueInput("B").setCheck("Number").appendField("≥");
@@ -301,7 +301,7 @@ Blockly.Blocks["operators_greater_than_or_equal"] = {
 };
 
 Blockly.Blocks["operators_and"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck("Boolean");
         this.appendValueInput("B").setCheck("Boolean").appendField("and");
@@ -311,7 +311,7 @@ Blockly.Blocks["operators_and"] = {
 };
 
 Blockly.Blocks["operators_or"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("A").setCheck("Boolean");
         this.appendValueInput("B").setCheck("Boolean").appendField("or");
@@ -321,7 +321,7 @@ Blockly.Blocks["operators_or"] = {
 };
 
 Blockly.Blocks["operators_not"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("BOOLEAN").setCheck("Boolean").appendField("not");
         this.setOutput(true, "Boolean");
@@ -330,7 +330,7 @@ Blockly.Blocks["operators_not"] = {
 };
 
 Blockly.Blocks["operators_true"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("true");
         this.setOutput(true, "Boolean")
@@ -339,7 +339,7 @@ Blockly.Blocks["operators_true"] = {
 };
 
 Blockly.Blocks["operators_false"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("false");
         this.setOutput(true, "Boolean")

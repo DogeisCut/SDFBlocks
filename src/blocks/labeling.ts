@@ -3,7 +3,7 @@ import * as BlocklyGLSL from "../generators/glsl";
 import { EventType } from "blockly/core/events/type";
 
 Blockly.Blocks["labeling_label"] = {
-    init: function () {
+    init: function (this: Blockly.Block & { mode_: string; updateShape_: () => void }) {
         this.appendDummyInput("LABEL_TEXT").appendField("label:").appendField(new Blockly.FieldTextInput(""), "LABEL")
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");
@@ -87,7 +87,7 @@ Blockly.Blocks["labeling_label"] = {
 };
 
 Blockly.Blocks["labeling_placeholder"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 

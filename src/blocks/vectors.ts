@@ -2,7 +2,7 @@ import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
 Blockly.Blocks["vectors_vector2"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("X").setCheck("Number").appendField("x:")
         this.appendValueInput("Y").setCheck("Number").appendField("y:")
@@ -12,7 +12,7 @@ Blockly.Blocks["vectors_vector2"] = {
 };
 
 Blockly.Blocks["vectors_vector3"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("X").setCheck("Number").appendField("x:")
         this.appendValueInput("Y").setCheck("Number").appendField("y:")
@@ -23,7 +23,7 @@ Blockly.Blocks["vectors_vector3"] = {
 };
 
 Blockly.Blocks["vectors_vector4"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("X").setCheck("Number").appendField("x:")
         this.appendValueInput("Y").setCheck("Number").appendField("y:")
@@ -35,7 +35,7 @@ Blockly.Blocks["vectors_vector4"] = {
 };
 
 Blockly.Blocks["vectors_x_of"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("VECTOR").setCheck(["Vector2", "Vector3", "Vector4", "Color"]).appendField("x of")
         this.setOutput(true, "Number")
@@ -44,7 +44,7 @@ Blockly.Blocks["vectors_x_of"] = {
 };
 
 Blockly.Blocks["vectors_y_of"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("VECTOR").setCheck(["Vector2", "Vector3", "Vector4", "Color"]).appendField("y of")
         this.setOutput(true, "Number")
@@ -53,7 +53,7 @@ Blockly.Blocks["vectors_y_of"] = {
 };
 
 Blockly.Blocks["vectors_z_of"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("VECTOR").setCheck(["Vector3", "Vector4", "Color"]).appendField("z of")
         this.setOutput(true, "Number")
@@ -62,7 +62,7 @@ Blockly.Blocks["vectors_z_of"] = {
 };
 
 Blockly.Blocks["vectors_w_of"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.appendValueInput("VECTOR").setCheck("Vector4").appendField("w of")
         this.setOutput(true, "Number")
@@ -71,32 +71,32 @@ Blockly.Blocks["vectors_w_of"] = {
 };
 
 Blockly.Blocks["vectors_vector2_z"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["vectors_vector3_w"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["vectors_components2"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["vectors_components3"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["vectors_components4"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
 Blockly.Blocks["vectors_length_of"] = {
-    init: function () {
+    init: function (this: Blockly.Block) {
     },
 };
 
