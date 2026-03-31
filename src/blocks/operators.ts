@@ -1,207 +1,107 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
-const binaryOperatorCheck = ["Number", "Vector2", "Vector3", "Vector4", "Color"];
-
-const typeToShadowMap: Record<string, string> = {
+const typeToShadowMap: Record<string, string | null> = {
     "Number": "values_float",
     "Vector2": "values_vector2",
     "Vector3": "values_vector3",
     "Vector4": "values_vector4",
-    "Color": "values_color"
+    "Color": "values_color",
+    "SDF": "values_sdf",
+    "Surface": "values_surface",
+    "Boolean": null,
 };
 
-// hell... this is hell
-// but it works... soooooooo
-function createDynamicTypeHandler(
-    aInputTypeMap: Record<string, Record<string, string>>,
-    bInputTypeMap: Record<string, Record<string, string>>
-) {
-    return function (this: Blockly.BlockSvg, e: Blockly.Events.Abstract) {
-        const aInput = this.getInput("A");
-        const bInput = this.getInput("B");
-        if (!aInput?.connection || !bInput?.connection) return;
+// I would prefer if any input maps made are inline to this block.
+// will make helper functions to automatically create the mutator functions/blocks/etc so i may reuse code for the
+// other binary operators
+// Not all operators will use the same input map, or even the same dropdown options (as the logic binary operators will accept way more types)
+Blockly.Blocks["operators_add_mutator_type_selector"] = {
+    init: function (this: Blockly.Block) {
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField(new Blockly.FieldDropdown(
+            [
+            ]
+        ), "A").appendField("input a type:");
+        this.appendDummyInput().appendField(new Blockly.FieldDropdown(
+            [
 
-        const aBlock = aInput.connection.targetBlock();
-        const bBlock = bInput.connection.targetBlock();
-
-        const aIsReal = aBlock && !aBlock.isShadow();
-        const bIsReal = bBlock && !bBlock.isShadow();
-
-        const aType = aBlock ? aBlock.outputConnection?.getCheck()?.[0] : null;
-        const bType = bBlock ? bBlock.outputConnection?.getCheck()?.[0] : null;
-
-        const updateShadow = (inputName: "A" | "B", targetType: string) => {
-            const input = this.getInput(inputName);
-            const shadowType = typeToShadowMap[targetType];
-            const currentTarget = input?.connection?.targetBlock();
-
-            if (shadowType && currentTarget?.type !== shadowType) {
-                input!.connection!.setShadowState({ type: shadowType });
-            }
-        };
-
-
-
-        if (aIsReal && !bIsReal && aType && aInputTypeMap[aType]) {
-            const allowedBTypes = Object.keys(aInputTypeMap[aType]);
-            
-            bInput.connection.setCheck(allowedBTypes);
-            updateShadow("B", allowedBTypes[0]);
-            
-            const outputType = aInputTypeMap[aType][allowedBTypes[0]];
-            this.setOutput(true, outputType);
-        }
-
-        else if (!aIsReal && bIsReal && bType && bInputTypeMap[bType]) {
-            const allowedATypes = Object.keys(bInputTypeMap[bType]);
-            
-            aInput.connection.setCheck(allowedATypes);
-            updateShadow("A", allowedATypes[0]); 
-            
-            const outputType = bInputTypeMap[bType][allowedATypes[0]];
-            this.setOutput(true, outputType);
-        }
-
-        else if (aIsReal && bIsReal && aType && bType) {
-            const outputType = aInputTypeMap[aType]?.[bType];
-            if (outputType) {
-                this.setOutput(true, outputType);
-            }
-        }
-
-        else if (!aIsReal && !bIsReal) {
-
-            aInput.connection.setCheck(binaryOperatorCheck);
-            bInput.connection.setCheck(binaryOperatorCheck);
-            this.setOutput(true, "Number");
-            
-            updateShadow("A", "Number");
-            updateShadow("B", "Number");
-        }
-    };
-}
+            ]
+        ), "B").appendField("input b type (filtered by a):");
+        this.setStyle("operators_blocks");
+    },
+};
 
 Blockly.Blocks["operators_add"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck(binaryOperatorCheck);
-        this.appendValueInput("B").setCheck(binaryOperatorCheck).appendField("+");
+        this.appendValueInput("A").setCheck("Number");
+        this.appendValueInput("B").setCheck("Number").appendField("+");
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
+        this.setMutator(new Blockly.icons.MutatorIcon([], this));
+        this.aType_ = "Number"
+        this.bType_ = "Number"
+        // in the event that someone does some block hacking and sets a and b to an incompatable combo, the output of the block
+        // is simply set to [] to prevent any connections
     },
-    onchange: createDynamicTypeHandler(
-        {
-            "Number": { "Number": "Number" },
-            "Vector2": { "Vector2": "Vector2" },
-            "Vector3": { "Vector3": "Vector3", "Color": "Vector3" },
-            "Vector4": { "Vector4": "Vector4" },
-            "Color": { "Color": "Color", "Vector3": "Color" },
-        },
-        {
-            "Number": { "Number": "Number" },
-            "Vector2": { "Vector2": "Vector2" },
-            "Vector3": { "Vector3": "Vector3", "Color": "Color" },
-            "Vector4": { "Vector4": "Vector4" },
-            "Color": { "Color": "Color", "Vector3": "Vector3" },
-        }
-    )
+
+    mutationToDom: function () {
+        const container = Blockly.utils.xml.createElement('mutation');
+        container.setAttribute('atype', this.aType_);
+        container.setAttribute('btype', this.bType_);
+        return container;
+    },
+
+    domToMutation: function (xmlElement: Element) {
+        this.aType_ = xmlElement.getAttribute('elseif') || "Number";
+        this.bType_ = xmlElement.getAttribute('else') || "Number"
+        this.updateShape_();
+    },
+
+    decompose: function (workspace: Blockly.WorkspaceSvg) {
+        const containerBlock = workspace.newBlock('control_if_mutator_if');
+        containerBlock.initSvg();
+        return containerBlock;
+    },
+
+    compose: function (containerBlock: Blockly.BlockSvg) {
+
+    },
+
+    updateShape_: function () {
+        
+    },
 };
 
 Blockly.Blocks["operators_subtract"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck(binaryOperatorCheck);
-        this.appendValueInput("B").setCheck(binaryOperatorCheck).appendField("-");
+        this.appendValueInput("A").setCheck("Number");
+        this.appendValueInput("B").setCheck("Number").appendField("-");
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
-    },
-    onchange: createDynamicTypeHandler(
-        {
-            "Number": { "Number": "Number" },
-            "Vector2": { "Vector2": "Vector2" },
-            "Vector3": { "Vector3": "Vector3", "Color": "Vector3" },
-            "Vector4": { "Vector4": "Vector4" },
-            "Color": { "Color": "Color", "Vector3": "Color" },
-        },
-        {
-            "Number": { "Number": "Number" },
-            "Vector2": { "Vector2": "Vector2" },
-            "Vector3": { "Vector3": "Vector3", "Color": "Color" },
-            "Vector4": { "Vector4": "Vector4" },
-            "Color": { "Color": "Color", "Vector3": "Vector3" },
-        }
-    )
+    }
 };
 
 Blockly.Blocks["operators_multiply"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck(binaryOperatorCheck);
-        this.appendValueInput("B").setCheck(binaryOperatorCheck).appendField("*");
+        this.appendValueInput("A").setCheck("Number");
+        this.appendValueInput("B").setCheck("Number").appendField("*");
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
-    },
-    onchange: createDynamicTypeHandler(
-        {
-            "Number": { 
-                "Number": "Number", 
-                "Vector2": "Vector2", 
-                "Vector3": "Vector3", 
-                "Vector4": "Vector4", 
-                "Color": "Color" 
-            },
-            "Vector2": { "Vector2": "Vector2", "Number": "Vector2" },
-            "Vector3": { "Vector3": "Vector3", "Number": "Vector3", "Color": "Vector3" },
-            "Vector4": { "Vector4": "Vector4", "Number": "Vector4" },
-            "Color":   { "Color": "Color",   "Number": "Color",   "Vector3": "Color" }
-        },
-        {
-            "Number": { 
-                "Number": "Number", 
-                "Vector2": "Vector2", 
-                "Vector3": "Vector3", 
-                "Vector4": "Vector4", 
-                "Color": "Color" 
-            },
-            "Vector2": { "Vector2": "Vector2", "Number": "Vector2" },
-            "Vector3": { "Vector3": "Vector3", "Number": "Vector3", "Color": "Color" },
-            "Vector4": { "Vector4": "Vector4", "Number": "Vector4" },
-            "Color":   { "Color": "Color",   "Number": "Color",   "Vector3": "Vector3" }
-        }
-    )
+    }
 };
 
 Blockly.Blocks["operators_divide"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck(binaryOperatorCheck);
-        this.appendValueInput("B").setCheck(binaryOperatorCheck).appendField("/");
+        this.appendValueInput("A").setCheck("Number");
+        this.appendValueInput("B").setCheck("Number").appendField("/");
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
-    },
-    onchange: createDynamicTypeHandler(
-        {
-            "Number":  { "Number": "Number" },
-            "Vector2": { "Vector2": "Vector2", "Number": "Vector2" },
-            "Vector3": { "Vector3": "Vector3", "Number": "Vector3", "Color": "Vector3" },
-            "Vector4": { "Vector4": "Vector4", "Number": "Vector4" },
-            "Color":   { "Color": "Color",   "Number": "Color",   "Vector3": "Color" }
-        },
-        {
-            "Number": { 
-                "Number": "Number", 
-                "Vector2": "Vector2", 
-                "Vector3": "Vector3", 
-                "Vector4": "Vector4", 
-                "Color": "Color" 
-            },
-            "Vector2": { "Vector2": "Vector2" },
-            "Vector3": { "Vector3": "Vector3", "Color": "Color" },
-            "Vector4": { "Vector4": "Vector4" },
-            "Color":   { "Color": "Color",   "Vector3": "Vector3" }
-        }
-    )
+    }
 };
 
 Blockly.Blocks["operators_power"] = {
