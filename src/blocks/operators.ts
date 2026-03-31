@@ -26,6 +26,10 @@ even a mutator icon). It's also worth noting that there's shadowed values for th
 there some for vectors too. So if the solution involves "locking in" an input and the output based on the other inputs, that 
 can get complicated, especially since division, multiplication, and subtraction+addition all have to be handled differently.
 
+Plus, GLSL's operators and functions all accept a wide varaiety of types but its not always consistent for all of them,
+it's a lot of research to find what combinations are valid and which arent. This issue actually expands beyond the
+binary operation blocks because of that, even effecting logic operations, trig functions, max, min, etc!
+
 Here's the choices im working between.
 1. Fiugre out what type to return, what the other inputs accept, and what blocks to shadow from what's already in there.
     - Pros:
