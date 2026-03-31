@@ -241,29 +241,29 @@ Blockly.Blocks["operators_or"] = {
 Blockly.Blocks["operators_not"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("Boolean").setCheck("Boolean").appendField("not");
+        this.appendValueInput("BOOLEAN").setCheck("Boolean").appendField("not");
         this.setOutput(true, "Boolean");
         this.setStyle("operators_blocks");
     },
 };
 
-Blockly.Blocks["operators_true"] = { // these might not be neccisary with the checkbox value. though i hate the checkbox field in blockly so i might just shadow false instead
+Blockly.Blocks["operators_true"] = {
     init: function () {
-        this.appendDummyInput().appendField("true")
-        this.setOutput(true, "Boolean");
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField("true");
+        this.setOutput(true, "Boolean")
         this.setStyle("operators_blocks");
     },
 };
 
 Blockly.Blocks["operators_false"] = {
     init: function () {
-        this.appendDummyInput().appendField("false")
-        this.setOutput(true, "Boolean");
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField("false");
+        this.setOutput(true, "Boolean")
         this.setStyle("operators_blocks");
     },
 };
-
-
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_add"] = function (block, generator) {
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)

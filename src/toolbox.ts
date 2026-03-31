@@ -30,8 +30,9 @@ function shadowVector3(x: number = 0, y: number = 0, z: number = 0): string {
 function shadowVector4(x: number = 0, y: number = 0, z: number = 0, w: number = 0): string {
     return `<shadow type="values_vector4"><field name="X">${x}</field><field name="Y">${y}</field><field name="Z">${z}</field><field name="W">${w}</field></shadow>`;
 }
-function shadowBoolean(value: boolean = false): string {
-    return `<shadow type="values_boolean"><field name="BOOLEAN">${value ? 'TRUE' : 'FALSE'}</field></shadow>`;
+function shadowBoolean(/*value: boolean = false*/): string {
+    return `<shadow type="values_boolean"></shadow>`;
+    //return `<shadow type="values_boolean"><field name="BOOLEAN">${value ? 'TRUE' : 'FALSE'}</field></shadow>`;
 }
 function shadowColor(color: string = "#ff0000"): string {
     return `<shadow type="values_color"><field name="COLOR">${color}</field></shadow>`;
@@ -139,12 +140,12 @@ const toolbox = `
     </category>
 
     <category name="Control" colour="${c.control_blocks.colourPrimary}">
-        ${block("control_if")}
-        ${block("control_if_else")}
+        ${block("control_if", value("CONDITION", shadowBoolean()))}
+        ${block("control_if_else", value("CONDITION", shadowBoolean()))}
         ${sep(50)}
         ${block("control_repeat", value("TIMES", shadowPositiveInteger(0)))}
-        ${block("control_while")}
-        ${block("control_do_while")}
+        ${block("control_while", value("CONDITION", shadowBoolean()))}
+        ${block("control_do_while", value("CONDITION", shadowBoolean()))}
         ${block("control_loop_index")}
         ${sep(50)}
         ${block("control_continue")}
@@ -169,6 +170,9 @@ const toolbox = `
         ${block("operators_bounds", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${block("operators_clamp", value("NUMBER", shadowFloat(0)), value("MIN", shadowFloat(0)), value("MAX", shadowFloat(0)))}
         ${sep(50)}
+        ${block("operators_true")}
+        ${block("operators_false")}
+        ${sep(50)}
         ${block("operators_equals", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${block("operators_not_equals", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${block("operators_less_than", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
@@ -176,12 +180,9 @@ const toolbox = `
         ${block("operators_greater_than", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${block("operators_greater_than_or_equal", value("A", shadowFloat(0)), value("B", shadowFloat(0)))}
         ${sep(50)}
-        ${block("operators_and")}
-        ${block("operators_or")}
-        ${block("operators_not")}
-        ${sep(50)}
-        ${block("operators_true")}
-        ${block("operators_false")}
+        ${block("operators_and", value("A", shadowBoolean()), value("B", shadowBoolean()))}
+        ${block("operators_or", value("A", shadowBoolean()), value("B", shadowBoolean()))}
+        ${block("operators_not", value("BOOLEAN", shadowBoolean()))}
     </category>
 
     <category name="Sensing" colour="${c.sensing_blocks.colourPrimary}">

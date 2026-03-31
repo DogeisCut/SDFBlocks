@@ -97,6 +97,15 @@ Blockly.Blocks["values_sdf"] = {
 
 Blockly.Blocks["values_boolean"] = {
     init: function () {
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField(new Blockly.FieldDropdown(
+            [
+                ["X", "FALSE"],
+                ["✓", "TRUE"]
+            ]
+        ), "BOOLEAN");
+        this.setOutput(true, "Boolean")
+        this.setStyle("operators_blocks");
     },
 };
 
@@ -158,4 +167,10 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_surface"] = function (block, generato
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_sdf"] = function (block, generator) {
     return [`position`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["values_boolean"] = function (block, generator) {
+    //const X = block.getFieldValue("BOOLEAN") === "TRUE";
+    const X = false
+    return [`${X}`, BlocklyGLSL.Order.NONE];
 };
