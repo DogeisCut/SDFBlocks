@@ -16,6 +16,13 @@ Other types include Boolean, SDF, and Surface.
 
 Number acts as floats and ints depending on the situation.
 
+Shadows for each of the types are as follows:
+Number -> values_float
+Boolean -> values_boolean
+Vector# -> values_vector#
+SDF -> values_sdf
+Surface -> values_surface
+
 If i set up the binary operation blocks to accept anything or return anything, chances are someone will try to add a vec3 to a 
 vec2 or put an operation that returns a vector in a number only field or try to divide a number by a vector. 
 This will make the shader error, which I don't want. I don't even want warnings.
