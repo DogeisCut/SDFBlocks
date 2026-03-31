@@ -1,7 +1,86 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
-const binaryOperatorCheck = ["Number", "Vector2", "Vector3", "Vector4", "Color"]
+const binaryOperatorCheck = ["Number", "Vector2", "Vector3", "Vector4", "Color"];
+
+const typeToShadowMap: Record<string, string> = {
+    "Number": "values_float",
+    "Vector2": "values_vector2",
+    "Vector3": "values_vector3",
+    "Vector4": "values_vector4",
+    "Color": "values_color"
+};
+
+// hell... this is hell
+// but it works... soooooooo
+function createDynamicTypeHandler(
+    aInputTypeMap: Record<string, Record<string, string>>,
+    bInputTypeMap: Record<string, Record<string, string>>
+) {
+    return function (this: Blockly.BlockSvg, e: Blockly.Events.Abstract) {
+        const aInput = this.getInput("A");
+        const bInput = this.getInput("B");
+        if (!aInput?.connection || !bInput?.connection) return;
+
+        const aBlock = aInput.connection.targetBlock();
+        const bBlock = bInput.connection.targetBlock();
+
+        const aIsReal = aBlock && !aBlock.isShadow();
+        const bIsReal = bBlock && !bBlock.isShadow();
+
+        const aType = aBlock ? aBlock.outputConnection?.getCheck()?.[0] : null;
+        const bType = bBlock ? bBlock.outputConnection?.getCheck()?.[0] : null;
+
+        const updateShadow = (inputName: "A" | "B", targetType: string) => {
+            const input = this.getInput(inputName);
+            const shadowType = typeToShadowMap[targetType];
+            const currentTarget = input?.connection?.targetBlock();
+
+            if (shadowType && currentTarget?.type !== shadowType) {
+                input!.connection!.setShadowState({ type: shadowType });
+            }
+        };
+
+
+
+        if (aIsReal && !bIsReal && aType && aInputTypeMap[aType]) {
+            const allowedBTypes = Object.keys(aInputTypeMap[aType]);
+            
+            bInput.connection.setCheck(allowedBTypes);
+            updateShadow("B", allowedBTypes[0]);
+            
+            const outputType = aInputTypeMap[aType][allowedBTypes[0]];
+            this.setOutput(true, outputType);
+        }
+
+        else if (!aIsReal && bIsReal && bType && bInputTypeMap[bType]) {
+            const allowedATypes = Object.keys(bInputTypeMap[bType]);
+            
+            aInput.connection.setCheck(allowedATypes);
+            updateShadow("A", allowedATypes[0]); 
+            
+            const outputType = bInputTypeMap[bType][allowedATypes[0]];
+            this.setOutput(true, outputType);
+        }
+
+        else if (aIsReal && bIsReal && aType && bType) {
+            const outputType = aInputTypeMap[aType]?.[bType];
+            if (outputType) {
+                this.setOutput(true, outputType);
+            }
+        }
+
+        else if (!aIsReal && !bIsReal) {
+
+            aInput.connection.setCheck(binaryOperatorCheck);
+            bInput.connection.setCheck(binaryOperatorCheck);
+            this.setOutput(true, "Number");
+            
+            updateShadow("A", "Number");
+            updateShadow("B", "Number");
+        }
+    };
+}
 
 Blockly.Blocks["operators_add"] = {
     init: function () {
@@ -11,62 +90,22 @@ Blockly.Blocks["operators_add"] = {
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
-    onchange: function (this: Blockly.BlockSvg) {
-        const aInput = this.getInput("A")
-        const bInput = this.getInput("B")
-        if (!aInput || !bInput) {
-            return
-        }
-        const aConnection = aInput.connection
-        const bConnection = bInput.connection
-        if (!aConnection || !bConnection) {
-            return
-        }
-        const aBlock = aConnection.targetBlock()
-        const bBlock = bConnection.targetBlock()
-        if (!aBlock || !bBlock) {
-            return
-        }
-        const aBlockConnection = aBlock.outputConnection
-        const bBlockConnection = bBlock.outputConnection
-        if (!aBlockConnection || !bBlockConnection) {
-            return
-        }
-        const aCurrentCheck = aBlockConnection.getCheck()
-        const bCurrentCheck = bBlockConnection.getCheck()
-
-        // Yeah hardcoding this cause im LAZAYYYYYY
-        // basically for each of these its like "okay, im (A) a number, and the other one (B) is a number, so we should return a number"
-        // it also acts as a "ok im (A) a Vector2, which means the other one (B) can only be a Vector2 or Color"
-        const aInputTypeMap = {
+    onchange: createDynamicTypeHandler(
+        {
             "Number": { "Number": "Number" },
-            "Vector2": { "Vector2": "Vector2", "Color": "Vector2" },
-            "Vector3": { "Vector3": "Vector3" },
+            "Vector2": { "Vector2": "Vector2" },
+            "Vector3": { "Vector3": "Vector3", "Color": "Vector3" },
             "Vector4": { "Vector4": "Vector4" },
-            "Color": { "Color": "Color", "Vector2": "Color" },
-        }
-        const bInputTypeMap = {
+            "Color": { "Color": "Color", "Vector3": "Color" },
+        },
+        {
             "Number": { "Number": "Number" },
-            "Vector2": { "Vector2": "Vector2", "Color": "Color" },
-            "Vector3": { "Vector3": "Vector3" },
+            "Vector2": { "Vector2": "Vector2" },
+            "Vector3": { "Vector3": "Vector3", "Color": "Color" },
             "Vector4": { "Vector4": "Vector4" },
-            "Color": { "Color": "Color", "Vector2": "Vector2" },
+            "Color": { "Color": "Color", "Vector3": "Vector3" },
         }
-        // btw it should only start checking only once one of the inputs arent a shadows. using the nessiary input type map to change
-        // the other input and the output.
-
-        const typeToShadowMap = {
-            "Number": "values_number",
-            "Vector2": "values_vector2",
-            "Vector3": "values_vector3",
-            "Vector4": "values_vector4",
-            "Color": "values_color"
-        }
-
-        function updateShadows(to: string) {
-
-        }
-    }
+    )
 };
 
 Blockly.Blocks["operators_subtract"] = {
@@ -77,6 +116,22 @@ Blockly.Blocks["operators_subtract"] = {
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
+    onchange: createDynamicTypeHandler(
+        {
+            "Number": { "Number": "Number" },
+            "Vector2": { "Vector2": "Vector2" },
+            "Vector3": { "Vector3": "Vector3", "Color": "Vector3" },
+            "Vector4": { "Vector4": "Vector4" },
+            "Color": { "Color": "Color", "Vector3": "Color" },
+        },
+        {
+            "Number": { "Number": "Number" },
+            "Vector2": { "Vector2": "Vector2" },
+            "Vector3": { "Vector3": "Vector3", "Color": "Color" },
+            "Vector4": { "Vector4": "Vector4" },
+            "Color": { "Color": "Color", "Vector3": "Vector3" },
+        }
+    )
 };
 
 Blockly.Blocks["operators_multiply"] = {
@@ -87,6 +142,34 @@ Blockly.Blocks["operators_multiply"] = {
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
+    onchange: createDynamicTypeHandler(
+        {
+            "Number": { 
+                "Number": "Number", 
+                "Vector2": "Vector2", 
+                "Vector3": "Vector3", 
+                "Vector4": "Vector4", 
+                "Color": "Color" 
+            },
+            "Vector2": { "Vector2": "Vector2", "Number": "Vector2" },
+            "Vector3": { "Vector3": "Vector3", "Number": "Vector3", "Color": "Vector3" },
+            "Vector4": { "Vector4": "Vector4", "Number": "Vector4" },
+            "Color":   { "Color": "Color",   "Number": "Color",   "Vector3": "Color" }
+        },
+        {
+            "Number": { 
+                "Number": "Number", 
+                "Vector2": "Vector2", 
+                "Vector3": "Vector3", 
+                "Vector4": "Vector4", 
+                "Color": "Color" 
+            },
+            "Vector2": { "Vector2": "Vector2", "Number": "Vector2" },
+            "Vector3": { "Vector3": "Vector3", "Number": "Vector3", "Color": "Color" },
+            "Vector4": { "Vector4": "Vector4", "Number": "Vector4" },
+            "Color":   { "Color": "Color",   "Number": "Color",   "Vector3": "Vector3" }
+        }
+    )
 };
 
 Blockly.Blocks["operators_divide"] = {
@@ -97,6 +180,28 @@ Blockly.Blocks["operators_divide"] = {
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
+    onchange: createDynamicTypeHandler(
+        {
+            "Number":  { "Number": "Number" },
+            "Vector2": { "Vector2": "Vector2", "Number": "Vector2" },
+            "Vector3": { "Vector3": "Vector3", "Number": "Vector3", "Color": "Vector3" },
+            "Vector4": { "Vector4": "Vector4", "Number": "Vector4" },
+            "Color":   { "Color": "Color",   "Number": "Color",   "Vector3": "Color" }
+        },
+        {
+            "Number": { 
+                "Number": "Number", 
+                "Vector2": "Vector2", 
+                "Vector3": "Vector3", 
+                "Vector4": "Vector4", 
+                "Color": "Color" 
+            },
+            "Vector2": { "Vector2": "Vector2" },
+            "Vector3": { "Vector3": "Vector3", "Color": "Color" },
+            "Vector4": { "Vector4": "Vector4" },
+            "Color":   { "Color": "Color",   "Vector3": "Vector3" }
+        }
+    )
 };
 
 Blockly.Blocks["operators_power"] = {
