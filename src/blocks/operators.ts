@@ -73,7 +73,7 @@ Here's the choices im working between.
         - Simple to implement
     - Cons:
         - Not strictly typed, someone could make a valid combination but put it somewhere where it doesnt belong.
-4. Give up and just let errors happen (Current choice)
+4. Give up and just let errors happen
     - Pros:
         - Extremely easy to implement.
     - Cons:
@@ -87,7 +87,7 @@ Here's the choices im working between.
     - Cons:
         - Nobody is gonna want to use MarchBlocks if there's 50 different blocks just to do the same thing to different types.
         - Clutters toolbox.
-6. One and two combined, Basically, only A dictates what B can contain, instead of them dictating each other.
+6. One and two combined, Basically, only A dictates what B can contain, instead of them dictating each other. (Current choice)
     - Pros:
         - Somewhat easy to implement.
         - Intuative once understood
