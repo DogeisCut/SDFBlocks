@@ -114,12 +114,7 @@ const toolbox = `
     <category name="Color" colour="${c.color_blocks.colourPrimary}">
         ${block("color_r_g_b", value("R", shadowUnitFloat(1)), value("G", shadowUnitFloat(0)), value("B", shadowUnitFloat(0)))}
         ${block("color_h_s_v")}
-        ${sep(50)}
-        ${block("color_blend", value("A", shadowColor()), value("B", shadowColor("#000000")), value("BY", shadowUnitFloat()))}
-        ${sep(50)}
-        ${block("color_get_r")}
-        ${block("color_get_g")}
-        ${block("color_get_b")}
+        ${block("color_hex")}
     </category>
 
     <category name="Vectors" colour="${c.vectors_blocks.colourPrimary}">

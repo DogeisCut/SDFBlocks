@@ -14,34 +14,36 @@ Blockly.Blocks["color_r_g_b"] = {
 
 Blockly.Blocks["color_h_s_v"] = {
     init: function () {
-    },
-};
-
-Blockly.Blocks["color_blend"] = {
-    init: function () {
         this.setInputsInline(true);
-        this.appendDummyInput().appendField("blend colors")
-        this.appendValueInput("A").setCheck("Color").appendField("a:")
-        this.appendValueInput("B").setCheck("Color").appendField("b:")
-        this.appendValueInput("BY").setCheck("Number").appendField("by:")
+        this.appendValueInput("H").setCheck("Number").appendField("h:")
+        this.appendValueInput("S").setCheck("Number").appendField("s:")
+        this.appendValueInput("V").setCheck("Number").appendField("v:")
         this.setOutput(true, "Color")
         this.setStyle("color_blocks");
     },
 };
 
-Blockly.Blocks["color_get_r"] = {
+Blockly.Blocks["color_hex"] = {
     init: function () {
-    },
-};
-
-Blockly.Blocks["color_get_g"] = {
-    init: function () {
-    },
-};
-
-Blockly.Blocks["color_get_b"] = {
-    init: function () {
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField("hex").appendField(new Blockly.FieldTextInput("#ff0000"), "COLOR") // TODO: validator
+        this.setOutput(true, "Color")
+        this.setStyle("color_blocks");
     },
 };
 
 
+
+BlocklyGLSL.gLSLGenerator.forBlock["color_hex"] = function (block, generator) {
+    function hexToRgb(hex: string) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+    const COLOR = block.getFieldValue("COLOR");
+    const convertedColor = hexToRgb(COLOR) ?? { r: 0, g: 0, b: 0 }
+    return [`vec3(float(${convertedColor.r/255}), float(${convertedColor.g/255}), float(${convertedColor.b/255}))`, BlocklyGLSL.Order.NONE];
+};
