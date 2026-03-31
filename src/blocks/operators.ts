@@ -1,6 +1,75 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
+/*
+I have a huge design problem that popped up in MarchBlocks, and I have no idea how to fix it.
+
+So, the language (GLSL) that MarchBlocks compiles to is strictly typed. This is fine, Blockly has type systems just for this. 
+
+The problem arises with my binary operation blocks (+, -, /, *, etc). Currently, I have them set up to only accept only numbers,
+but GLSL, supports operations for vectors too, which my application has vector 2s, 3s, and 4s. I'm designing this so that the user 
+doesn't have to worry about errors or warnings.
+
+There's also the Color type, which compiles to a vec3, all vector3 blocks accept this type and vice versa.
+
+Other types include Boolean, SDF, and Surface.
+
+Number acts as floats and ints depending on the situation.
+
+If i set up the binary operation blocks to accept anything or return anything, chances are someone will try to add a vec3 to a 
+vec2 or put an operation that returns a vector in a number only field or try to divide a number by a vector. 
+This will make the shader error, which I don't want. I don't even want warnings.
+
+I don't want to make 4509 copies of the same block each with a different type for every possible combination. Does Blockly have 
+a way to solve this elegantly? By elegantly, i mean not making the block any larger than it is (e.g. adding dropdowns, or hell, 
+even a mutator icon). It's also worth noting that there's shadowed values for these block's inputs, much like scratch, except 
+there some for vectors too. So if the solution involves "locking in" an input and the output based on the other inputs, that 
+can get complicated, especially since division, multiplication, and subtraction+addition all have to be handled differently.
+
+Here's the choices im working between.
+1. Fiugre out what type to return, what the other inputs accept, and what blocks to shadow from what's already in there.
+    - Pros:
+        - No extra clicks
+        - Intuative once understood
+        - Strictly typed, impossible to make an "invalid" combo
+    - Cons:
+        - In order for this to work at its best, the number shadows can only be considered once something is already in.
+        - This has the issue of not being explained to the user at all.
+        - Annoying to implement
+2. We use a mutator icon and let the user select types for each input manually.
+    - Pros:
+        - Extremely intuative
+        - Strictly typed, impossible to make an "invalid" combo
+        - Somewhat simple to implement
+    - Cons:
+        - This would still require figuring out what type to return from the combonation.
+        - Requires extra clicks
+        - Makes the operator blocks longer
+3. Warning/Disconnect on invalid input combinations.
+    - Pros:
+        - Intuative
+        - Simple to implement
+    - Cons:
+        - Not strictly typed, someone could make a valid combination but put it somewhere where it doesnt belong.
+4. Give up and just let errors happen (Current choice)
+    - Pros:
+        - Extremely easy to implement.
+    - Cons:
+        - Definetly not strictly typed, errors will need to be accounted for in both inputs and output,
+        which breaks my ideal design of no errors.
+        - Not obvious, it's not clear to the user you can put more than numbers in the operator blocks.
+5. Giving up even harder and making a bunch of blocks
+    - Pros:
+        - Easy to implement.
+        - Extremely Intuative
+    - Cons:
+        - Nobody is gonna want to use MarchBlocks if there's 50 different blocks just to do the same thing to different types.
+        - Clutters toolbox.
+
+If someone can find a solution thats easy enough to implement, doesnt make the block bigger, and is intuative to the user, i'd be a very
+happy man.
+*/
+
 Blockly.Blocks["operators_add"] = {
     init: function () {
         this.setInputsInline(true);
