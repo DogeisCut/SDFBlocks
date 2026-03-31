@@ -73,7 +73,7 @@ Here's the choices im working between.
         - Simple to implement
     - Cons:
         - Not strictly typed, someone could make a valid combination but put it somewhere where it doesnt belong.
-4. Give up and just let errors happen
+4. Give up and just let errors happen (Current choice)
     - Pros:
         - Extremely easy to implement.
     - Cons:
@@ -87,7 +87,7 @@ Here's the choices im working between.
     - Cons:
         - Nobody is gonna want to use MarchBlocks if there's 50 different blocks just to do the same thing to different types.
         - Clutters toolbox.
-6. One and two combined, Basically, only A dictates what B can contain, instead of them dictating each other. (Current choice)
+6. One and two combined, Basically, only A dictates what B can contain, instead of them dictating each other. (Planned Choice)
     - Pros:
         - Somewhat easy to implement.
         - Intuative once understood
@@ -189,7 +189,7 @@ Blockly.Blocks["operators_add"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeSymmetricOnChange(["A", "B"]),
+    //onchange: makeSymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_subtract"] = {
@@ -200,7 +200,7 @@ Blockly.Blocks["operators_subtract"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeSymmetricOnChange(["A", "B"]),
+    //onchange: makeSymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_multiply"] = {
@@ -211,7 +211,7 @@ Blockly.Blocks["operators_multiply"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeSymmetricOnChange(["A", "B"]),
+    //onchange: makeSymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_divide"] = {
@@ -222,7 +222,7 @@ Blockly.Blocks["operators_divide"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeAsymmetricOnChange(["A", "B"]),
+    //onchange: makeAsymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_power"] = {
@@ -233,7 +233,7 @@ Blockly.Blocks["operators_power"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeAsymmetricOnChange(["A", "B"]),
+    //onchange: makeAsymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_modulus"] = {
@@ -244,7 +244,7 @@ Blockly.Blocks["operators_modulus"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeAsymmetricOnChange(["A", "B"]),
+    //onchange: makeAsymmetricOnChange(["A", "B"]),
 };
 
 function makeUnaryOnChange(inputName: string): (this: Blockly.BlockSvg, e: Blockly.Events.Abstract) => void {
@@ -275,7 +275,7 @@ Blockly.Blocks["operators_rounding"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeUnaryOnChange("NUMBER"),
+    //onchange: makeUnaryOnChange("NUMBER"),
 };
 
 
@@ -294,7 +294,7 @@ Blockly.Blocks["operators_trig"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeUnaryOnChange("NUMBER"),
+    //onchange: makeUnaryOnChange("NUMBER"),
 };
 
 Blockly.Blocks["operators_unary"] = {
@@ -318,7 +318,7 @@ Blockly.Blocks["operators_unary"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeUnaryOnChange("NUMBER"),
+    //onchange: makeUnaryOnChange("NUMBER"),
 };
 
 Blockly.Blocks["operators_mix"] = {
@@ -330,7 +330,7 @@ Blockly.Blocks["operators_mix"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeMixOnChange(),
+    //onchange: makeMixOnChange(),
 };
 
 Blockly.Blocks["operators_bounds"] = { // min and max
@@ -348,7 +348,7 @@ Blockly.Blocks["operators_bounds"] = { // min and max
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: makeSymmetricOnChange(["A", "B"]),
+    //onchange: makeSymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_clamp"] = {
@@ -360,7 +360,7 @@ Blockly.Blocks["operators_clamp"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    onchange: function (this: Blockly.Block, e: Blockly.Events.Abstract) {
+    /*onchange: function (this: Blockly.Block, e: Blockly.Events.Abstract) {
         if (
             e.type !== Blockly.Events.BLOCK_MOVE &&
             e.type !== Blockly.Events.BLOCK_DRAG
@@ -372,7 +372,7 @@ Blockly.Blocks["operators_clamp"] = {
         this.getInput("MIN")?.setCheck(bound);
         this.getInput("MAX")?.setCheck(bound);
         this.setOutput(true, vType ? withAlias(vType) : NUMERIC_TYPES);
-    },
+    },*/
 };
 
 function makeEqualityOnChange(
@@ -402,7 +402,7 @@ Blockly.Blocks["operators_equals"] = {
         this.setOutput(true, "Boolean");
         this.setStyle("operators_blocks");
     },
-    onchange: makeEqualityOnChange(["A", "B"]),
+    //onchange: makeEqualityOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_not_equals"] = {
@@ -413,7 +413,7 @@ Blockly.Blocks["operators_not_equals"] = {
         this.setOutput(true, "Boolean");
         this.setStyle("operators_blocks");
     },
-    onchange: makeEqualityOnChange(["A", "B"]),
+    //onchange: makeEqualityOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_less_than"] = {
