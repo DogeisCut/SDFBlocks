@@ -28,7 +28,9 @@ can get complicated, especially since division, multiplication, and subtraction+
 
 Plus, GLSL's operators and functions all accept a wide varaiety of types but its not always consistent for all of them,
 it's a lot of research to find what combinations are valid and which arent. This issue actually expands beyond the
-binary operation blocks because of that, even effecting logic operations, trig functions, max, min, etc!
+binary operation blocks because of that, even effecting logic operations, trig functions, max, min, etc! I mentioned
+the SDF and Surface types because those are structs in the shader MarchBlocks compiles to, those need to be accounted
+for aswell.
 
 Here's the choices im working between.
 1. Fiugre out what type to return, what the other inputs accept, and what blocks to shadow from what's already in there.
