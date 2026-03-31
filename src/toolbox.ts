@@ -112,6 +112,7 @@ const toolbox = `
     </category>
 
     <category name="Color" colour="${c.color_blocks.colourPrimary}">
+        ${block("color_color")}
         ${block("color_r_g_b", value("R", shadowUnitFloat(1)), value("G", shadowUnitFloat(0)), value("B", shadowUnitFloat(0)))}
         ${block("color_h_s_v")}
         ${block("color_hex")}

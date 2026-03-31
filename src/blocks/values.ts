@@ -9,7 +9,7 @@ Blockly.Blocks["values_color"] = {
             new FieldColourHsvSliders(),
             "COLOR"
         )
-        this.setOutput(true, "Color");
+        this.setOutput(true, ["Color", "Vector3"]);
         this.setStyle("values");
     },
 };
