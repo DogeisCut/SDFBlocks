@@ -1,21 +1,79 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
+const binaryOperatorCheck = ["Number", "Vector2", "Vector3", "Vector4", "Color"]
+
 Blockly.Blocks["operators_add"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck("Number");
-        this.appendValueInput("B").setCheck("Number").appendField("+");
+        this.appendValueInput("A").setCheck(binaryOperatorCheck);
+        this.appendValueInput("B").setCheck(binaryOperatorCheck).appendField("+");
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
+    onchange: function (this: Blockly.BlockSvg) {
+        const aInput = this.getInput("A")
+        const bInput = this.getInput("B")
+        if (!aInput || !bInput) {
+            return
+        }
+        const aConnection = aInput.connection
+        const bConnection = bInput.connection
+        if (!aConnection || !bConnection) {
+            return
+        }
+        const aBlock = aConnection.targetBlock()
+        const bBlock = bConnection.targetBlock()
+        if (!aBlock || !bBlock) {
+            return
+        }
+        const aBlockConnection = aBlock.outputConnection
+        const bBlockConnection = bBlock.outputConnection
+        if (!aBlockConnection || !bBlockConnection) {
+            return
+        }
+        const aCurrentCheck = aBlockConnection.getCheck()
+        const bCurrentCheck = bBlockConnection.getCheck()
+
+        // Yeah hardcoding this cause im LAZAYYYYYY
+        // basically for each of these its like "okay, im (A) a number, and the other one (B) is a number, so we should return a number"
+        // it also acts as a "ok im (A) a Vector2, which means the other one (B) can only be a Vector2 or Color"
+        const aInputTypeMap = {
+            "Number": { "Number": "Number" },
+            "Vector2": { "Vector2": "Vector2", "Color": "Vector2" },
+            "Vector3": { "Vector3": "Vector3" },
+            "Vector4": { "Vector4": "Vector4" },
+            "Color": { "Color": "Color", "Vector2": "Color" },
+        }
+        const bInputTypeMap = {
+            "Number": { "Number": "Number" },
+            "Vector2": { "Vector2": "Vector2", "Color": "Color" },
+            "Vector3": { "Vector3": "Vector3" },
+            "Vector4": { "Vector4": "Vector4" },
+            "Color": { "Color": "Color", "Vector2": "Vector2" },
+        }
+        // btw it should only start checking only once one of the inputs arent a shadows. using the nessiary input type map to change
+        // the other input and the output.
+
+        const typeToShadowMap = {
+            "Number": "values_number",
+            "Vector2": "values_vector2",
+            "Vector3": "values_vector3",
+            "Vector4": "values_vector4",
+            "Color": "values_color"
+        }
+
+        function updateShadows(to: string) {
+
+        }
+    }
 };
 
 Blockly.Blocks["operators_subtract"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck("Number");
-        this.appendValueInput("B").setCheck("Number").appendField("-");
+        this.appendValueInput("A").setCheck(binaryOperatorCheck);
+        this.appendValueInput("B").setCheck(binaryOperatorCheck).appendField("-");
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
@@ -24,8 +82,8 @@ Blockly.Blocks["operators_subtract"] = {
 Blockly.Blocks["operators_multiply"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck("Number");
-        this.appendValueInput("B").setCheck("Number").appendField("*");
+        this.appendValueInput("A").setCheck(binaryOperatorCheck);
+        this.appendValueInput("B").setCheck(binaryOperatorCheck).appendField("*");
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },
@@ -34,8 +92,8 @@ Blockly.Blocks["operators_multiply"] = {
 Blockly.Blocks["operators_divide"] = {
     init: function () {
         this.setInputsInline(true);
-        this.appendValueInput("A").setCheck("Number");
-        this.appendValueInput("B").setCheck("Number").appendField("/");
+        this.appendValueInput("A").setCheck(binaryOperatorCheck);
+        this.appendValueInput("B").setCheck(binaryOperatorCheck).appendField("/");
         this.setOutput(true, "Number");
         this.setStyle("operators_blocks");
     },

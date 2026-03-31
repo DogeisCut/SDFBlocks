@@ -102,10 +102,6 @@ Blockly.Blocks["values_boolean"] = {
 
 
 
-BlocklyGLSL.gLSLGenerator.forBlock["values_none"] = function (block, generator) {
-    return [`0.0`, BlocklyGLSL.Order.NONE];
-};
-
 BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator) {
     function hexToRgb(hex: string) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
