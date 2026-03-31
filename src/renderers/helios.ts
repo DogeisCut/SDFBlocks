@@ -2,6 +2,8 @@ import * as Blockly from 'blockly';
 import type { Shape } from 'blockly/core/renderers/common/constants';
 const svgPaths = Blockly.utils.svgPaths;
 
+// still built on zelos, but most of the geometry below is custom for helios.
+
 class HeliosRenderer extends Blockly.zelos.Renderer {
     constructor() {
         super("helios");
@@ -121,7 +123,7 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
 
         this.EMPTY_BLOCK_SPACER_HEIGHT = 5;
 
-        this.EMPTY_STATEMENT_INPUT_HEIGHT = 13;
+        this.EMPTY_STATEMENT_INPUT_HEIGHT = 22;
 
         this.STATEMENT_BOTTOM_SPACER = -this.NOTCH_HEIGHT;
 
@@ -212,6 +214,8 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
         const archXScale = (width / (sourceArchWidth * archScale + sourceFlatWidth)) * archScale;
         const flatXScale = width / (sourceArchWidth * archScale + sourceFlatWidth);
         const yScale = height / sourceHeight;
+
+        // traced from the reference svg, then scaled down to the compact helios hat.
         const path =
             svgPaths.curve('c', [
                 svgPaths.point(0, -0.63657 * yScale),
@@ -246,10 +250,11 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
         const halfHeight = height / 2;
         const quarterHeight = halfHeight / 2;
 
-        /** i made the main path for the notch connection shape out of two mirrored curves and a single line in between. the positions are defined in relative coordinates and they need the height of the block do be drawn. the 'left' and 'right' versions of the paths are mirrored by applying a direction multiplier to the horizontal coordinates. the 'up' and 'down' versions of the path determine where the curve points are placed and in turn the direction of the curves. yea this is pretty long comment but it is a pretty complex path and i think it deserves an explanation
-         * @param dir direction multiplier to apply to horizontal offsets along the
-         *     path, either 1 or -1
-         * @returns a path fragment describing a notch connection in the specified direction
+        /**
+         * Make the main path for the notch.
+         *
+         * @param dir Horizontal direction, either 1 or -1.
+         * @returns A path fragment describing the notch.
          */
         function makeMainPath(dir: number): string {
             return (
@@ -295,6 +300,7 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
         const maxWidth = this.MAX_DYNAMIC_CONNECTION_SHAPE_WIDTH;
         const maxHeight = maxWidth * 2;
 
+        // left side is the full round. right side stays straight in the drawer.
         function makeMainPath(
             blockHeight: number,
             up: boolean,
@@ -356,12 +362,13 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
     protected makeSquare(): Shape {
         const radius = this.CORNER_RADIUS;
 
-        /** i made the main path for the squared connection shape out of two rounded corners and a single line in between. the positions are defined in relative coordinates and they need the height of the block to be drawn. the 'left' and 'right' versions of the paths reuse the same logic and just flip the horizontal direction. the 'up' and 'down' versions decide where the corner points land and that ends up controlling which way the shape bends. yea this is also a pretty long comment but this path has a few moving parts and it is easier to read with the extra context
-         * @param height the height of the block the connection is on
-         * @param up true if the path should be drawn from bottom to top, false
-         *     otherwise
-         * @param right true if the path is for the right side of the block, false if it is for the left side
-         * @returns a path fragment describing a squared connection
+        /**
+         * Make the main path for the square connection.
+         *
+         * @param height The height of the block the connection is on.
+         * @param up True if the path should be drawn bottom-to-top.
+         * @param right True if this is the right side of the shape.
+         * @returns A path fragment describing the square connection.
          */
         function makeMainPath(height: number, up: boolean, right: boolean): string {
             const innerHeight = height - radius * 2;
@@ -413,9 +420,11 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
         };
     }
 
-    /** i use this function to decide which connection shape a block should get based on its connection type, explicit output shape, and whatever type checks are attached. it mostly follows Blockly's normal shape selection flow, but it is trimmed down to the square, round, and notch shapes that helios actually uses. yea this one is less geometry-heavy than the others but it still helps to spell out the decision path
-     * @param connection the rendered connection we are choosing a shape for
-     * @returns the shape definition that should be used for that connection
+    /**
+     * Pick the shape to use for a connection.
+     *
+     * @param connection The rendered connection we are checking.
+     * @returns The shape definition that should be used.
      */
     shapeFor(connection: Blockly.RenderedConnection) {
         let checks = connection.getCheck();
@@ -427,6 +436,7 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
             case Blockly.ConnectionType.INPUT_VALUE:
             case Blockly.ConnectionType.OUTPUT_VALUE:
                 outputShape = connection.getSourceBlock().getOutputShape();
+                // If the block picked a shape directly, use that first.
                 if (outputShape !== null) {
                     switch (outputShape) {
                         case this.SHAPES.ROUND:
@@ -435,6 +445,7 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
                             return this.SQUARE!;
                     }
                 }
+                // The simple type checks only need round vs square.
                 if (checks && checks.includes('Number')) {
                     return this.ROUND!;
                 }
@@ -450,8 +461,10 @@ class HeliosConstantProvider extends Blockly.zelos.ConstantProvider {
         }
     }
 
-    /** i made these inside corner paths so statement inputs can carve into the block body using the same corner radius as the outside shell. each corner is just a small arc, but they have to be returned in all four directional variants so Blockly can draw the slot cleanly on both sides. this one is simpler than the notch and hat paths, but it is still part of the renderer geometry set so i kept the explanation style consistent
-     * @returns the inside-corner geometry used around statement input cutouts
+    /**
+     * Make the inside corners for statement slots.
+     *
+     * @returns The inside-corner geometry for statement cutouts.
      */
     makeInsideCorners() {
         const radius = this.CORNER_RADIUS;
