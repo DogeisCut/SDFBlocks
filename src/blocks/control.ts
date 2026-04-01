@@ -112,6 +112,8 @@ BlocklyGLSL.gLSLGenerator.forBlock["control_if_else"] = function (block, generat
     return `if (${CONDITION}) {\n${DO}\n} else {\n${ELSE}\n}`;
 };
 
+// glsl has switch statements, i should consider addoing those :p
+
 BlocklyGLSL.gLSLGenerator.forBlock["control_repeat"] = function (block, generator) {
     const times = generator.valueToCode(block, "TIMES", BlocklyGLSL.Order.ATOMIC) || "0";
     const branch = generator.statementToCode(block, "DO");
@@ -136,9 +138,10 @@ BlocklyGLSL.gLSLGenerator.forBlock["control_while"] = function (block, generator
 BlocklyGLSL.gLSLGenerator.forBlock["control_do_while"] = function (block, generator) {
     const CONDITION = generator.valueToCode(block, "CONDITION", BlocklyGLSL.Order.ATOMIC) || false
     const DO = generator.statementToCode(block, "DO")
-    return `do {\n${DO}\n} while (${CONDITION})`;
+    return `do {\n${DO}\n} while (${CONDITION});`;
 };
 
+// gonna have to keep going up the parent until a loop or nothing is found cause this does not work currently.
 BlocklyGLSL.gLSLGenerator.forBlock["control_loop_index"] = function (block, generator) {
     let parent = block.getParent();
     let loopVar = null;

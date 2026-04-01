@@ -79,16 +79,8 @@ Blockly.Blocks["scene_set_fog"] = {
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["scene"] = function (block, generator) {
-    const code = []
-    let target = block.getInput("SCENE")?.connection?.targetBlock()
-    if (!target) {
-        return ``
-    }
-    while (target) {
-        code.push(generator.blockToCode(target, false))
-        target = target.getNextBlock()
-    }
-	return code.join("\n");
+    const SCENE = generator.statementToCode(block, "SCENE")
+	return `${SCENE}`;
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["scene_current_scene"] = function (block, generator) {

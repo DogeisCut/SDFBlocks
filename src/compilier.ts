@@ -30,10 +30,6 @@ class GraphicsContext {
     }
 
     setFragmentShader(source: string): void {
-        if (debug) {
-            console.log(source)
-        }
-
         this.gl.shaderSource(this.fragmentShader, source);
         this.gl.compileShader(this.fragmentShader);
         
@@ -163,16 +159,15 @@ function makeGraphics(): GraphicsContext | null {
 export const graphics: GraphicsContext | null = makeGraphics();
 
 export function compile(workspace: Blockly.Workspace): void {
-    const source = makeFragmentSource(indent(BlocklyGLSL.gLSLGenerator.workspaceToCode(workspace)));
+    const source = makeFragmentSource(BlocklyGLSL.gLSLGenerator.workspaceToCode(workspace));
+    if (debug) {
+        console.log(BlocklyGLSL.gLSLGenerator.workspaceToCode(workspace))
+    }
     if (graphics) {
         graphics.setFragmentShader(source);
         graphics.draw();
     }
 };
-
-export function indent(string: string): string {
-    return string.split("\n").join("\n    ")
-}
 
 export function makeFragmentSource(scene: string): string { 
 return `#version 300 es
