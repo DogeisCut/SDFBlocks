@@ -1,7 +1,7 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "./generators/glsl";
 
-let debug: boolean = true
+let debug: boolean = false
 
 class GraphicsContext {
     private gl: WebGL2RenderingContext;
