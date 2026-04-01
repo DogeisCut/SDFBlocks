@@ -111,3 +111,58 @@ BlocklyGLSL.gLSLGenerator.forBlock["control_if_else"] = function (block, generat
     const ELSE = generator.statementToCode(block, "ELSE")
     return `if (${CONDITION}) {\n${DO}\n} else {\n${ELSE}\n}`;
 };
+
+BlocklyGLSL.gLSLGenerator.forBlock["control_repeat"] = function (block, generator) {
+    const times = generator.valueToCode(block, "TIMES", BlocklyGLSL.Order.ATOMIC) || "0";
+    const branch = generator.statementToCode(block, "DO");
+    
+    const loopVar = generator.getVariableName("i");
+    
+    (block as any).loopVar_ = loopVar;
+
+    let code = `for (int ${loopVar} = 0; ${loopVar} < int(${times}); ${loopVar}++) {\n`;
+    code += branch;
+    code += `}\n`;
+    
+    return code;
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["control_while"] = function (block, generator) {
+    const CONDITION = generator.valueToCode(block, "CONDITION", BlocklyGLSL.Order.ATOMIC) || false
+    const DO = generator.statementToCode(block, "DO")
+    return `while (${CONDITION}) {\n${DO}\n}`;
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["control_do_while"] = function (block, generator) {
+    const CONDITION = generator.valueToCode(block, "CONDITION", BlocklyGLSL.Order.ATOMIC) || false
+    const DO = generator.statementToCode(block, "DO")
+    return `do {\n${DO}\n} while (${CONDITION})`;
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["control_loop_index"] = function (block, generator) {
+    let parent = block.getParent();
+    let loopVar = null;
+
+    while (parent) {
+        if (parent.type === "control_repeat" && (parent as any).loopVar) {
+            loopVar = (parent as any).loopVar_;
+            break;
+        }
+        parent = parent.getParent();
+    }
+
+    const code = loopVar ? loopVar : "0";
+    return [code, BlocklyGLSL.Order.ATOMIC];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["control_continue"] = function (block, generator) {
+    return "continue;";
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["control_break"] = function (block, generator) {
+    return "break;";
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["control_discard"] = function (block, generator) {
+    return "discard;";
+};

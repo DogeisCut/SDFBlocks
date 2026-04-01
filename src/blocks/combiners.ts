@@ -107,3 +107,43 @@ BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_union"] = function (block, 
     const AMOUNT = generator.valueToCode(block, "AMOUNT", BlocklyGLSL.Order.ATOMIC)
     return [`opSmoothUnion(${A}, ${B}, ${AMOUNT})`, BlocklyGLSL.Order.NONE];
 };
+
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_subtract"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`opSubtraction(${A}, ${B})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_subtract"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    const AMOUNT = generator.valueToCode(block, "AMOUNT", BlocklyGLSL.Order.ATOMIC)
+    return [`opSmoothSubtraction(${A}, ${B}, ${AMOUNT})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_intersect"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`opIntersection(${A}, ${B})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_intersect"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    const AMOUNT = generator.valueToCode(block, "AMOUNT", BlocklyGLSL.Order.ATOMIC)
+    return [`opSmoothIntersection(${A}, ${B}, ${AMOUNT})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_paint"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    return [`opPaint(${A}, ${B})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_union"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
+    const AMOUNT = generator.valueToCode(block, "AMOUNT", BlocklyGLSL.Order.ATOMIC)
+    return [`opSmoothPaint(${A}, ${B}, ${AMOUNT})`, BlocklyGLSL.Order.NONE];
+};
+

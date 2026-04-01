@@ -185,6 +185,8 @@ const toolbox = `
         ${block("operators_and", value("A", shadowBoolean()), value("B", shadowBoolean()))}
         ${block("operators_or", value("A", shadowBoolean()), value("B", shadowBoolean()))}
         ${block("operators_not", value("BOOLEAN", shadowBoolean()))}
+        ${sep(50)}
+        ${block("operators_tenary", value("CONDITION", shadowBoolean()), value("TRUE", shadowFloat(0)), value("FALSE", shadowFloat(0)))}
     </category>
 
     <category name="Sensing" colour="${c.sensing_blocks.colourPrimary}">

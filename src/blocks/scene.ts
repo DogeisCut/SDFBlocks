@@ -42,12 +42,14 @@ Blockly.Blocks["scene_append_to_scene"] = {
     },
 };
 
+// lowkey im just gonna make these stuff just part of the scene block so you arent putting them in the middle of sdf code :sob:
+
 Blockly.Blocks["scene_set_clear_color"] = {
   init: function (this: Blockly.Block) {
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.setNextStatement(true, "default");
-        this.appendValueInput("COLOR").setCheck("Color").appendField("set clear color to:");
+        this.appendValueInput("COLOR").setCheck("Vector3").appendField("set clear color to:");
         this.setStyle("scene_blocks");
     },
 };

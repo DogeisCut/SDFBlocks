@@ -1,14 +1,10 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
-import {
-    NUMERIC_TYPES,
-    NumericGLSLType,
-    compatiblePair,
-    resolveOutputType,
-    getConnectedType,
-    normalizeVec,
-    withAlias,
-} from "./helpers";
+
+export type GLSLType = "Number" | "Vector2" | "Vector3" | "Vector4" | "Color" | "Boolean" | "SDF" | "Surface";
+export type NumericGLSLType = Extract<GLSLType, "Number" | "Vector2" | "Vector3" | "Vector4" | "Color">;
+
+export const NUMERIC_TYPES: NumericGLSLType[] = ["Number", "Vector2", "Vector3", "Vector4", "Color"];
 
 /*
 I have a huge design problem that popped up in MarchBlocks, and I have no idea how to fix it.
@@ -100,87 +96,6 @@ If someone can find a solution thats easy enough to implement, doesnt make the b
 happy man.
 */
 
-type BinaryInputNames = [string, string];
-
-function makeSymmetricOnChange(inputs: BinaryInputNames): (this: Blockly.Block, e: Blockly.Events.Abstract) => void {
-    return function (e) {
-        if (
-            e.type !== Blockly.Events.BLOCK_MOVE &&
-            e.type !== Blockly.Events.BLOCK_DRAG
-        ) return;
-        if (this.isInFlyout) return;
-
-        const [nameA, nameB] = inputs;
-        const aType = getConnectedType(this, nameA);
-        const bType = getConnectedType(this, nameB);
-
-        this.getInput(nameA)?.setCheck(bType ? compatiblePair(bType) : NUMERIC_TYPES);
-        this.getInput(nameB)?.setCheck(aType ? compatiblePair(aType) : NUMERIC_TYPES);
-        this.setOutput(true, resolveOutputType(aType, bType));
-    };
-}
-
-function makeAsymmetricOnChange(
-    inputs: BinaryInputNames
-): (this: Blockly.Block, e: Blockly.Events.Abstract) => void {
-    return function (e) {
-        if (
-            e.type !== Blockly.Events.BLOCK_MOVE &&
-            e.type !== Blockly.Events.BLOCK_DRAG
-        ) return;
-        if (this.isInFlyout) return;
-
-        const [nameA, nameB] = inputs;
-        const aType = getConnectedType(this, nameA);
-        const bType = getConnectedType(this, nameB);
-
-        const aIsVec = aType && normalizeVec(aType) !== "Number";
-        const bIsVec = bType && normalizeVec(bType) !== "Number";
-
-        if (bIsVec) {
-            this.getInput(nameA)?.setCheck(withAlias(bType!));
-        } else {
-            this.getInput(nameA)?.setCheck(NUMERIC_TYPES);
-        }
-
-        if (aIsVec) {
-            this.getInput(nameB)?.setCheck([...withAlias(aType!), "Number"] as NumericGLSLType[]);
-        } else if (aType === "Number") {
-            this.getInput(nameB)?.setCheck(["Number"] as NumericGLSLType[]);
-        } else {
-            this.getInput(nameB)?.setCheck(NUMERIC_TYPES);
-        }
-
-        this.setOutput(true, resolveOutputType(aType, bType));
-    };
-}
-
-function makeMixOnChange(): (this: Blockly.Block, e: Blockly.Events.Abstract) => void {
-    return function (e) {
-        if (
-            e.type !== Blockly.Events.BLOCK_MOVE &&
-            e.type !== Blockly.Events.BLOCK_DRAG
-        ) return;
-        if (this.isInFlyout) return;
-
-        const aType = getConnectedType(this, "A");
-        const bType = getConnectedType(this, "B");
-
-        // A and B constrain each other symmetrically
-        this.getInput("A")?.setCheck(bType ? compatiblePair(bType) : NUMERIC_TYPES);
-        this.getInput("B")?.setCheck(aType ? compatiblePair(aType) : NUMERIC_TYPES);
-
-        // t (BY): float always works; same-size vec also works
-        const abType = aType ?? bType;
-        const tCheck: NumericGLSLType[] = abType && normalizeVec(abType) !== "Number"
-            ? ["Number", ...withAlias(abType)]
-            : NUMERIC_TYPES;
-        this.getInput("BY")?.setCheck(tCheck);
-
-        this.setOutput(true, resolveOutputType(aType, bType));
-    };
-}
-
 Blockly.Blocks["operators_add"] = {
     init: function (this: Blockly.Block) {
         this.setInputsInline(true);
@@ -189,7 +104,6 @@ Blockly.Blocks["operators_add"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeSymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_subtract"] = {
@@ -200,7 +114,6 @@ Blockly.Blocks["operators_subtract"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeSymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_multiply"] = {
@@ -211,7 +124,6 @@ Blockly.Blocks["operators_multiply"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeSymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_divide"] = {
@@ -222,7 +134,6 @@ Blockly.Blocks["operators_divide"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeAsymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_power"] = {
@@ -233,7 +144,6 @@ Blockly.Blocks["operators_power"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeAsymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_modulus"] = {
@@ -244,21 +154,7 @@ Blockly.Blocks["operators_modulus"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeAsymmetricOnChange(["A", "B"]),
 };
-
-function makeUnaryOnChange(inputName: string): (this: Blockly.BlockSvg, e: Blockly.Events.Abstract) => void {
-    return function (e) {
-        if (
-            e.type !== Blockly.Events.BLOCK_MOVE &&
-            e.type !== Blockly.Events.BLOCK_DRAG
-        ) return;
-        if (this.isInFlyout) return;
-
-        const t = getConnectedType(this, inputName);
-        this.setOutput(true, t ? withAlias(t) : NUMERIC_TYPES);
-    };
-}
 
 Blockly.Blocks["operators_rounding"] = {
     init: function (this: Blockly.Block) {
@@ -275,7 +171,6 @@ Blockly.Blocks["operators_rounding"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeUnaryOnChange("NUMBER"),
 };
 
 
@@ -294,7 +189,6 @@ Blockly.Blocks["operators_trig"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeUnaryOnChange("NUMBER"),
 };
 
 Blockly.Blocks["operators_unary"] = {
@@ -318,7 +212,6 @@ Blockly.Blocks["operators_unary"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeUnaryOnChange("NUMBER"),
 };
 
 Blockly.Blocks["operators_mix"] = {
@@ -330,7 +223,6 @@ Blockly.Blocks["operators_mix"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeMixOnChange(),
 };
 
 Blockly.Blocks["operators_bounds"] = { // min and max
@@ -348,7 +240,6 @@ Blockly.Blocks["operators_bounds"] = { // min and max
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    //onchange: makeSymmetricOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_clamp"] = {
@@ -360,39 +251,7 @@ Blockly.Blocks["operators_clamp"] = {
         this.setOutput(true, NUMERIC_TYPES);
         this.setStyle("operators_blocks");
     },
-    /*onchange: function (this: Blockly.Block, e: Blockly.Events.Abstract) {
-        if (
-            e.type !== Blockly.Events.BLOCK_MOVE &&
-            e.type !== Blockly.Events.BLOCK_DRAG
-        ) return;
-        if (this.isInFlyout) return;
-
-        const vType = getConnectedType(this, "NUMBER");
-        const bound = vType ? compatiblePair(vType) : NUMERIC_TYPES;
-        this.getInput("MIN")?.setCheck(bound);
-        this.getInput("MAX")?.setCheck(bound);
-        this.setOutput(true, vType ? withAlias(vType) : NUMERIC_TYPES);
-    },*/
 };
-
-function makeEqualityOnChange(
-    inputs: BinaryInputNames
-): (this: Blockly.Block, e: Blockly.Events.Abstract) => void {
-    return function (e) {
-        if (
-            e.type !== Blockly.Events.BLOCK_MOVE &&
-            e.type !== Blockly.Events.BLOCK_DRAG
-        ) return;
-        if (this.isInFlyout) return;
-
-        const [nameA, nameB] = inputs;
-        const aType = getConnectedType(this, nameA);
-        const bType = getConnectedType(this, nameB);
-
-        this.getInput(nameA)?.setCheck(bType ? withAlias(bType) : NUMERIC_TYPES);
-        this.getInput(nameB)?.setCheck(aType ? withAlias(aType) : NUMERIC_TYPES);
-    };
-}
 
 Blockly.Blocks["operators_equals"] = {
     init: function (this: Blockly.Block) {
@@ -402,7 +261,6 @@ Blockly.Blocks["operators_equals"] = {
         this.setOutput(true, "Boolean");
         this.setStyle("operators_blocks");
     },
-    //onchange: makeEqualityOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_not_equals"] = {
@@ -413,7 +271,6 @@ Blockly.Blocks["operators_not_equals"] = {
         this.setOutput(true, "Boolean");
         this.setStyle("operators_blocks");
     },
-    //onchange: makeEqualityOnChange(["A", "B"]),
 };
 
 Blockly.Blocks["operators_less_than"] = {
@@ -503,6 +360,19 @@ Blockly.Blocks["operators_false"] = {
     },
 };
 
+Blockly.Blocks["operators_tenary"] = {
+    init: function (this: Blockly.Block) {
+        this.setInputsInline(true);
+        this.appendValueInput("CONDITION").setCheck("Boolean").appendField("if");
+        this.appendValueInput("TRUE").appendField("then");
+        this.appendValueInput("FALSE").appendField("else");
+        this.setOutput(true);
+        this.setStyle("operators_blocks");
+    },
+};
+
+
+
 BlocklyGLSL.gLSLGenerator.forBlock["operators_add"] = function (block, generator) {
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
@@ -531,4 +401,120 @@ BlocklyGLSL.gLSLGenerator.forBlock["operators_power"] = function (block, generat
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
     return [`pow(${A}, ${B})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_modulus"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "1.0";
+    return [`mod(${A}, ${B})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_rounding"] = function (block, generator) {
+    const operation = block.getFieldValue("OPERATION");
+    const val = generator.valueToCode(block, "NUMBER", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${operation}(${val})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_trig"] = function (block, generator) {
+    const operation = block.getFieldValue("OPERATION");
+    const val = generator.valueToCode(block, "NUMBER", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${operation}(${val})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_unary"] = function (block, generator) {
+    const operation = block.getFieldValue("OPERATION");
+    const val = generator.valueToCode(block, "NUMBER", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    if (operation === "-") {
+        return [`-${val}`, BlocklyGLSL.Order.NONE];
+    }
+    return [`${operation}(${val})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_mix"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const BY = generator.valueToCode(block, "BY", BlocklyGLSL.Order.ATOMIC) || "0.5";
+    return [`mix(${A}, ${B}, ${BY})`, BlocklyGLSL.Order.ATOMIC];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_bounds"] = function (block, generator) {
+    const operation = block.getFieldValue("OPERATION");
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${operation}(${A}, ${B})`, BlocklyGLSL.Order.ATOMIC];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_clamp"] = function (block, generator) {
+    const val = generator.valueToCode(block, "NUMBER", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const min = generator.valueToCode(block, "MIN", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const max = generator.valueToCode(block, "MAX", BlocklyGLSL.Order.ATOMIC) || "1.0";
+    return [`clamp(${val}, ${min}, ${max})`, BlocklyGLSL.Order.ATOMIC];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_equals"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${A} == ${B}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_not_equals"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${A} != ${B}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_less_than"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${A} < ${B}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_less_than_or_equal"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${A} <= ${B}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_greater_than"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${A} > ${B}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_greater_than_or_equal"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${A} >= ${B}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_and"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "false";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "false";
+    return [`${A} && ${B}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_or"] = function (block, generator) {
+    const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "false";
+    const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "false";
+    return [`${A} || ${B}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_not"] = function (block, generator) {
+    const val = generator.valueToCode(block, "BOOLEAN", BlocklyGLSL.Order.ATOMIC) || "false";
+    return [`!${val}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_true"] = function () {
+    return ["true", BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_false"] = function () {
+    return ["false", BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["operators_tenary"] = function (block, generator) {
+    const cond = generator.valueToCode(block, "CONDITION", BlocklyGLSL.Order.ATOMIC) || "false";
+    const tVal = generator.valueToCode(block, "TRUE", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    const fVal = generator.valueToCode(block, "FALSE", BlocklyGLSL.Order.ATOMIC) || "0.0";
+    return [`${cond} ? ${tVal} : ${fVal}`, BlocklyGLSL.Order.NONE];
 };

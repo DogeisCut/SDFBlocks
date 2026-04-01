@@ -10,6 +10,8 @@ Blockly.Blocks["sensing_timer"] = {
     },
 };
 
+// lowkey might wanna make the set blocks just part of the scene block since you arent supposed to set the cam position in the sdScene function
+
 Blockly.Blocks["sensing_set_camera_position"] = {
     init: function (this: Blockly.Block) {
         this.setInputsInline(true);
@@ -70,4 +72,8 @@ Blockly.Blocks["sensing_fragment_coord"] = {
 
 BlocklyGLSL.gLSLGenerator.forBlock["sensing_timer"] = function (block, generator) {
     return [`u_time`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["sensing_resolution"] = function (block, generator) {
+    return [`u_resolution`, BlocklyGLSL.Order.NONE];
 };
