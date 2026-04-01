@@ -109,6 +109,15 @@ Blockly.Blocks["values_boolean"] = {
     },
 };
 
+Blockly.Blocks["values_position"] = {
+    init: function (this: Blockly.Block) {
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField("position")
+        this.setOutput(true, "Vector3")
+        this.setStyle("transforms_blocks");
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator) {
@@ -166,11 +175,15 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_surface"] = function (block, generato
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_sdf"] = function (block, generator) {
-    return [`position`, BlocklyGLSL.Order.NONE];
+    return [`makeSDF(MAX_DIST_TO_TRAVEL, makeSurface(vec3(0.0), 1.0, 0.0, 0.0))`, BlocklyGLSL.Order.NONE]
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_boolean"] = function (block, generator) {
     //const X = block.getFieldValue("BOOLEAN") === "TRUE";
     const X = false
     return [`${X}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["values_position"] = function (block, generator) {
+    return ['position', BlocklyGLSL.Order.NONE];
 };

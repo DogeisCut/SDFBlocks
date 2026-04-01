@@ -18,7 +18,7 @@ Blockly.Blocks["surfaces_create_surface"] = {
     init: function (this: Blockly.Block) {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create surface")
-        this.appendValueInput("COLOR").setCheck("Color").appendField("color:")
+        this.appendValueInput("COLOR").setCheck(["Color", "Vector3"]).appendField("color:")
         this.appendValueInput("ROUGHNESS").setCheck("Number").appendField("roughness:")
         this.appendValueInput("METALLICITY").setCheck("Number").appendField("metallicity:")
         this.appendValueInput("EMISSION").setCheck("Number").appendField("emission:")

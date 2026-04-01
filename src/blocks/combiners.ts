@@ -104,6 +104,6 @@ BlocklyGLSL.gLSLGenerator.forBlock["combiners_union"] = function (block, generat
 BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_union"] = function (block, generator) {
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
-    const SMOOTHNESS = generator.valueToCode(block, "SMOOTHNESS", BlocklyGLSL.Order.ATOMIC)
-    return [`opSmoothUnion(${A}, ${B}, ${SMOOTHNESS});`, BlocklyGLSL.Order.NONE];
+    const AMOUNT = generator.valueToCode(block, "AMOUNT", BlocklyGLSL.Order.ATOMIC)
+    return [`opSmoothUnion(${A}, ${B}, ${AMOUNT});`, BlocklyGLSL.Order.NONE];
 };

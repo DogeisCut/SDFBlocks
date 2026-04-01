@@ -101,3 +101,24 @@ Blockly.Blocks["vectors_length_of"] = {
 };
 
 
+
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector2"] = function (block, generator) {
+    const X = generator.valueToCode(block, "X", BlocklyGLSL.Order.ATOMIC);
+    const Y = block.getFieldValue("Y");
+    return [`vec2(${X}, ${Y})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector3"] = function (block, generator) {
+    const X = generator.valueToCode(block, "X", BlocklyGLSL.Order.ATOMIC);
+    const Y = generator.valueToCode(block, "Y", BlocklyGLSL.Order.ATOMIC);
+    const Z = generator.valueToCode(block, "Z", BlocklyGLSL.Order.ATOMIC);
+    return [`vec3(${X}, ${Y}, ${Z})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector4"] = function (block, generator) {
+    const X = generator.valueToCode(block, "X", BlocklyGLSL.Order.ATOMIC);
+    const Y = generator.valueToCode(block, "Y", BlocklyGLSL.Order.ATOMIC);
+    const Z = generator.valueToCode(block, "Z", BlocklyGLSL.Order.ATOMIC);
+    const W = generator.valueToCode(block, "W", BlocklyGLSL.Order.ATOMIC);
+    return [`vec3(${X}, ${Y}, ${Z}, ${W})`, BlocklyGLSL.Order.NONE];
+};
