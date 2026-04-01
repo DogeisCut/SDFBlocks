@@ -1,13 +1,83 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>MarchBlocks</title>
-  </head>
-  <body>
-    <div id="pageContainer">
-      <div id="blocklyDiv"></div>
-      <div id="raymarcherDiv"></div>
-    </div>
-  </body>
+
+<head>
+	<meta charset="utf-8" />
+	<title>MarchBlocks</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+	<div id="appContainer">
+
+		<header id="topBar">
+			<div class="header-left">
+				<div id="logoArea">MarchBlocks</div> <!--too lazy to make a logo rn-->
+
+				<div class="dropdown">
+					<button class="dropbtn">File <span class="arrow">▼</span></button>
+					<div id="fileDropdown" class="dropdown-content">
+						<a href="#" id="newProject">New</a>
+						<div class="separator"></div>
+						<a href="#" id="loadProject">Load from Computer</a>
+						<div class="separator"></div>
+						<a href="#" id="saveAs">Save as...</a>
+						<a href="#" id="saveSeparate">Save to separate file</a>
+					</div>
+				</div>
+
+				<div class="dropdown">
+					<button class="dropbtn">Edit <span class="arrow">▼</span></button>
+					<div id="editDropdown" class="dropdown-content">
+						<a href="#" id="undoAction">Undo</a>
+						<a href="#" id="redoAction">Redo</a>
+					</div>
+				</div>
+
+				<div class="dropdown">
+					<button class="dropbtn">Settings <span class="arrow">▼</span></button>
+					<div id="settingsDropdown" class="dropdown-content">
+						<!--stuff like what renderer to use and themes i guess-->
+						<a href="#" id="openEditorSettings">Editor Settings</a>
+						<!--ngl i was gonna put stuff like "enable camera control" and "project size" in here, but i could make those blocks and dynamic-->
+						<a href="#" id="openProjectSettings">Project Settings</a>
+					</div>
+				</div>
+
+				<div class="bar-separator"></div>
+
+				<input type="text" id="projectName" value="Untitled Project" />
+
+				<div class="bar-separator"></div>
+
+				<a href="examples.html" target="_blank" class="top-link-btn">See Examples</a>
+			</div>
+
+			<div class="header-right">
+				<button id="quickSaveBtn" class="save-btn hidden">Save</button>
+			</div>
+		</header>
+
+		<div id="pageContainer">
+			<div id="blocklyDiv"></div>
+			<div id="raymarcherDiv"></div>
+		</div>
+	</div>
+
+	<!--too lazy to set up the ts to make this show up-->
+	<!--also might replace it with react at some point anyways-->
+	<div id="modalOverlay" class="modal-overlay hidden">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 id="modalTitle">Settings</h2>
+				<button id="closeModal">&times;</button>
+			</div>
+			<div id="modalBody">
+				<!--this is what i'd fill with either project settings or editor settings-->
+			</div>
+		</div>
+	</div>
+
+</body>
+
 </html>

@@ -94,13 +94,13 @@ const toolbox = `
 
     <category name="Combiners" colour="${c.combiners_blocks.colourPrimary}">
         ${block("combiners_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_smooth_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(2)))}
         ${block("combiners_subtract", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_subtract", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_smooth_subtract", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(2)))}
         ${block("combiners_intersect", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_intersect", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_smooth_intersect", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(2)))}
         ${block("combiners_paint", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_paint", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_smooth_paint", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(2)))}
     </category>
 
     <category name="Transforms" colour="${c.transforms_blocks.colourPrimary}">

@@ -102,3 +102,27 @@ if (ws) {
 
 (window as any).Blockly = Blockly;
 (window as any).Workspace = ws;
+
+// might replace this with react based UI at some point
+const dropdowns = document.querySelectorAll('.dropdown');
+
+dropdowns.forEach(dropdown => {
+  const btn = dropdown.querySelector('.dropbtn');
+  const content = dropdown.querySelector('.dropdown-content');
+
+  btn?.addEventListener('click', (e) => {
+    e.stopPropagation(); 
+    
+    document.querySelectorAll('.dropdown-content').forEach(menu => {
+      if (menu !== content) menu.classList.remove('show');
+    });
+
+    content?.classList.toggle('show');
+  });
+});
+
+window.addEventListener('click', () => {
+  document.querySelectorAll('.dropdown-content').forEach(menu => {
+    menu.classList.remove('show');
+  });
+});
