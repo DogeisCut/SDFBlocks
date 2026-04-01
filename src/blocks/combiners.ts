@@ -140,7 +140,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["combiners_paint"] = function (block, generat
     return [`opPaint(${A}, ${B})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_union"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_paint"] = function (block, generator) {
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
     const AMOUNT = generator.valueToCode(block, "AMOUNT", BlocklyGLSL.Order.ATOMIC)
