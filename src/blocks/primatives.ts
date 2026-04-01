@@ -343,7 +343,7 @@ Blockly.Blocks["primatives_cut_hollow_sphere"] = {
 Blockly.Blocks["primatives_pitted_sphere"] = {
     init: function () {
         this.setInputsInline(false);
-        this.appendDummyInput().appendField("create death star / pitted sphere");
+        this.appendDummyInput().appendField("create pitted sphere");
         this.appendValueInput("SURFACE").setCheck("Surface").appendField("surface:");
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("PIT_RADIUS").setCheck("Number").appendField("pit radius:");

@@ -24,6 +24,16 @@ Blockly.Blocks["values_float"] = {
     }
 };
 
+Blockly.Blocks["values_positive_float"] = {
+    init() {
+        this.setInputsInline(true);
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldNumber(0, 0), "NUMBER");
+        this.setOutput(true, "Number");
+        this.setStyle("values");
+    }
+};
+
 Blockly.Blocks["values_unit_float"] = {
     init() {
         this.setInputsInline(true);
@@ -135,6 +145,11 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator)
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_float"] = function (block, generator) {
+    const NUMBER = block.getFieldValue("NUMBER");
+    return [`float(${NUMBER})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["values_positive_float"] = function (block, generator) {
     const NUMBER = block.getFieldValue("NUMBER");
     return [`float(${NUMBER})`, BlocklyGLSL.Order.NONE];
 };

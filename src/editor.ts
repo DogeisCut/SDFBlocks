@@ -71,6 +71,36 @@ const ws = Blockly.inject(blocklyDiv, {
 
 const defaultWorkspaceElement = document.createElement("xml")
 defaultWorkspaceElement.innerHTML = `<block type="scene" id="scene" deletable="false" editable="false" x="0" y="0">
+	<value name="CLEAR_COLOR">
+		<shadow type="values_color">
+			<field name="COLOR">
+				#BAE6F3
+			</field>
+		</shadow>
+	</value>
+	<value name="CAMERA_POSITION">
+		<shadow type="values_vector3">
+			<field name="Y">
+				1
+			</field>
+			<field name="Z">
+				-5
+			</field>
+		</shadow>
+	</value>
+	<value name="CAMERA_ANGLE">
+		<shadow type="values_vector3"></shadow>
+	</value>
+	<value name="FOV">
+		<shadow type="values_positive_float">
+			<field name="NUMBER">
+				75
+			</field>
+		</shadow>
+	</value>
+	<value name="CONTROLS">
+		<shadow type="values_boolean"></shadow>
+	</value>
 	<statement name="SCENE">
 		<block type="scene_set_scene">
 			<value name="SDF">

@@ -3,6 +3,14 @@ import * as BlocklyGLSL from "./generators/glsl";
 
 let debug: boolean = false
 
+interface SpecialSources {
+    mainStart: string[]
+}
+
+export const specialSources: SpecialSources = {
+    mainStart: []
+};
+
 class GraphicsContext {
     private gl: WebGL2RenderingContext;
     private program: WebGLProgram;
@@ -159,7 +167,8 @@ function makeGraphics(): GraphicsContext | null {
 export const graphics: GraphicsContext | null = makeGraphics();
 
 export function compile(workspace: Blockly.Workspace): void {
-    const source = makeFragmentSource(BlocklyGLSL.gLSLGenerator.workspaceToCode(workspace));
+    clearSpecialSources()
+    const source = makeFragmentSource(BlocklyGLSL.gLSLGenerator.workspaceToCode(workspace), specialSources);
     if (debug) {
         console.log(BlocklyGLSL.gLSLGenerator.workspaceToCode(workspace))
     }
@@ -169,25 +178,36 @@ export function compile(workspace: Blockly.Workspace): void {
     }
 };
 
-export function makeFragmentSource(scene: string): string { 
+function clearSpecialSources() {
+    specialSources.mainStart = []
+}
+
+export function makeFragmentSource(source: string, specialSources: SpecialSources): string { 
 return `#version 300 es
 
 #define MIN_DISTANCE_TO_SURFACE 0.0001
 #define MAX_DIST_TO_TRAVEL 1000.0
 #define MAXIMUM_RAY_STEPS 100.0
-#define FIELD_OF_VIEW 75.0
 
 precision highp float;
 
 uniform vec2 u_resolution;
 uniform float u_time;
 
-vec3 cameraPosition = vec3(0, 1, -5);
+// this line only exists to prevent errors involving putting transform blocks in the start values
+// basically, it intentionally is always zero and intentionally is shadowed in sdScene
+vec3 position;
+
+// these will be overwritten by various specialSources things
+vec3 backgroundColor;
+
+vec3 cameraPosition = vec3(0, 0, 0);
 mat3 cameraViewMatrix = mat3(
     1,0,0,
     0,1,0,
     0,0,1
 );
+float field_of_view = 75.0;
 
 in vec4 pos4;
 out vec4 outColor;
@@ -563,13 +583,7 @@ SDF sdEllipsoid( vec3 p, Surface surface, vec3 r ) {
     return makeSDF(k0*(k0-1.0)/k1, surface);
 }
 
-SDF sdScene(vec3 position) {
-    SDF scene = makeSDF(MAX_DIST_TO_TRAVEL, makeSurface(vec3(0.0), 1.0, 0.0, 0.0));
-
-    ${scene}
-
-    return scene;
-}
+${source}
 
 SDF rayMarch(vec3 rayOrigin, vec3 rayDirection) {
     float distanceTravelled = 0.0;
@@ -627,12 +641,10 @@ vec3 calculateSurfaceLighting(vec3 hitPosition, vec3 rayDirection, SDF hitObject
 
 vec3 render(vec2 uv) {
     vec3 rayOrigin = cameraPosition;
-    vec3 rayDirection = normalize(vec3(uv, 1.0 / tan(radians(FIELD_OF_VIEW) / 2.0)));
+    vec3 rayDirection = normalize(vec3(uv, 1.0 / tan(radians(field_of_view) / 2.0)));
     rayDirection = cameraViewMatrix * rayDirection;
 
     SDF hitObject = rayMarch(rayOrigin, rayDirection);
-    
-    vec3 backgroundColor = vec3(0.5, 0.8, 0.9);
 
     if (hitObject.signedDistance < MAX_DIST_TO_TRAVEL) {
         vec3 hitPosition = rayOrigin + rayDirection * hitObject.signedDistance;
@@ -646,6 +658,8 @@ vec3 render(vec2 uv) {
 }
 
 void main() {
+    ${specialSources.mainStart.join("\n")}
+
     vec2 res = (u_resolution.x > 0.0) ? u_resolution : vec2(1920.0, 1080.0);
     float aspectRatio = res.x / res.y;
     vec2 uv = (gl_FragCoord.xy / res.xy) * 2.0 - 1.0;

@@ -43,11 +43,6 @@ const toolbox = `
         ${block("scene_set_scene", value("SDF", shadow("values_sdf")))}
         ${block("scene_append_to_scene", value("SDF", shadow("values_sdf")))}
         ${block("scene_current_scene")}
-        ${sep(50)}
-        ${block("scene_customize_shadows")}
-        ${block("scene_customize_shading")}
-        ${block("scene_set_clear_color", value("COLOR", shadowColor("#000000")))}
-        ${block("scene_set_fog", value("MIN", shadowFloat(100)), value("MAX", shadowFloat(1000)))}
     </category>
 
     <category name="Surfaces" colour="${c.surfaces_blocks.colourPrimary}">
@@ -191,9 +186,6 @@ const toolbox = `
 
     <category name="Sensing" colour="${c.sensing_blocks.colourPrimary}">
         ${block("sensing_timer")}
-        ${sep(50)}
-        ${block("sensing_set_camera_position", value("POSITION", shadowVector3()))}
-        ${block("sensing_set_camera_angle", value("ANGLE", shadowVector3()))}
         ${sep(50)}
         ${block("sensing_camera_position")}
         ${block("sensing_camera_angle")}

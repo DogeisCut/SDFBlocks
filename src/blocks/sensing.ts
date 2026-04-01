@@ -10,28 +10,6 @@ Blockly.Blocks["sensing_timer"] = {
     },
 };
 
-// lowkey might wanna make the set blocks just part of the scene block since you arent supposed to set the cam position in the sdScene function
-
-Blockly.Blocks["sensing_set_camera_position"] = {
-    init: function (this: Blockly.Block) {
-        this.setInputsInline(true);
-        this.setNextStatement(true, "default");
-        this.setPreviousStatement(true, "default");
-        this.appendValueInput("POSITION").setCheck("Vector3").appendField("set camera position to")
-        this.setStyle("sensing_blocks");
-    },
-};
-
-Blockly.Blocks["sensing_set_camera_angle"] = {
-    init: function (this: Blockly.Block) {
-        this.setInputsInline(true);
-        this.setNextStatement(true, "default");
-        this.setPreviousStatement(true, "default");
-        this.appendValueInput("ANGLE").setCheck("Vector3").appendField("set camera angle to")
-        this.setStyle("sensing_blocks");
-    },
-};
-
 Blockly.Blocks["sensing_camera_position"] = {
     init: function (this: Blockly.Block) {
         this.setInputsInline(true);

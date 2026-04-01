@@ -63,6 +63,7 @@ Blockly.Blocks["control_do_while"] = {
 
 Blockly.Blocks["control_loop_index"] = {
     init: function (this: Blockly.Block) {
+        // TODO: custom connection checker to prevent this outside of loops
         this.setInputsInline(true);
         this.setOutput(true, "Number")
         this.appendDummyInput().appendField("loop index")
@@ -72,6 +73,7 @@ Blockly.Blocks["control_loop_index"] = {
 
 Blockly.Blocks["control_continue"] = {
     init: function (this: Blockly.Block) {
+        // TODO: custom connection checker to prevent this outside of loops
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.appendDummyInput().appendField("continue")
@@ -81,6 +83,7 @@ Blockly.Blocks["control_continue"] = {
 
 Blockly.Blocks["control_break"] = {
     init: function (this: Blockly.Block) {
+        // TODO: custom connection checker to prevent this outside of loops and switch statements
         this.setInputsInline(true);
         this.setPreviousStatement(true, "default");
         this.appendDummyInput().appendField("break")

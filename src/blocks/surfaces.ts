@@ -10,7 +10,7 @@ Blockly.Blocks["surfaces_generic_surface"] = {
     },
 };
 
-Blockly.Blocks["surfaces_create_surface_mutator_surface"] = { // Optional params
+Blockly.Blocks["surfaces_create_surface_mutator_surface"] = { // Optional params, it just shows and hides the field row though
     init: function (this: Blockly.Block) {
     },
 };
