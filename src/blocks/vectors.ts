@@ -122,3 +122,28 @@ BlocklyGLSL.gLSLGenerator.forBlock["vectors_vector4"] = function (block, generat
     const W = generator.valueToCode(block, "W", BlocklyGLSL.Order.ATOMIC);
     return [`vec3(${X}, ${Y}, ${Z}, ${W})`, BlocklyGLSL.Order.NONE];
 };
+
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_x_of"] = function (block, generator) {
+    const vec = generator.valueToCode(block, "VECTOR", BlocklyGLSL.Order.ATOMIC)
+    return [`${vec}.x`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_y_of"] = function (block, generator) {
+    const vec = generator.valueToCode(block, "VECTOR", BlocklyGLSL.Order.ATOMIC)
+    return [`${vec}.y`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_z_of"] = function (block, generator) {
+    const vec = generator.valueToCode(block, "VECTOR", BlocklyGLSL.Order.ATOMIC)
+    return [`${vec}.z`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_w_of"] = function (block, generator) {
+    const vec = generator.valueToCode(block, "VECTOR", BlocklyGLSL.Order.ATOMIC)
+    return [`${vec}.w`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["vectors_length_of"] = function (block, generator) {
+    const vec = generator.valueToCode(block, "VECTOR", BlocklyGLSL.Order.ATOMIC)
+    return [`length(${vec})`, BlocklyGLSL.Order.NONE];
+};
