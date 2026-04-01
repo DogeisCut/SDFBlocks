@@ -43,11 +43,6 @@ const toolbox = `
         ${block("scene_set_scene", value("SDF", shadow("values_sdf")))}
         ${block("scene_append_to_scene", value("SDF", shadow("values_sdf")))}
         ${block("scene_current_scene")}
-        ${sep(50)}
-        ${block("scene_customize_shadows")}
-        ${block("scene_customize_shading")}
-        ${block("scene_set_clear_color", value("COLOR", shadowColor("#000000")))}
-        ${block("scene_set_fog", value("MIN", shadowFloat(100)), value("MAX", shadowFloat(1000)))}
     </category>
 
     <category name="Surfaces" colour="${c.surfaces_blocks.colourPrimary}">
@@ -57,55 +52,57 @@ const toolbox = `
 
     <category name="Primatives" colour="${c.primatives_blocks.colourPrimary}">
         ${block("primatives_nothing")}
-        ${block("primatives_sphere", value("SURFACE", shadow("values_surface")), value("RADIUS", shadowFloat(1)))}
-        ${block("primatives_box", value("SURFACE", shadow("values_surface")), value("SIZE", shadowVector3(1,1,1)))}
-        ${block("primatives_round_box", value("SURFACE", shadow("values_surface")), value("SIZE", shadowVector3(1,1,1)), value("RADIUS", shadowFloat(1)))}
-        ${block("primatives_box_frame", value("SURFACE", shadow("values_surface")), value("SIZE", shadowVector3(1,1,1)), value("THICKNESS", shadowFloat(1)))}
-        ${block("primatives_torus", value("SURFACE", shadow("values_surface")), value("RADII", shadowVector2(1,1)))}
-        ${block("primatives_capped_torus", value("SURFACE", shadow("values_surface")), value("RADII", shadowVector2(1,1)), value("START", shadowFloat(0)), value("END", shadowFloat(90)))}
-        ${block("primatives_link", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_infinite_cylinder", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_cone", value("SURFACE", shadow("values_surface")), value("ANGLES", shadowVector2()), value("HEIGHT", shadowFloat(1)))}
-        ${block("primatives_infinite_cone", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_plane", value("SURFACE", shadow("values_surface")), value("NORMAL", shadowVector3(0,1,0)), value("HEIGHT", shadowFloat(0)))}
-        ${block("primatives_hexagonal_prism", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_capsule", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_vertical_capsule", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_vertical_capped_cylinder", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_arbitrary_capped_cylinder", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_rounded_cylinder", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_simple_capped_cone", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_capped_cone", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_solid_angle", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_cut_sphere", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_cut_hollow_sphere", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_pitted_sphere", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_simple_round_cone", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_round_cone", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_vesica_segment", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_rhombus", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_octahedron", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_pyramid", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_triangle", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_quad", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_ellipsoid", value("SURFACE", shadow("values_surface")))}
-        ${block("primatives_triangular_prism", value("SURFACE", shadow("values_surface")))}
+        ${block("primatives_sphere", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADIUS", shadowFloat(1)))}
+        ${block("primatives_box", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("SIZE", shadowVector3(1, 1, 1)))}
+        ${block("primatives_round_box", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("SIZE", shadowVector3(1, 1, 1)), value("RADIUS", shadowFloat(0.1)))}
+        ${block("primatives_box_frame", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("SIZE", shadowVector3(1, 1, 1)), value("THICKNESS", shadowFloat(0.1)))}
+        ${block("primatives_torus", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADII", shadowVector2(1, 0.2)))}
+        ${block("primatives_capped_torus", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADII", shadowVector2(1, 0.2)), value("START", shadowFloat(0)), value("END", shadowFloat(180)))}
+        ${block("primatives_link", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("LENGTH", shadowFloat(0.5)), value("RADIUS1", shadowFloat(0.2)), value("RADIUS2", shadowFloat(0.1)))}
+        ${block("primatives_infinite_cylinder", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADIUS", shadowFloat(1)))}
+        ${block("primatives_cone", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("ANGLE", shadowFloat(45)), value("HEIGHT", shadowFloat(1)))}
+        ${block("primatives_infinite_cone", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("ANGLE", shadowFloat(45)))}
+        ${block("primatives_plane", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("NORMAL", shadowVector3(0, 1, 0)), value("HEIGHT", shadowFloat(0)))}
+        ${block("primatives_hexagonal_prism", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("EXTENT", shadowVector2(1, 1)))}
+        ${block("primatives_capsule", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("POINT_A", shadowVector3(0, -1, 0)), value("POINT_B", shadowVector3(0, 1, 0)), value("RADIUS", shadowFloat(0.5)))}
+        ${block("primatives_vertical_capsule", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("HEIGHT", shadowFloat(1)), value("RADIUS", shadowFloat(0.5)))}
+        ${block("primatives_vertical_capped_cylinder", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("HEIGHT", shadowFloat(1)), value("RADIUS", shadowFloat(0.5)))}
+        ${block("primatives_arbitrary_capped_cylinder", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("POINT_A", shadowVector3(0, -1, 0)), value("POINT_B", shadowVector3(0, 1, 0)), value("RADIUS", shadowFloat(0.5)))}
+        ${block("primatives_rounded_cylinder", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADIUS", shadowFloat(0.5)), value("CORNER_RADIUS", shadowFloat(0.1)), value("HEIGHT", shadowFloat(1)))}
+        ${block("primatives_simple_capped_cone", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("HEIGHT", shadowFloat(1)), value("RADIUS1", shadowFloat(0.5)), value("RADIUS2", shadowFloat(0.2)))}
+        ${block("primatives_capped_cone", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("POINT_A", shadowVector3(0,-1,0)), value("POINT_B", shadowVector3(0,1,0)), value("RADIUS1", shadowFloat(0.5)), value("RADIUS2", shadowFloat(0.2)))}
+        ${block("primatives_solid_angle", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("ANGLE", shadowFloat(45)), value("RADIUS", shadowFloat(1)))}
+        ${block("primatives_cut_sphere", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADIUS", shadowFloat(1)), value("CUT_HEIGHT", shadowFloat(0)))}
+        ${block("primatives_cut_hollow_sphere", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADIUS", shadowFloat(1)), value("CUT_HEIGHT", shadowFloat(0)), value("THICKNESS", shadowFloat(0.1)))}
+        ${block("primatives_pitted_sphere", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADIUS", shadowFloat(1)), value("PIT_RADIUS", shadowFloat(0.5)), value("PIT_DEPTH", shadowFloat(0.1)))}
+        ${block("primatives_simple_round_cone", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("HEIGHT", shadowFloat(1)), value("RADIUS1", shadowFloat(0.5)), value("RADIUS2", shadowFloat(0.2)))}
+        ${block("primatives_round_cone", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("POINT_A", shadowVector3(0,-1,0)), value("POINT_B", shadowVector3(0,1,0)), value("RADIUS1", shadowFloat(0.5)), value("RADIUS2", shadowFloat(0.2)))}
+        ${block("primatives_vesica_segment", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("POINT_A", shadowVector3(0,-1,0)), value("POINT_B", shadowVector3(0,1,0)), value("WIDTH", shadowFloat(0.5)))}
+        ${block("primatives_rhombus", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("LA", shadowFloat(1)), value("LB", shadowFloat(1)), value("HEIGHT", shadowFloat(0.1)), value("RADIUS", shadowFloat(0.01)))}
+        ${block("primatives_octahedron", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("SIZE", shadowFloat(1)))}
+        ${block("primatives_pyramid", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("HEIGHT", shadowFloat(1)))}
+        ${block("primatives_triangle", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("POINT_A", shadowVector3(0,1,0)), value("POINT_B", shadowVector3(-1,-1,0)), value("POINT_C", shadowVector3(1,-1,0)))}
+        ${block("primatives_quad", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("POINT_A", shadowVector3(-1,1,0)), value("POINT_B", shadowVector3(1,1,0)), value("POINT_C", shadowVector3(1,-1,0)), value("POINT_D", shadowVector3(-1,-1,0)))}
+        ${block("primatives_ellipsoid", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("RADII", shadowVector3(1, 0.5, 0.5)))}
+        ${block("primatives_triangular_prism", value("SURFACE", shadow("values_surface")), value("POSITION", shadow("values_position")), value("EXTENT", shadowVector2(1, 1)))}
     </category>
 
     <category name="Combiners" colour="${c.combiners_blocks.colourPrimary}">
         ${block("combiners_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_smooth_union", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(2)))}
         ${block("combiners_subtract", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_subtract", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_smooth_subtract", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(2)))}
         ${block("combiners_intersect", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_intersect", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_smooth_intersect", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(2)))}
         ${block("combiners_paint", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")))}
-        ${block("combiners_smooth_paint", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(5)))}
+        ${block("combiners_smooth_paint", value("A", shadow("values_sdf")), value("B", shadow("values_sdf")), value("AMOUNT", shadowFloat(2)))}
     </category>
 
     <category name="Transforms" colour="${c.transforms_blocks.colourPrimary}">
-        ${block("transfoms_current_transform")}
-        ${block("transforms_translate", value("SDF", shadow("values_sdf")), value("POSITION", shadowVector3()))}
+        ${block("transforms_current_position")}
+        ${block("transforms_set", value("VECTOR", shadowVector3()))}
+        ${sep(50)}
+        ${block("transforms_translate", value("BY", shadow("values_vector3")), value("POSITION", shadow("values_position")))}
         ${block("transforms_rotate_around_axis")}
         ${block("transforms_repeat")}
         ${block("transforms_twist")}
@@ -115,7 +112,7 @@ const toolbox = `
     <category name="Color" colour="${c.color_blocks.colourPrimary}">
         ${block("color_color")}
         ${block("color_r_g_b", value("R", shadowUnitFloat(1)), value("G", shadowUnitFloat(0)), value("B", shadowUnitFloat(0)))}
-        ${block("color_h_s_v")}
+        ${block("color_h_s_v", value("H", shadowUnitFloat(0)), value("S", shadowUnitFloat(1)), value("V", shadowUnitFloat(1)))}
         ${block("color_hex")}
     </category>
 
@@ -183,13 +180,12 @@ const toolbox = `
         ${block("operators_and", value("A", shadowBoolean()), value("B", shadowBoolean()))}
         ${block("operators_or", value("A", shadowBoolean()), value("B", shadowBoolean()))}
         ${block("operators_not", value("BOOLEAN", shadowBoolean()))}
+        ${sep(50)}
+        ${block("operators_tenary", value("CONDITION", shadowBoolean()), value("TRUE", shadowFloat(0)), value("FALSE", shadowFloat(0)))}
     </category>
 
     <category name="Sensing" colour="${c.sensing_blocks.colourPrimary}">
         ${block("sensing_timer")}
-        ${sep(50)}
-        ${block("sensing_set_camera_position", value("POSITION", shadowVector3()))}
-        ${block("sensing_set_camera_angle", value("ANGLE", shadowVector3()))}
         ${sep(50)}
         ${block("sensing_camera_position")}
         ${block("sensing_camera_angle")}

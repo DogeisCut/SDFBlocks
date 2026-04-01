@@ -10,26 +10,6 @@ Blockly.Blocks["sensing_timer"] = {
     },
 };
 
-Blockly.Blocks["sensing_set_camera_position"] = {
-    init: function (this: Blockly.Block) {
-        this.setInputsInline(true);
-        this.setNextStatement(true, "default");
-        this.setPreviousStatement(true, "default");
-        this.appendValueInput("POSITION").setCheck("Vector3").appendField("set camera position to")
-        this.setStyle("sensing_blocks");
-    },
-};
-
-Blockly.Blocks["sensing_set_camera_angle"] = {
-    init: function (this: Blockly.Block) {
-        this.setInputsInline(true);
-        this.setNextStatement(true, "default");
-        this.setPreviousStatement(true, "default");
-        this.appendValueInput("ANGLE").setCheck("Vector3").appendField("set camera angle to")
-        this.setStyle("sensing_blocks");
-    },
-};
-
 Blockly.Blocks["sensing_camera_position"] = {
     init: function (this: Blockly.Block) {
         this.setInputsInline(true);
@@ -70,4 +50,8 @@ Blockly.Blocks["sensing_fragment_coord"] = {
 
 BlocklyGLSL.gLSLGenerator.forBlock["sensing_timer"] = function (block, generator) {
     return [`u_time`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["sensing_resolution"] = function (block, generator) {
+    return [`u_resolution`, BlocklyGLSL.Order.NONE];
 };

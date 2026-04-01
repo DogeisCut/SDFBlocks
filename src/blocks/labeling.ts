@@ -13,7 +13,7 @@ Blockly.Blocks["labeling_label"] = {
         this.updateShape_();
     },
 
-    updateShape_: function (ids: any, connections: any) {
+    updateShape_: function (this: Blockly.BlockSvg & { mode_: string }, ids: any, connections: any) {
         switch (this.mode_) {
             case 'inert':
                 this.setOutput(true);
@@ -23,7 +23,7 @@ Blockly.Blocks["labeling_label"] = {
                 this.removeInput("DO", true);
                 break;
             case 'stack':
-                const previousCheck = this.previousConnection?.targetConnection?.check
+                const previousCheck = this.previousConnection?.targetConnection?.getCheck() ?? null
                 this.setOutput(false);
                 this.setPreviousStatement(true, previousCheck);
                 this.setNextStatement(true, previousCheck);
@@ -33,7 +33,8 @@ Blockly.Blocks["labeling_label"] = {
                 }
                 break;
             case 'input':
-                const outputCheck = this.outputConnection?.targetConnection?.check
+                const connection = this.outputConnection?.targetConnection
+                const outputCheck = connection?.getCheck() ?? null
                 this.setOutput(true, outputCheck);
                 this.setPreviousStatement(false);
                 this.setNextStatement(false);
@@ -41,9 +42,9 @@ Blockly.Blocks["labeling_label"] = {
                 if (!valueInput) {
                     valueInput = this.appendValueInput("VALUE");
                     this.moveInputBefore("VALUE", "LABEL_TEXT");
-                    
                 }
                 valueInput.setCheck(outputCheck);
+                valueInput.connection?.setShadowState(connection?.getShadowState() ?? null)
                 this.removeInput("DO", true);
                 break;
         }
@@ -79,10 +80,12 @@ Blockly.Blocks["labeling_label"] = {
         }
         this.updateShape_()
 
-        // TODO: fix undo
+        // TODO: fix undo (block refuses to re-stack onto blocks because it returns an output... (real good code there blockly))
         // TODO: make block hover preview show result
-        // TODO: make input keep block shape if theres a block in it
-        // TODO: make input inherit shadow of the block it's put on
+        // TODO: make inside check ignore shadows
+        // TODO: mirror shadow to host block
+        // TODO: apply shadow changes to statement input too
+        // TODO: investiage how to prevent this block from potentinally causing future problems with the polymorphic operator blocks
     },
 };
 

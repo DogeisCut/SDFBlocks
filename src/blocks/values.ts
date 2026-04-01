@@ -9,7 +9,7 @@ Blockly.Blocks["values_color"] = {
             new FieldColourHsvSliders(),
             "COLOR"
         )
-        this.setOutput(true, ["Color", "Vector3"]);
+        this.setOutput(true, "Vector3");
         this.setStyle("values");
     },
 };
@@ -19,6 +19,16 @@ Blockly.Blocks["values_float"] = {
         this.setInputsInline(true);
         this.appendDummyInput()
             .appendField(new Blockly.FieldNumber(0), "NUMBER");
+        this.setOutput(true, "Number");
+        this.setStyle("values");
+    }
+};
+
+Blockly.Blocks["values_positive_float"] = {
+    init() {
+        this.setInputsInline(true);
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldNumber(0, 0), "NUMBER");
         this.setOutput(true, "Number");
         this.setStyle("values");
     }
@@ -109,6 +119,15 @@ Blockly.Blocks["values_boolean"] = {
     },
 };
 
+Blockly.Blocks["values_position"] = {
+    init: function (this: Blockly.Block) {
+        this.setInputsInline(true);
+        this.appendDummyInput().appendField("position")
+        this.setOutput(true, "Vector3")
+        this.setStyle("transforms_blocks");
+    },
+};
+
 
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator) {
@@ -126,6 +145,11 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_color"] = function (block, generator)
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_float"] = function (block, generator) {
+    const NUMBER = block.getFieldValue("NUMBER");
+    return [`float(${NUMBER})`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["values_positive_float"] = function (block, generator) {
     const NUMBER = block.getFieldValue("NUMBER");
     return [`float(${NUMBER})`, BlocklyGLSL.Order.NONE];
 };
@@ -166,11 +190,15 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_surface"] = function (block, generato
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_sdf"] = function (block, generator) {
-    return [`position`, BlocklyGLSL.Order.NONE];
+    return [`makeSDF(MAX_DIST_TO_TRAVEL, makeSurface(vec3(0.0), 1.0, 0.0, 0.0))`, BlocklyGLSL.Order.NONE]
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_boolean"] = function (block, generator) {
     //const X = block.getFieldValue("BOOLEAN") === "TRUE";
     const X = false
     return [`${X}`, BlocklyGLSL.Order.NONE];
+};
+
+BlocklyGLSL.gLSLGenerator.forBlock["values_position"] = function (block, generator) {
+    return ['position', BlocklyGLSL.Order.NONE];
 };
