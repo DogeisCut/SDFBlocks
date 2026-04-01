@@ -434,21 +434,21 @@ BlocklyGLSL.gLSLGenerator.forBlock["operators_mix"] = function (block, generator
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
     const BY = generator.valueToCode(block, "BY", BlocklyGLSL.Order.ATOMIC) || "0.5";
-    return [`mix(${A}, ${B}, ${BY})`, BlocklyGLSL.Order.ATOMIC];
+    return [`mix(${A}, ${B}, ${BY})`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_bounds"] = function (block, generator) {
     const operation = block.getFieldValue("OPERATION");
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC) || "0.0";
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC) || "0.0";
-    return [`${operation}(${A}, ${B})`, BlocklyGLSL.Order.ATOMIC];
+    return [`${operation}(${A}, ${B})`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_clamp"] = function (block, generator) {
     const val = generator.valueToCode(block, "NUMBER", BlocklyGLSL.Order.ATOMIC) || "0.0";
     const min = generator.valueToCode(block, "MIN", BlocklyGLSL.Order.ATOMIC) || "0.0";
     const max = generator.valueToCode(block, "MAX", BlocklyGLSL.Order.ATOMIC) || "1.0";
-    return [`clamp(${val}, ${min}, ${max})`, BlocklyGLSL.Order.ATOMIC];
+    return [`clamp(${val}, ${min}, ${max})`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_equals"] = function (block, generator) {
