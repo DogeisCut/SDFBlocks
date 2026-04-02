@@ -15,7 +15,7 @@ context.keys().forEach(context);
 const blocklyDiv = document.getElementById('blocklyDiv');
 
 if (!blocklyDiv) {
-    throw new Error(`div with id 'blocklyDiv' not found`);
+	throw new Error(`div with id 'blocklyDiv' not found`);
 }
 const toolboxElement = document.createElement("xml");
 toolboxElement.innerHTML = toolbox;
@@ -38,12 +38,12 @@ const ws = Blockly.inject(blocklyDiv, {
 	media: 'https://blockly-demo.appspot.com/static/media/',
 	modalInputs: true,
 	move: {
-        scrollbars: {
+		scrollbars: {
 			horizontal: true,
 			vertical: true
-        },
-        drag: true,
-        wheel: true
+		},
+		drag: true,
+		wheel: true
 	},
 	oneBasedIndex: false,
 	plugins: {
@@ -248,15 +248,15 @@ ws.addChangeListener(Blockly.Events.disableOrphans);
 
 if (ws) {
 	ws.addChangeListener((e: Blockly.Events.Abstract) => {
-        if (
-            e.isUiEvent ||
-            e.type == Blockly.Events.FINISHED_LOADING ||
-            ws.isDragging()
-        ) {
-            return;
-        }
-        Compiler.compile(ws);
-    });
+		if (
+			e.isUiEvent ||
+			e.type == Blockly.Events.FINISHED_LOADING ||
+			ws.isDragging()
+		) {
+			return;
+		}
+		Compiler.compile(ws);
+	});
 }
 
 const canvas = document.querySelector('#raymarcherDiv canvas') as HTMLCanvasElement;
@@ -265,6 +265,15 @@ const canvas = document.querySelector('#raymarcherDiv canvas') as HTMLCanvasElem
 (window as any).Workspace = ws;
 (window as any).Serializer = Serializer;
 (window as any).Canvas = canvas;
+(window as any).saveAs = function () {
+	Serializer.createFile(ws, "Untitled Project", canvas).then(blob => { // temp
+		const a = document.createElement('a');
+		a.href = URL.createObjectURL(blob);
+		a.download = 'Untitled Project.mblks';
+		a.click();
+		URL.revokeObjectURL(a.href);
+	});
+}
 
 // might replace this with react based UI at some point
 // TODO: fix corner resize
