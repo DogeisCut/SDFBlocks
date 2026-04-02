@@ -12,7 +12,7 @@ Blockly.Blocks["scene"] = {
         this.appendValueInput("CAMERA_POSITION").setCheck("Vector3").appendField("camera position:")
         this.appendValueInput("CAMERA_ANGLE").setCheck("Vector3").appendField("camera angle:")
         this.appendValueInput("FOV").setCheck("Number").appendField("field of view:")
-        this.appendValueInput("CONTROLS").setCheck("Boolean").appendField("camera controls:")
+        this.appendValueInput("CONTROLS").setCheck("Boolean").appendField("camera controls:").setVisible(false)
         this.appendStatementInput("SCENE").setCheck("default").appendField("scene")
         this.setStyle("scene_blocks");
         this.setDeletable(false);

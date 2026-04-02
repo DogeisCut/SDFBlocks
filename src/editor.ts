@@ -281,7 +281,6 @@ const canvas = document.querySelector('#raymarcherDiv canvas') as HTMLCanvasElem
 // TODO: change the floating thing design a bit, idk if i like how rounded i made it and the padding on the full screen button is weird
 // TODO: re-position if the page resizes it off screen
 // TODO: fix the startx/starty
-// TODO: fix canvas being offset weirdly if the resoltuion is different???
 class MarchBlocksUI {
 	private widget: HTMLElement;
 	private header: HTMLElement;

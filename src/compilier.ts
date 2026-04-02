@@ -32,6 +32,7 @@ class GraphicsContext {
     updateUniforms(time: number) {
         const timeLocation = this.gl.getUniformLocation(this.program, "u_time");
         const resLocation = this.gl.getUniformLocation(this.program, "u_resolution");
+        this.gl.viewport(0, 0, this.canvas.width, this.canvas.height)
 
         this.gl.uniform1f(timeLocation, time);
         this.gl.uniform2f(resLocation, this.canvas.width, this.canvas.height);
@@ -785,7 +786,7 @@ vec3 render(vec2 uv) {
 void main() {
     ${specialSources.mainStart.join("\n")}
 
-    vec2 res = (u_resolution.x > 0.0) ? u_resolution : vec2(1920.0, 1080.0);
+    vec2 res = u_resolution;
     float aspectRatio = res.x / res.y;
     vec2 uv = (gl_FragCoord.xy / res.xy) * 2.0 - 1.0;
     uv.x *= aspectRatio;
