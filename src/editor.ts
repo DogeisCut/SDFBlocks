@@ -259,8 +259,12 @@ if (ws) {
     });
 }
 
+const canvas = document.querySelector('#raymarcherDiv canvas') as HTMLCanvasElement;
+
 (window as any).Blockly = Blockly;
 (window as any).Workspace = ws;
+(window as any).Serializer = Serializer;
+(window as any).Canvas = canvas;
 
 // might replace this with react based UI at some point
 // TODO: fix corner resize
@@ -291,7 +295,7 @@ class MarchBlocksUI {
 		this.header = document.getElementById('widgetHeader')!;
 		this.container = document.getElementById('pageContainer')!;
 		this.fullscreenBtn = document.getElementById('fullscreenBtn') as HTMLButtonElement;
-		this.canvas = document.querySelector('#raymarcherDiv canvas') as HTMLCanvasElement;
+		this.canvas = canvas;
 
 		this.initDraggable();
 		this.initFullscreen();
@@ -406,7 +410,3 @@ class MarchBlocksUI {
 window.addEventListener('DOMContentLoaded', () => {
 	new MarchBlocksUI();
 });
-
-(window as any).testSave = function () {
-	return Serializer.saveToProjectData(ws, "")
-}
