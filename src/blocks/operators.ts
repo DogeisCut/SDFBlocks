@@ -418,7 +418,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["operators_rounding"] = function (block, gene
 BlocklyGLSL.gLSLGenerator.forBlock["operators_trig"] = function (block, generator) {
     const operation = block.getFieldValue("OPERATION");
     const val = generator.valueToCode(block, "NUMBER", BlocklyGLSL.Order.ATOMIC) || "0.0";
-    return [`${operation}(${val})`, BlocklyGLSL.Order.NONE];
+    return [`${operation}(radians(${val}))`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["operators_unary"] = function (block, generator) {

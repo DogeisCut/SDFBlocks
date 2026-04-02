@@ -100,10 +100,11 @@ const toolbox = `
 
     <category name="Transforms" colour="${c.transforms_blocks.colourPrimary}">
         ${block("transforms_current_position")}
-        ${block("transforms_set", value("VECTOR", shadowVector3()))}
+        ${block("transforms_set", value("VECTOR", shadow("values_position")))}
         ${sep(50)}
-        ${block("transforms_translate", value("BY", shadow("values_vector3")), value("POSITION", shadow("values_position")))}
-        ${block("transforms_rotate_around_axis")}
+        ${block("transforms_translate", value("BY", shadowVector3()), value("POSITION", shadow("values_position")))}
+        ${block("transforms_rotate_around_axis", value("AXIS", shadowVector3(0,1,0)), value("ANGLE", shadowFloat(45)), value("POSITION", shadow("values_position")))}
+        ${block("transforms_mirror")}
         ${block("transforms_repeat")}
         ${block("transforms_twist")}
         ${block("transforms_bend")}

@@ -186,7 +186,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["values_vector4"] = function (block, generato
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_surface"] = function (block, generator) {
-    return [`makeSurface(vec3(0.0), 1.0, 0.0, 0.0)`, BlocklyGLSL.Order.NONE];
+    return [`makeSurface(vec3(1.0), 1.0, 0.0, 0.0)`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["values_sdf"] = function (block, generator) {

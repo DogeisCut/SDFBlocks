@@ -38,7 +38,7 @@ Blockly.Blocks["combiners_subtract"] = {
 Blockly.Blocks["combiners_smooth_subtract"] = {
     init: function (this: Blockly.Block) {
         this.setInputsInline(false);
-        this.appendDummyInput().appendField("smooth suubtract")
+        this.appendDummyInput().appendField("smooth subtract")
         this.appendValueInput("A").setCheck("SDF").appendField("a:")
         this.appendValueInput("B").setCheck("SDF").appendField("b:")
         this.appendValueInput("AMOUNT").setCheck("Number").appendField("amount:")
@@ -111,14 +111,14 @@ BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_union"] = function (block, 
 BlocklyGLSL.gLSLGenerator.forBlock["combiners_subtract"] = function (block, generator) {
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
-    return [`opSubtraction(${A}, ${B})`, BlocklyGLSL.Order.NONE];
+    return [`opSubtraction(${B}, ${A})`, BlocklyGLSL.Order.NONE]; // more intuative to swap them, it's like actual subtraction
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_subtract"] = function (block, generator) {
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
     const AMOUNT = generator.valueToCode(block, "AMOUNT", BlocklyGLSL.Order.ATOMIC)
-    return [`opSmoothSubtraction(${A}, ${B}, ${AMOUNT})`, BlocklyGLSL.Order.NONE];
+    return [`opSmoothSubtraction(${B}, ${A}, ${AMOUNT})`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["combiners_intersect"] = function (block, generator) {
@@ -137,13 +137,15 @@ BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_intersect"] = function (blo
 BlocklyGLSL.gLSLGenerator.forBlock["combiners_paint"] = function (block, generator) {
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
-    return [`opPaint(${A}, ${B})`, BlocklyGLSL.Order.NONE];
+    return [`opPaint(${B}, ${A})`, BlocklyGLSL.Order.NONE]; // i dont know, having these swapped just feels right
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_paint"] = function (block, generator) {
     const A = generator.valueToCode(block, "A", BlocklyGLSL.Order.ATOMIC)
     const B = generator.valueToCode(block, "B", BlocklyGLSL.Order.ATOMIC)
     const AMOUNT = generator.valueToCode(block, "AMOUNT", BlocklyGLSL.Order.ATOMIC)
-    return [`opSmoothPaint(${A}, ${B}, ${AMOUNT})`, BlocklyGLSL.Order.NONE];
+    return [`opSmoothPaint(${B}, ${A}, ${AMOUNT})`, BlocklyGLSL.Order.NONE];
 };
 
+// TODO: xor operation
+// i like forgot to scroll down past the primatives on this page https://iquilezles.org/articles/distfunctions/

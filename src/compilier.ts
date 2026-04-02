@@ -187,7 +187,7 @@ return `#version 300 es
 
 #define MIN_DISTANCE_TO_SURFACE 0.0001
 #define MAX_DIST_TO_TRAVEL 1000.0
-#define MAXIMUM_RAY_STEPS 100.0
+#define MAXIMUM_RAY_STEPS 500.0
 
 precision highp float;
 
@@ -208,6 +208,22 @@ mat3 cameraViewMatrix = mat3(
     0,0,1
 );
 float field_of_view = 75.0;
+
+mat3 eulerToRotationMatrix(vec3 degrees) {
+    vec3 rad = radians(degrees);
+    float cp = cos(rad.x); // Pitch (X)
+    float sp = sin(rad.x);
+    float cy = cos(rad.y); // Yaw (Y)
+    float sy = sin(rad.y);
+    float cr = cos(rad.z); // Roll (Z)
+    float sr = sin(rad.z);
+
+    return mat3(
+        cy * cr + sy * sp * sr,  sr * cp, -sy * cr + cy * sp * sr,
+       -cy * sr + sy * sp * cr,  cr * cp,  sy * sr + cy * sp * cr,
+        sy * cp,                -sp,       cy * cp
+    );
+}
 
 in vec4 pos4;
 out vec4 outColor;
@@ -246,36 +262,143 @@ vec3 hsv2rgb(vec3 c) {
 
 // sdf operations
 
-SDF opUnion(SDF a, SDF b){
-    if (b.signedDistance < a.signedDistance) {
-        return b;
-    }
+SDF opUnion(SDF a, SDF b) {
+    if (b.signedDistance < a.signedDistance) return b;
     return a;
 }
 
-SDF opSmoothUnion(SDF a, SDF b, float smoothingFactor) {
-    float h = clamp(0.5 + 0.5 * (b.signedDistance - a.signedDistance) / smoothingFactor, 0.0, 1.0);
-
+SDF opSubtraction(SDF a, SDF b) {
+    float d = max(-a.signedDistance, b.signedDistance);
     SDF result;
+    result.signedDistance = d;
 
-    result.signedDistance = mix(b.signedDistance, a.signedDistance, h) - smoothingFactor * h * (1.0 - h);
-
-    result.material.diffuseColor = mix(b.material.diffuseColor, a.material.diffuseColor, h);
-    result.material.roughness = mix(b.material.roughness, a.material.roughness, h);
-    result.material.metallicity = mix(b.material.metallicity, a.material.metallicity, h);
-    result.material.emission = mix(b.material.emission, a.material.emission, h);
-
+    if (-a.signedDistance > b.signedDistance) {
+        result.material = a.material;
+    } else {
+        result.material = b.material;
+    }
     return result;
 }
 
-// position operations
+SDF opIntersection(SDF a, SDF b) {
+    float d = max(a.signedDistance, b.signedDistance);
+    SDF result;
+    result.signedDistance = d;
+    
+    if (a.signedDistance > b.signedDistance) {
+        result.material = a.material;
+    } else {
+        result.material = b.material;
+    }
+    return result;
+}
+
+SDF opSmoothUnion(SDF a, SDF b, float k) {
+    float h = clamp(0.5 + 0.5 * (b.signedDistance - a.signedDistance) / k, 0.0, 1.0);
+    SDF result;
+    result.signedDistance = mix(b.signedDistance, a.signedDistance, h) - k * h * (1.0 - h);
+    
+    result.material.diffuseColor = mix(b.material.diffuseColor, a.material.diffuseColor, h);
+    result.material.roughness    = mix(b.material.roughness,    a.material.roughness,    h);
+    result.material.metallicity  = mix(b.material.metallicity,  a.material.metallicity,  h);
+    result.material.emission     = mix(b.material.emission,     a.material.emission,     h);
+    return result;
+}
+
+SDF opSmoothSubtraction(SDF a, SDF b, float k) {
+    float h = clamp(0.5 - 0.5 * (b.signedDistance + a.signedDistance) / k, 0.0, 1.0);
+    SDF result;
+    
+    result.signedDistance = mix(b.signedDistance, -a.signedDistance, h) + k * h * (1.0 - h);
+    
+    result.material.diffuseColor = mix(b.material.diffuseColor, a.material.diffuseColor, h);
+    result.material.roughness    = mix(b.material.roughness,    a.material.roughness,    h);
+    result.material.metallicity  = mix(b.material.metallicity,  a.material.metallicity,  h);
+    result.material.emission     = mix(b.material.emission,     a.material.emission,     h);
+    
+    return result;
+}
+    
+SDF opSmoothIntersection(SDF a, SDF b, float k) {
+    float h = clamp(0.5 - 0.5 * (a.signedDistance - b.signedDistance) / k, 0.0, 1.0);
+    
+    SDF result;
+    result.signedDistance = mix(a.signedDistance, b.signedDistance, h) + k * h * (1.0 - h);
+    
+    result.material.diffuseColor = mix(a.material.diffuseColor, b.material.diffuseColor, h);
+    result.material.roughness    = mix(a.material.roughness,    b.material.roughness,    h);
+    result.material.metallicity  = mix(a.material.metallicity,  b.material.metallicity,  h);
+    result.material.emission     = mix(a.material.emission,     b.material.emission,     h);
+    
+    return result;
+}
+
+SDF opPaint(SDF a, SDF b) {
+    SDF result = b;
+    float h = step(a.signedDistance, 0.0); 
+    
+    result.material.diffuseColor = mix(b.material.diffuseColor, a.material.diffuseColor, h);
+    result.material.roughness    = mix(b.material.roughness,    a.material.roughness,    h);
+    result.material.metallicity  = mix(b.material.metallicity,  a.material.metallicity,  h);
+    result.material.emission     = mix(b.material.emission,     a.material.emission,     h);
+    return result;
+}
+
+SDF opSmoothPaint(SDF a, SDF b, float k) {
+    SDF result = b;
+    float h = clamp(0.5 + 0.5 * (a.signedDistance - b.signedDistance) / k, 0.0, 1.0);
+    
+    result.material.diffuseColor = mix(a.material.diffuseColor, b.material.diffuseColor, h);
+    result.material.roughness    = mix(a.material.roughness,    b.material.roughness,    h);
+    result.material.metallicity  = mix(a.material.metallicity,  b.material.metallicity,  h);
+    result.material.emission     = mix(a.material.emission,     b.material.emission,     h);
+    return result;
+}
+
+//opXor
+//opSmoothXor
+
+// domain warps
 
 vec3 opTranslate(vec3 samplingPosition, vec3 by) {
     return samplingPosition - by; // yeah this is all this is lmao
 }
+
+vec3 opRotateAxis(vec3 p, vec3 axis, float angle) {
+    return mix(dot(axis, p) * axis, p, cos(angle)) + cross(axis, p) * sin(angle);
+}
+
+vec3 opRepeat(vec3 p, vec3 c) {
+    return mod(p, c) - 0.5 * c;
+}
+
+// 2d primatives
+// https://iquilezles.org/articles/distfunctions2d/
+
+// 2d to 3d sdf
+// opRevolution
+// opExtrusion
+
+// object wrappers
+
+// i am having a lot of trouble with these, mainly due to the "in sdf3d primitive" syntax???
+//opElongate
+//opRound
+//opOnion
+//opTx
+//opScale
+//opSymX
+//opSymXZ
+//opRepetition
+//opLimitedRepetition
+//opDisplace
+//opTwist
+//opCheapBend
+// all from https://iquilezles.org/articles/distfunctions/
     
 // primative sdfs (christ almighty)
 // thank you to https://iquilezles.org/articles/distfunctions/ for like all of these
+// might be worth looking at https://www.shadertoy.com/playlist/43cXRl&from=0&num=12 for more primatives!
 
 SDF sdSphere( vec3 p, Surface surface, float r )
 {
@@ -444,11 +567,11 @@ SDF sdCutSphere( vec3 p, Surface surface, float r, float h ) {
     return makeSDF(d, surface);
 }
 
-SDF sdCutHollowSphere( vec3 p, Surface surface, float r, float h, float t ) {
+SDF sdCutHollowSphere( vec3 p, Surface surface, float r, float h, float t ){
     float w = sqrt(r*r-h*h);
     vec2 q = vec2( length(p.xz), p.y );
-    return makeSDF((h*q.x<w*q.y) ? length(q-vec2(w,h)) : 
-                                  abs(length(q)-r)-t, surface);
+    return makeSDF(((h*q.x<w*q.y) ? length(q-vec2(w,h)) : 
+                            abs(length(q)-r) ) - t, surface);
 }
 
 SDF sdDeathStar( vec3 p, Surface surface, float ra, float rb, float d ) {
@@ -597,7 +720,7 @@ SDF rayMarch(vec3 rayOrigin, vec3 rayDirection) {
             break;
         }
 
-        distanceTravelled += closestObject.signedDistance;
+        distanceTravelled += closestObject.signedDistance * 0.99;
 
         if (distanceTravelled > MAX_DIST_TO_TRAVEL) {
             break;
@@ -610,11 +733,13 @@ SDF rayMarch(vec3 rayOrigin, vec3 rayDirection) {
 }
 
 vec3 getNormal(vec3 p) {
-    vec2 epsilon = vec2(0.01, 0.0);
-    float gradX = sdScene(p + epsilon.xyy).signedDistance - sdScene(p - epsilon.xyy).signedDistance;
-    float gradY = sdScene(p + epsilon.yxy).signedDistance - sdScene(p - epsilon.yxy).signedDistance;
-    float gradZ = sdScene(p + epsilon.yyx).signedDistance - sdScene(p - epsilon.yyx).signedDistance;
-    return normalize(vec3(gradX, gradY, gradZ));
+    vec2 e = vec2(1.0, -1.0) * 0.5773 * 0.0005;
+    return normalize(
+        e.xyy * sdScene(p + e.xyy).signedDistance +
+        e.yyx * sdScene(p + e.yyx).signedDistance +
+        e.yxy * sdScene(p + e.yxy).signedDistance +
+        e.xxx * sdScene(p + e.xxx).signedDistance
+    );
 }
 
 vec3 calculateSurfaceLighting(vec3 hitPosition, vec3 rayDirection, SDF hitObject) {

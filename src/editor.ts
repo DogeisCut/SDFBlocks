@@ -5,6 +5,7 @@ import * as Compiler from "./compilier";
 import toolbox from './toolbox';
 import theme from './theme';
 import './index.css';
+import * as Serializer from "./serializer"
 
 Object.keys(Blockly.Blocks).forEach(key => delete Blockly.Blocks[key]);
 
@@ -71,44 +72,172 @@ const ws = Blockly.inject(blocklyDiv, {
 
 const defaultWorkspaceElement = document.createElement("xml")
 defaultWorkspaceElement.innerHTML = `<block type="scene" id="scene" deletable="false" editable="false" x="0" y="0">
-	<value name="CLEAR_COLOR">
-		<shadow type="values_color">
-			<field name="COLOR">
-				#BAE6F3
-			</field>
-		</shadow>
-	</value>
-	<value name="CAMERA_POSITION">
-		<shadow type="values_vector3">
-			<field name="Y">
-				1
-			</field>
-			<field name="Z">
-				-5
-			</field>
-		</shadow>
-	</value>
-	<value name="CAMERA_ANGLE">
-		<shadow type="values_vector3"></shadow>
-	</value>
-	<value name="FOV">
-		<shadow type="values_positive_float">
-			<field name="NUMBER">
-				75
-			</field>
-		</shadow>
-	</value>
-	<value name="CONTROLS">
-		<shadow type="values_boolean"></shadow>
-	</value>
-	<statement name="SCENE">
-		<block type="scene_set_scene">
-			<value name="SDF">
-				<shadow type="values_sdf"></shadow>
-			</value>
-		</block>
-	</statement>
-</block>`
+    <value name="CLEAR_COLOR">
+      <shadow type="values_color">
+        <field name="COLOR">#bae6f3</field>
+      </shadow>
+    </value>
+    <value name="CAMERA_POSITION">
+      <shadow type="values_vector3">
+        <field name="X">0</field>
+        <field name="Y">1</field>
+        <field name="Z">-5</field>
+      </shadow>
+      <block type="vectors_vector3">
+        <value name="X">
+          <shadow type="values_float">
+            <field name="NUMBER">0</field>
+          </shadow>
+          <block type="operators_multiply">
+            <value name="A">
+              <shadow type="values_float">
+                <field name="NUMBER">0</field>
+              </shadow>
+              <block type="operators_trig">
+                <field name="OPERATION">sin</field>
+                <value name="NUMBER">
+                  <shadow type="values_float">
+                    <field name="NUMBER">0</field>
+                  </shadow>
+                  <block type="operators_multiply">
+                    <value name="A">
+                      <shadow type="values_float">
+                        <field name="NUMBER">0</field>
+                      </shadow>
+                      <block type="sensing_timer"></block>
+                    </value>
+                    <value name="B">
+                      <shadow type="values_float" id="9vJb7^!OtTEGM8lD!l0-">
+                        <field name="NUMBER">90</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <shadow type="values_float">
+                <field name="NUMBER">-5</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+        <value name="Y">
+          <shadow type="values_float">
+            <field name="NUMBER">2</field>
+          </shadow>
+        </value>
+        <value name="Z">
+          <shadow type="values_float">
+            <field name="NUMBER">0</field>
+          </shadow>
+          <block type="operators_multiply" id="Lj4#-n0~t?w]$,QkVAFV">
+            <value name="A">
+              <shadow type="values_float">
+                <field name="NUMBER">0</field>
+              </shadow>
+              <block type="operators_trig">
+                <field name="OPERATION">cos</field>
+                <value name="NUMBER">
+                  <shadow type="values_float">
+                    <field name="NUMBER">0</field>
+                  </shadow>
+                  <block type="operators_multiply">
+                    <value name="A">
+                      <shadow type="values_float">
+                        <field name="NUMBER">0</field>
+                      </shadow>
+                      <block type="sensing_timer"></block>
+                    </value>
+                    <value name="B">
+                      <shadow type="values_float" >
+                        <field name="NUMBER">90</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <value name="B">
+              <shadow type="values_float">
+                <field name="NUMBER">-5</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+      </block>
+    </value>
+    <value name="CAMERA_ANGLE">
+      <shadow type="values_vector3">
+        <field name="X">0</field>
+        <field name="Y">0</field>
+        <field name="Z">0</field>
+      </shadow>
+      <block type="vectors_vector3">
+        <value name="X">
+          <shadow type="values_float">
+            <field name="NUMBER">23</field>
+          </shadow>
+        </value>
+        <value name="Y">
+          <shadow type="values_float">
+            <field name="NUMBER">0</field>
+          </shadow>
+          <block type="operators_multiply">
+            <value name="A">
+              <shadow type="values_float">
+                <field name="NUMBER">0</field>
+              </shadow>
+              <block type="sensing_timer"></block>
+            </value>
+            <value name="B">
+              <shadow type="values_float">
+                <field name="NUMBER">90</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+        <value name="Z">
+          <shadow type="values_float">
+            <field name="NUMBER">0</field>
+          </shadow>
+        </value>
+      </block>
+    </value>
+    <value name="FOV">
+      <shadow type="values_positive_float">
+        <field name="NUMBER">75</field>
+      </shadow>
+    </value>
+    <value name="CONTROLS">
+      <shadow type="values_boolean">
+        <field name="BOOLEAN">FALSE</field>
+      </shadow>
+    </value>
+    <statement name="SCENE">
+      <block type="scene_set_scene">
+        <value name="SDF">
+          <shadow type="values_sdf"></shadow>
+          <block type="primatives_box">
+            <value name="SURFACE">
+              <shadow type="values_surface"></shadow>
+            </value>
+            <value name="SIZE">
+              <shadow type="values_vector3">
+                <field name="X">1</field>
+                <field name="Y">1</field>
+                <field name="Z">1</field>
+              </shadow>
+            </value>
+            <value name="POSITION">
+              <shadow type="values_position"></shadow>
+            </value>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+`
 
 Blockly.Xml.domToWorkspace(defaultWorkspaceElement, ws)
 
@@ -277,3 +406,7 @@ class MarchBlocksUI {
 window.addEventListener('DOMContentLoaded', () => {
 	new MarchBlocksUI();
 });
+
+(window as any).testSave = function () {
+	return Serializer.saveToProjectData(ws, "")
+}

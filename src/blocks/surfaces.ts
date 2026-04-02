@@ -28,6 +28,7 @@ Blockly.Blocks["surfaces_create_surface"] = {
         // IOR
         // Receive Shadows
         // Cast Shadows
+        // Normal Map (either modify existing normals or change normal calculation entierly??)
         this.setOutput(true, "Surface")
         this.setStyle("surfaces_blocks");
     },

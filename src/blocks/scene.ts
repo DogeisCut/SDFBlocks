@@ -64,6 +64,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["scene"] = function (block, generator) {
     const CONTROLS = generator.valueToCode(block, "CONTROLS", BlocklyGLSL.Order.ATOMIC)
     const SCENE = generator.statementToCode(block, "SCENE")
     specialSources.mainStart.push(`backgroundColor = ${CLEAR_COLOR};`)
+    specialSources.mainStart.push(`cameraViewMatrix = eulerToRotationMatrix(${CAMERA_ANGLE});`)
     specialSources.mainStart.push(`cameraPosition = ${CAMERA_POSITION};`)
 
     specialSources.mainStart.push(`field_of_view = ${FOV};`)
