@@ -58,14 +58,10 @@ class GraphicsContext {
     }
 }
 
-function makeGraphics(): GraphicsContext | null {
-    const raymarcherDiv = document.getElementById("raymarcherDiv") as HTMLDivElement | null;
-    const canvas = document.createElement("canvas");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    raymarcherDiv?.appendChild(canvas);
+export let graphics: GraphicsContext | null = null;
 
+export function makeGraphics(canvas: HTMLCanvasElement): GraphicsContext | null {
     const gl = canvas.getContext("webgl2");
     if (!gl) {
         console.error("This browser does not support WebGL 2.");
@@ -156,7 +152,7 @@ function makeGraphics(): GraphicsContext | null {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(program);
 
-    return new GraphicsContext(
+    graphics = new GraphicsContext(
         gl,
         program,
         canvas,
@@ -164,8 +160,6 @@ function makeGraphics(): GraphicsContext | null {
         fragmentShader
     );
 }
-
-export const graphics: GraphicsContext | null = makeGraphics();
 
 export function compile(workspace: Blockly.Workspace): void {
     clearSpecialSources()
@@ -373,7 +367,7 @@ vec3 opRepeat(vec3 p, vec3 c) {
     return mod(p, c) - 0.5 * c;
 }
 
-// 2d primatives
+// 2d primitives
 // https://iquilezles.org/articles/distfunctions2d/
 
 // 2d to 3d sdf
@@ -399,7 +393,7 @@ vec3 opRepeat(vec3 p, vec3 c) {
     
 // primative sdfs (christ almighty)
 // thank you to https://iquilezles.org/articles/distfunctions/ for like all of these
-// might be worth looking at https://www.shadertoy.com/playlist/43cXRl&from=0&num=12 for more primatives!
+// might be worth looking at https://www.shadertoy.com/playlist/43cXRl&from=0&num=12 for more primitives!
 
 SDF sdSphere( vec3 p, Surface surface, float r )
 {
@@ -796,7 +790,7 @@ void main() {
 }`
 }
 
-function startLoop() {
+export function startLoop() {
     function update(totalTime: number) {
         if (graphics) {
             const seconds = totalTime / 1000;
@@ -810,5 +804,3 @@ function startLoop() {
     }
     requestAnimationFrame(update);
 }
-
-startLoop();
