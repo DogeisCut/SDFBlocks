@@ -1,3 +1,25 @@
+<script module lang="ts">
+    export interface ProjectSettings {
+        name: string,
+        size: [number, number]
+    }
+
+    export interface SavedEditorState {
+        preview: {
+            positon: [number, number],
+            size: [number, number]
+        },
+    }
+
+    export interface EditorState {
+        editorModalKind?: "variable" | "projectSettings" | "editorSettings" | null,
+        save: {
+            unsavedChanges: boolean,
+            fileName: string
+        } | null
+    }
+</script>
+
 <script lang="ts">
     import { onMount, onDestroy } from "svelte";
     import * as Blockly from "blockly";
@@ -13,32 +35,21 @@
 
     import.meta.glob('../blocks/*.ts', { eager: true });
 
-    let projectSettings:
-    {
-        size: [number, number]
-    }
-    = $state({
+    let projectSettings: ProjectSettings = $state({
+        name: "Untitled Project",
         size: [1920, 1280]
     })
 
-    let savedEditorState:
-    {
-        preview: {
-            positon: [number, number],
-            size: [number, number]
-        },
-    } = $state({
+    let savedEditorState: SavedEditorState = $state({
         preview: {
             positon: [0, 0],
             size: [1920/2, 1280/2]
         },
     })
 
-    let editorState:
-    {
-        editorModalKind: "variable" | "projectSettings" | "editorSettings" | null;
-    } = $state({
+    let editorState: EditorState = $state({
         editorModalKind: null,
+        save: null
     })
 
     registerContinuousToolbox();
@@ -57,7 +68,7 @@
             collapse: true,
             comments: true,
             css: true,
-            disable: true,
+            disable: false,
             grid: {
                 spacing: 20,
                 length: 1,
@@ -283,6 +294,9 @@
             )
                 return;
             Compiler.compile(workspace!);
+            if (editorState.save) {
+                editorState.save.unsavedChanges = true
+            }
         };
 
         workspace.addChangeListener(listener);
@@ -296,7 +310,10 @@
 </script>
 
 <div id="appContainer">
-    <EditorTopBar />
+    <EditorTopBar 
+        projectSettings={projectSettings}
+        editorState={editorState}
+    />
     <div id="pageContainer">
         <div bind:this={blocklyDiv} id="blocklyDiv"></div>
         <RaymarcherPreview 
