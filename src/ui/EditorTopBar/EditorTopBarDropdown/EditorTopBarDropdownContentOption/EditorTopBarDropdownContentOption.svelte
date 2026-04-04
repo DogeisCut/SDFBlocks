@@ -10,7 +10,7 @@
 </script>
 
 
-<a href="#top" onclick={props.onclick}>{@render props.children?.()}</a>
+<a href="#" onclick={props.onclick}>{@render props.children?.()}</a>
 
 <style>
     a {
