@@ -16,12 +16,12 @@
     })
 </script>
 
-<canvas bind:this={canvas} use:draggable 
-width={props.previewSize[0]}
-height={props.previewSize[1]}
+<canvas bind:this={canvas} use:draggable={{ bounds: 'parent' }}
+width={props.size[0]}
+height={props.size[1]}
 id="raymarcherCanvas"
-style:width={props.size[0]}
-style:height={props.size[1]}
+style:width='{props.previewSize[0]}px'
+style:height='{props.previewSize[1]}px'
 >
 </canvas>
 
@@ -42,8 +42,5 @@ style:height={props.size[1]}
         z-index: 71;
         border: 1px solid #444;
         overflow: hidden;
-        
-        min-width: 200px;
-        min-height: 150px;
     }
 </style>

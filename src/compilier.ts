@@ -62,10 +62,6 @@ class GraphicsContext {
 export let graphics: GraphicsContext | null = null;
 
 export function makeGraphics(canvas: HTMLCanvasElement): GraphicsContext | null {
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
     const gl = canvas.getContext("webgl2");
     if (!gl) {
         console.error("This browser does not support WebGL 2.");

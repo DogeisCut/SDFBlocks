@@ -9,6 +9,7 @@
     import RaymarcherPreview from "./RaymarcherPreview/RaymarcherPreview.svelte";
     import EditorTopBar from "./EditorTopBar/EditorTopBar.svelte";
 
+    Object.keys(Blockly.Blocks).forEach(key => delete Blockly.Blocks[key]);
     import.meta.glob('../blocks/*.ts', { eager: true });
 
     let editorState:
@@ -22,7 +23,7 @@
     = $state({
         preview: {
             positon: [0, 0],
-            size: [480, 320]
+            size: [1920/2, 1280/2]
         },
         projectSize: [1920, 1280]
     })
