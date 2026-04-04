@@ -537,7 +537,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primitives_plane"] = function (block, genera
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const NORMAL = generator.valueToCode(block, "NORMAL", BlocklyGLSL.Order.ATOMIC);
     const HEIGHT = generator.valueToCode(block, "HEIGHT", BlocklyGLSL.Order.ATOMIC);
-    return [`sdPlane(${POSITION}, ${SURFACE}, ${NORMAL}, ${HEIGHT})`, BlocklyGLSL.Order.NONE];
+    return [`sdPlane(${POSITION}, ${SURFACE}, ${NORMAL}, -${HEIGHT})`, BlocklyGLSL.Order.NONE];
 };
 
 BlocklyGLSL.gLSLGenerator.forBlock["primitives_hexagonal_prism"] = function (block, generator) {
