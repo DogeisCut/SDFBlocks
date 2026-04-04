@@ -5,6 +5,7 @@
     import toolbox from "../toolbox";
     import theme from "../theme";
     import * as Compiler from "../compilier";
+    import AlphaWarning from "./AlphaWarning.svelte";
 
     import.meta.glob('../blocks/*.ts', { eager: true });
 
@@ -262,9 +263,12 @@
     });
 </script>
 
-<div id="pageContainer">
-    <div bind:this={blocklyDiv} id="blocklyDiv"></div>
+<div id="appContainer">
+    <div id="pageContainer">
+        <div bind:this={blocklyDiv} id="blocklyDiv"></div>
+    </div>
 </div>
+<AlphaWarning />
 
 <style>
     :global(*) {
