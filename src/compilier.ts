@@ -58,13 +58,13 @@ class GraphicsContext {
     }
 }
 
-function makeGraphics(): GraphicsContext | null {
-    const raymarcherDiv = document.getElementById("raymarcherDiv") as HTMLDivElement | null;
-    const canvas = document.createElement("canvas");
+
+export let graphics: GraphicsContext | null = null;
+
+export function makeGraphics(canvas: HTMLCanvasElement): GraphicsContext | null {
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    raymarcherDiv?.appendChild(canvas);
 
     const gl = canvas.getContext("webgl2");
     if (!gl) {
@@ -156,7 +156,7 @@ function makeGraphics(): GraphicsContext | null {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(program);
 
-    return new GraphicsContext(
+    graphics = new GraphicsContext(
         gl,
         program,
         canvas,
@@ -164,8 +164,6 @@ function makeGraphics(): GraphicsContext | null {
         fragmentShader
     );
 }
-
-export const graphics: GraphicsContext | null = makeGraphics();
 
 export function compile(workspace: Blockly.Workspace): void {
     clearSpecialSources()
@@ -796,7 +794,7 @@ void main() {
 }`
 }
 
-function startLoop() {
+export function startLoop() {
     function update(totalTime: number) {
         if (graphics) {
             const seconds = totalTime / 1000;
@@ -810,5 +808,3 @@ function startLoop() {
     }
     requestAnimationFrame(update);
 }
-
-startLoop();

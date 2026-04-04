@@ -5,9 +5,27 @@
     import toolbox from "../toolbox";
     import theme from "../theme";
     import * as Compiler from "../compilier";
-    import AlphaWarning from "./AlphaWarning.svelte";
+    import AlphaWarning from "./AlphaWarning/AlphaWarning.svelte";
+    import RaymarcherPreview from "./RaymarcherPreview/RaymarcherPreview.svelte";
+    import EditorTopBar from "./EditorTopBar/EditorTopBar.svelte";
 
     import.meta.glob('../blocks/*.ts', { eager: true });
+
+    let editorState:
+    {
+        preview: {
+            positon: [number, number],
+            size: [number, number]
+        },
+        projectSize: [number, number]
+    }
+    = $state({
+        preview: {
+            positon: [0, 0],
+            size: [480, 320]
+        },
+        projectSize: [1920, 1280]
+    })
 
     registerContinuousToolbox();
     
@@ -264,8 +282,13 @@
 </script>
 
 <div id="appContainer">
+    <EditorTopBar />
     <div id="pageContainer">
         <div bind:this={blocklyDiv} id="blocklyDiv"></div>
+        <RaymarcherPreview 
+        size={editorState.projectSize}
+        previewSize={editorState.preview.size}
+        />
     </div>
 </div>
 <AlphaWarning />
