@@ -10,10 +10,12 @@
 </script>
 
 <div class="dropdown">
-    <button onclick={() => open = !open} onfocusout={() => open = false} class="dropbtn">{props.text} <span class="arrow">▼</span></button>
+    <button onclick={() => open = !open} class="dropbtn">
+        {props.text} <span class="arrow">▼</span>
+    </button>
     {#if open}
         <div class="dropdown-content">
-            {@render props.children?.()} 
+            {@render props.children?.()}
         </div>
     {/if}
 </div>

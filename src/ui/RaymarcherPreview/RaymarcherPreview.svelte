@@ -2,26 +2,31 @@
     import { draggable } from "@neodrag/svelte";
     import { makeGraphics, startLoop } from "../../compilier"
     import { onMount } from "svelte";
+    
+    import type { EditorState } from "../Editor.svelte"
+    import type { ProjectSettings } from "../Editor.svelte"
+    import type { SavedEditorState } from "../Editor.svelte"
 
-    let canvas: HTMLCanvasElement
+    interface RaymarcherPreviewProps {
+        editorState: EditorState,
+        projectSettings: ProjectSettings,
+        savedEditorState: SavedEditorState
+    }
 
-    const props: { 
-        size: [number, number]
-        previewSize: [number, number]
-    } = $props()
+    const props: RaymarcherPreviewProps = $props()
 
     onMount(() => {
-        makeGraphics(canvas)
+        makeGraphics(props.editorState.canvas)
         startLoop()
     })
 </script>
 
-<canvas bind:this={canvas} use:draggable={{ bounds: 'parent' }}
-width={props.size[0]}
-height={props.size[1]}
+<canvas bind:this={props.editorState.canvas} use:draggable={{ bounds: 'parent' }}
+width={props.projectSettings.size[0]}
+height={props.projectSettings.size[1]}
 id="raymarcherCanvas"
-style:width='{props.previewSize[0]}px'
-style:height='{props.previewSize[1]}px'
+style:width='{props.savedEditorState.preview.size[0]}px'
+style:height='{props.savedEditorState.preview.size[1]}px'
 >
 </canvas>
 

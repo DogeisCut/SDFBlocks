@@ -12,6 +12,8 @@
     }
 
     export interface EditorState {
+        workspace: Blockly.WorkspaceSvg
+        canvas: HTMLCanvasElement
         editorModalKind?: "variable" | "projectSettings" | "editorSettings" | null,
         save: {
             unsavedChanges: boolean,
@@ -48,6 +50,8 @@
     })
 
     let editorState: EditorState = $state({
+        workspace: null,
+        canvas: null,
         editorModalKind: null,
         save: null
     })
@@ -55,7 +59,6 @@
     registerContinuousToolbox();
     
     let blocklyDiv: HTMLDivElement | null = null;
-    let workspace: Blockly.WorkspaceSvg | null = null;
 
     onMount(() => {
         if (!blocklyDiv) return;
@@ -63,7 +66,7 @@
         const toolboxElement = document.createElement("xml");
         toolboxElement.innerHTML = toolbox;
 
-        workspace = Blockly.inject(blocklyDiv, {
+        editorState.workspace = Blockly.inject(blocklyDiv, {
             toolbox: toolboxElement,
             collapse: true,
             comments: true,
@@ -282,29 +285,30 @@
         </block>
         `
 
-        Blockly.Xml.domToWorkspace(defaultWorkspaceElement, workspace)
+        Blockly.Xml.domToWorkspace(defaultWorkspaceElement, editorState.workspace)
 
-        workspace.addChangeListener(Blockly.Events.disableOrphans);
+        editorState.workspace.addChangeListener(Blockly.Events.disableOrphans);
 
         const listener = (e: Blockly.Events.Abstract) => {
             if (
                 e.isUiEvent ||
                 e.type === Blockly.Events.FINISHED_LOADING ||
-                workspace?.isDragging()
+                editorState.workspace?.isDragging()
             )
                 return;
-            Compiler.compile(workspace!);
+            Compiler.compile(editorState.workspace!);
             if (editorState.save) {
                 editorState.save.unsavedChanges = true
             }
         };
 
-        workspace.addChangeListener(listener);
+        editorState.workspace.addChangeListener(listener);
 
         onDestroy(() => {
-            workspace?.removeChangeListener(listener);
-            workspace?.dispose();
-            workspace = null;
+            editorState.workspace?.removeChangeListener(listener);
+            editorState.workspace?.removeChangeListener(Blockly.Events.disableOrphans);
+            editorState.workspace?.dispose();
+            editorState.workspace = null;
         });
     });
 </script>
@@ -317,16 +321,33 @@
     <div id="pageContainer">
         <div bind:this={blocklyDiv} id="blocklyDiv"></div>
         <RaymarcherPreview 
-        size={projectSettings.size}
-        previewSize={savedEditorState.preview.size}
+            {editorState}
+            {projectSettings}
+            {savedEditorState}
         />
     </div>
     {#if editorState.editorModalKind === "variable"}
         <EditorModalVariable
-        title="Create a Variable"
-        acceptText="Create"
-        cancelText="Cancel"
+            title="Create a Variable"
+            acceptText="Create"
+            cancelText="Cancel"
         ></EditorModalVariable>
+    {:else if editorState.editorModalKind === "editorSettings"}
+        <EditorModal
+            title="Editor Settings"
+            acceptText="Accept"
+            cancelText="Cancel"
+            onAccept={() => {}}
+            onCancel={() => {editorState.editorModalKind = null}}
+        ></EditorModal>
+    {:else if editorState.editorModalKind === "projectSettings"}
+        <EditorModal
+            title="Project Settings"
+            acceptText="Accept"
+            cancelText="Cancel"
+            onAccept={() => {}}
+            onCancel={() => {editorState.editorModalKind = null}}
+        ></EditorModal>
     {/if}
 </div>
 <AlphaWarning />

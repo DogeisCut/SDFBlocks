@@ -1,5 +1,5 @@
 import * as Blockly from 'blockly';
-import * as JSZip from 'jszip';
+import JSZip from 'jszip';
 
 function sanitizeFilename(name: string): string {
     return name

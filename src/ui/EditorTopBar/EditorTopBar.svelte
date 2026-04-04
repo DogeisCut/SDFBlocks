@@ -4,6 +4,8 @@
     import EditorTopBarDropdownContentOption from "./EditorTopBarDropdown/EditorTopBarDropdownContentOption/EditorTopBarDropdownContentOption.svelte";
     import EditorTopBarDropdownContentSeparator from "./EditorTopBarDropdownContentSeparator/EditorTopBarDropdownContentSeparator.svelte";
 
+    import * as Serializer from "../../serializer"
+
     import type { ProjectSettings } from "../Editor.svelte"
     import type { EditorState } from "../Editor.svelte"
 
@@ -25,16 +27,25 @@
             <EditorTopBarDropdownContentOption onclick={() => {}}>Load form Computer</EditorTopBarDropdownContentOption>
             <EditorTopBarDropdownContentSeparator />
             <EditorTopBarDropdownContentOption onclick={() => {
-                
+
             }}>Save as...</EditorTopBarDropdownContentOption>
-            <EditorTopBarDropdownContentOption onclick={() => {
-                // Serializer.createFile(Workspace, "Untitled Project", Canvas).then(blob => {
-                //     const a = document.createElement('a');
-                //     a.href = URL.createObjectURL(blob);
-                //     a.download = 'Untitled Project.json';
-                //     a.click();
-                //     URL.revokeObjectURL(a.href);
-                // });
+            <EditorTopBarDropdownContentOption onclick={async () => {
+                const file = await Serializer.createFile(
+                    props.editorState.workspace, 
+                    props.projectSettings.name, 
+                    props.editorState.canvas
+                );
+
+                const url = URL.createObjectURL(file);
+                const a = document.createElement('a');
+
+                a.href = url;
+                a.download = file.name;
+
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
             }}>Save to seperate file</EditorTopBarDropdownContentOption>
         </EditorTopBarDropdown>
 
