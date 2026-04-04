@@ -1,6 +1,8 @@
 <script lang="ts">
     import EditorTopBarDropdown from "./EditorTopBarDropdown/EditorTopBarDropdown.svelte";
     import EditorTopBarLogo from "./EditorTopBarLogo/EditorTopBarLogo.svelte";
+    import EditorTopBarDropdownContentOption from "./EditorTopBarDropdown/EditorTopBarDropdownContentOption/EditorTopBarDropdownContentOption.svelte";
+    import EditorTopBarDropdownContentSeparator from "./EditorTopBarDropdownContentSeparator/EditorTopBarDropdownContentSeparator.svelte";
 
     import type { ProjectSettings } from "../Editor.svelte"
     import type { EditorState } from "../Editor.svelte"
@@ -18,22 +20,36 @@
         <EditorTopBarLogo />
 
         <EditorTopBarDropdown text="File">
-            <!--EditorTopBarDropdownContentActionButton text="New" callback={function here}-->
-            <!--EditorTopBarDropdownContentSeperator-->
-            <!--EditorTopBarDropdownContentActionButton text="Load form Computer" callback={function here}-->
-            <!--EditorTopBarDropdownContentSeperator-->
-            <!--EditorTopBarDropdownContentActionButton text="Save as..." callback={function here}-->
-            <!--EditorTopBarDropdownContentActionButton text="Save to seperate file" callback={function here}-->
+            <EditorTopBarDropdownContentOption onclick={() => {}}>New</EditorTopBarDropdownContentOption>
+            <EditorTopBarDropdownContentSeparator />
+            <EditorTopBarDropdownContentOption onclick={() => {}}>Load form Computer</EditorTopBarDropdownContentOption>
+            <EditorTopBarDropdownContentSeparator />
+            <EditorTopBarDropdownContentOption onclick={() => {
+                
+            }}>Save as...</EditorTopBarDropdownContentOption>
+            <EditorTopBarDropdownContentOption onclick={() => {
+                // Serializer.createFile(Workspace, "Untitled Project", Canvas).then(blob => {
+                //     const a = document.createElement('a');
+                //     a.href = URL.createObjectURL(blob);
+                //     a.download = 'Untitled Project.json';
+                //     a.click();
+                //     URL.revokeObjectURL(a.href);
+                // });
+            }}>Save to seperate file</EditorTopBarDropdownContentOption>
         </EditorTopBarDropdown>
 
         <EditorTopBarDropdown text="Edit">
-            <!--EditorTopBarDropdownContentActionButton text="Undo" callback={function here}-->
-            <!--EditorTopBarDropdownContentActionButton text="Redo" callback={function here}-->
+            <EditorTopBarDropdownContentOption onclick={() => {}}>Undo</EditorTopBarDropdownContentOption>
+            <EditorTopBarDropdownContentOption onclick={() => {}}>Redo</EditorTopBarDropdownContentOption>
         </EditorTopBarDropdown>
 
         <EditorTopBarDropdown text="Settings">
-            <!--EditorTopBarDropdownContentModalButton text="Editor Settings" modal="editorSettings"-->
-            <!--EditorTopBarDropdownContentModalButton text="Project Settings" modal="projectSettings"-->
+            <EditorTopBarDropdownContentOption 
+                onclick={() => props.editorState.editorModalKind = "editorSettings"}
+            >Editor Settings</EditorTopBarDropdownContentOption>
+            <EditorTopBarDropdownContentOption 
+                onclick={() => props.editorState.editorModalKind = "projectSettings"}
+            >Project Settings</EditorTopBarDropdownContentOption>
         </EditorTopBarDropdown>
 
         <div class="header-seperator"></div>
