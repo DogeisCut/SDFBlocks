@@ -116,4 +116,4 @@ BlocklyGLSL.gLSLGenerator.forBlock["transforms_rotate_around_axis"] = function (
 // TODO: figure out a scale transform that takes in a vector3/other object wrappers... sdfs are weird
 // TODO: 2d sdfs?
 // TODO: more operations
-// i like forgot to scroll down past the primatives on this page https://iquilezles.org/articles/distfunctions/
+// i like forgot to scroll down past the primitives on this page https://iquilezles.org/articles/distfunctions/

@@ -1,16 +1,16 @@
 import * as Blockly from "blockly";
 import * as BlocklyGLSL from "../generators/glsl";
 
-Blockly.Blocks["primatives_nothing"] = {
+Blockly.Blocks["primitives_nothing"] = {
     init: function () {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("nothing");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_sphere"] = {
+Blockly.Blocks["primitives_sphere"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create sphere");
@@ -18,11 +18,11 @@ Blockly.Blocks["primatives_sphere"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_box"] = {
+Blockly.Blocks["primitives_box"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create box");
@@ -30,11 +30,11 @@ Blockly.Blocks["primatives_box"] = {
         this.appendValueInput("SIZE").setCheck("Vector3").appendField("size:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_round_box"] = {
+Blockly.Blocks["primitives_round_box"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create round box");
@@ -43,11 +43,11 @@ Blockly.Blocks["primatives_round_box"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_box_frame"] = {
+Blockly.Blocks["primitives_box_frame"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create box frame");
@@ -56,11 +56,11 @@ Blockly.Blocks["primatives_box_frame"] = {
         this.appendValueInput("THICKNESS").setCheck("Number").appendField("thickness:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_torus"] = {
+Blockly.Blocks["primitives_torus"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create torus");
@@ -68,11 +68,11 @@ Blockly.Blocks["primatives_torus"] = {
         this.appendValueInput("RADII").setCheck("Vector2").appendField("radii:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_capped_torus"] = {
+Blockly.Blocks["primitives_capped_torus"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create capped torus");
@@ -82,11 +82,11 @@ Blockly.Blocks["primatives_capped_torus"] = {
         this.appendValueInput("END").setCheck("Number").appendField("end angle:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_link"] = {
+Blockly.Blocks["primitives_link"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create link");
@@ -96,11 +96,11 @@ Blockly.Blocks["primatives_link"] = {
         this.appendValueInput("RADIUS2").setCheck("Number").appendField("radius 2:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_infinite_cylinder"] = {
+Blockly.Blocks["primitives_infinite_cylinder"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create infinite cylinder");
@@ -108,11 +108,11 @@ Blockly.Blocks["primatives_infinite_cylinder"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_vertical_capped_cylinder"] = {
+Blockly.Blocks["primitives_vertical_capped_cylinder"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create vertical capped cylinder");
@@ -121,11 +121,11 @@ Blockly.Blocks["primatives_vertical_capped_cylinder"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_arbitrary_capped_cylinder"] = {
+Blockly.Blocks["primitives_arbitrary_capped_cylinder"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create arbitrary capped cylinder");
@@ -135,11 +135,11 @@ Blockly.Blocks["primatives_arbitrary_capped_cylinder"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_rounded_cylinder"] = {
+Blockly.Blocks["primitives_rounded_cylinder"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create rounded cylinder");
@@ -149,11 +149,11 @@ Blockly.Blocks["primatives_rounded_cylinder"] = {
         this.appendValueInput("HEIGHT").setCheck("Number").appendField("height:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_cone"] = {
+Blockly.Blocks["primitives_cone"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create cone");
@@ -162,11 +162,11 @@ Blockly.Blocks["primatives_cone"] = {
         this.appendValueInput("HEIGHT").setCheck("Number").appendField("height:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_infinite_cone"] = {
+Blockly.Blocks["primitives_infinite_cone"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create infinite cone");
@@ -174,11 +174,11 @@ Blockly.Blocks["primatives_infinite_cone"] = {
         this.appendValueInput("ANGLE").setCheck("Number").appendField("angle:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_simple_capped_cone"] = {
+Blockly.Blocks["primitives_simple_capped_cone"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create simple capped cone");
@@ -188,11 +188,11 @@ Blockly.Blocks["primatives_simple_capped_cone"] = {
         this.appendValueInput("RADIUS2").setCheck("Number").appendField("radius 2:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_capped_cone"] = {
+Blockly.Blocks["primitives_capped_cone"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create arbitrary capped cone");
@@ -203,11 +203,11 @@ Blockly.Blocks["primatives_capped_cone"] = {
         this.appendValueInput("RADIUS2").setCheck("Number").appendField("radius 2:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_simple_round_cone"] = {
+Blockly.Blocks["primitives_simple_round_cone"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create simple round cone");
@@ -217,11 +217,11 @@ Blockly.Blocks["primatives_simple_round_cone"] = {
         this.appendValueInput("RADIUS2").setCheck("Number").appendField("radius 2:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_round_cone"] = {
+Blockly.Blocks["primitives_round_cone"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create arbitrary round cone");
@@ -232,11 +232,11 @@ Blockly.Blocks["primatives_round_cone"] = {
         this.appendValueInput("RADIUS2").setCheck("Number").appendField("radius 2:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_capsule"] = {
+Blockly.Blocks["primitives_capsule"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create capsule");
@@ -246,11 +246,11 @@ Blockly.Blocks["primatives_capsule"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_vertical_capsule"] = {
+Blockly.Blocks["primitives_vertical_capsule"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create vertical capsule");
@@ -259,11 +259,11 @@ Blockly.Blocks["primatives_vertical_capsule"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_plane"] = {
+Blockly.Blocks["primitives_plane"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create plane");
@@ -272,11 +272,11 @@ Blockly.Blocks["primatives_plane"] = {
         this.appendValueInput("HEIGHT").setCheck("Number").appendField("height offset:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_hexagonal_prism"] = {
+Blockly.Blocks["primitives_hexagonal_prism"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create hexagonal prism");
@@ -284,11 +284,11 @@ Blockly.Blocks["primatives_hexagonal_prism"] = {
         this.appendValueInput("EXTENT").setCheck("Vector2").appendField("extent:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_triangular_prism"] = {
+Blockly.Blocks["primitives_triangular_prism"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create triangular prism");
@@ -296,11 +296,11 @@ Blockly.Blocks["primatives_triangular_prism"] = {
         this.appendValueInput("EXTENT").setCheck("Vector2").appendField("extent:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_solid_angle"] = {
+Blockly.Blocks["primitives_solid_angle"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create solid angle");
@@ -309,11 +309,11 @@ Blockly.Blocks["primatives_solid_angle"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_cut_sphere"] = {
+Blockly.Blocks["primitives_cut_sphere"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create cut sphere");
@@ -322,11 +322,11 @@ Blockly.Blocks["primatives_cut_sphere"] = {
         this.appendValueInput("CUT_HEIGHT").setCheck("Number").appendField("cut height:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_cut_hollow_sphere"] = {
+Blockly.Blocks["primitives_cut_hollow_sphere"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create cut hollow sphere");
@@ -336,11 +336,11 @@ Blockly.Blocks["primatives_cut_hollow_sphere"] = {
         this.appendValueInput("THICKNESS").setCheck("Number").appendField("thickness:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_pitted_sphere"] = {
+Blockly.Blocks["primitives_pitted_sphere"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create pitted sphere");
@@ -350,11 +350,11 @@ Blockly.Blocks["primatives_pitted_sphere"] = {
         this.appendValueInput("PIT_DEPTH").setCheck("Number").appendField("pit depth offset:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_vesica_segment"] = {
+Blockly.Blocks["primitives_vesica_segment"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create vesica segment");
@@ -364,11 +364,11 @@ Blockly.Blocks["primatives_vesica_segment"] = {
         this.appendValueInput("WIDTH").setCheck("Number").appendField("width:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_rhombus"] = {
+Blockly.Blocks["primitives_rhombus"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create rhombus");
@@ -379,11 +379,11 @@ Blockly.Blocks["primatives_rhombus"] = {
         this.appendValueInput("RADIUS").setCheck("Number").appendField("corner radius:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_octahedron"] = {
+Blockly.Blocks["primitives_octahedron"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create octahedron");
@@ -391,11 +391,11 @@ Blockly.Blocks["primatives_octahedron"] = {
         this.appendValueInput("SIZE").setCheck("Number").appendField("size:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_pyramid"] = {
+Blockly.Blocks["primitives_pyramid"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create pyramid");
@@ -403,11 +403,11 @@ Blockly.Blocks["primatives_pyramid"] = {
         this.appendValueInput("HEIGHT").setCheck("Number").appendField("height:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_triangle"] = {
+Blockly.Blocks["primitives_triangle"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create triangle");
@@ -417,11 +417,11 @@ Blockly.Blocks["primatives_triangle"] = {
         this.appendValueInput("POINT_C").setCheck("Vector3").appendField("point c:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_quad"] = {
+Blockly.Blocks["primitives_quad"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create quad");
@@ -432,11 +432,11 @@ Blockly.Blocks["primatives_quad"] = {
         this.appendValueInput("POINT_D").setCheck("Vector3").appendField("point d:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
-Blockly.Blocks["primatives_ellipsoid"] = {
+Blockly.Blocks["primitives_ellipsoid"] = {
     init: function () {
         this.setInputsInline(false);
         this.appendDummyInput().appendField("create ellipsoid");
@@ -444,32 +444,32 @@ Blockly.Blocks["primatives_ellipsoid"] = {
         this.appendValueInput("RADII").setCheck("Vector3").appendField("radii:");
         this.appendValueInput("POSITION").setCheck("Vector3").appendField("position:");
         this.setOutput(true, "SDF");
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 
 
 
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_nothing"] = function () {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_nothing"] = function () {
     return [`makeSDF(MAX_DIST_TO_TRAVEL, makeSurface(vec3(0.0), 1.0, 0.0, 0.0))`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_sphere"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_sphere"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC);
     return [`sdSphere(${POSITION}, ${SURFACE}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_box"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_box"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const SIZE = generator.valueToCode(block, "SIZE", BlocklyGLSL.Order.ATOMIC);
     return [`sdBox(${POSITION}, ${SURFACE}, ${SIZE})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_round_box"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_round_box"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const SIZE = generator.valueToCode(block, "SIZE", BlocklyGLSL.Order.ATOMIC);
@@ -477,7 +477,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_round_box"] = function (block, ge
     return [`sdRoundBox(${POSITION}, ${SURFACE}, ${SIZE}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_box_frame"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_box_frame"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const SIZE = generator.valueToCode(block, "SIZE", BlocklyGLSL.Order.ATOMIC);
@@ -485,14 +485,14 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_box_frame"] = function (block, ge
     return [`sdBoxFrame(${POSITION}, ${SURFACE}, ${SIZE}, ${THICKNESS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_torus"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_torus"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADII = generator.valueToCode(block, "RADII", BlocklyGLSL.Order.ATOMIC);
     return [`sdTorus(${POSITION}, ${SURFACE}, ${RADII})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_capped_torus"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_capped_torus"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADII = generator.valueToCode(block, "RADII", BlocklyGLSL.Order.ATOMIC);
@@ -501,7 +501,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_capped_torus"] = function (block,
     return [`sdCappedTorus(${POSITION}, ${SURFACE}, ${RADII}, ${START}, ${END})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_link"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_link"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const LENGTH = generator.valueToCode(block, "LENGTH", BlocklyGLSL.Order.ATOMIC);
@@ -510,14 +510,14 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_link"] = function (block, generat
     return [`sdLink(${POSITION}, ${SURFACE}, ${LENGTH}, ${RADIUS1}, ${RADIUS2})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_infinite_cylinder"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_infinite_cylinder"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC);
     return [`sdCylinder(${POSITION}, ${SURFACE}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_cone"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_cone"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const ANGLE = generator.valueToCode(block, "ANGLE", BlocklyGLSL.Order.ATOMIC);
@@ -525,14 +525,14 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_cone"] = function (block, generat
     return [`sdCone(${POSITION}, ${SURFACE}, ${ANGLE}, ${HEIGHT})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_infinite_cone"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_infinite_cone"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const ANGLE = generator.valueToCode(block, "ANGLE", BlocklyGLSL.Order.ATOMIC);
     return [`sdInfCone(${POSITION}, ${SURFACE}, ${ANGLE})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_plane"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_plane"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const NORMAL = generator.valueToCode(block, "NORMAL", BlocklyGLSL.Order.ATOMIC);
@@ -540,14 +540,14 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_plane"] = function (block, genera
     return [`sdPlane(${POSITION}, ${SURFACE}, ${NORMAL}, ${HEIGHT})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_hexagonal_prism"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_hexagonal_prism"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const EXTENT = generator.valueToCode(block, "EXTENT", BlocklyGLSL.Order.ATOMIC);
     return [`sdHexPrism(${POSITION}, ${SURFACE}, ${EXTENT})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_capsule"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_capsule"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const POINT_A = generator.valueToCode(block, "POINT_A", BlocklyGLSL.Order.ATOMIC);
@@ -556,7 +556,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_capsule"] = function (block, gene
     return [`sdCapsule(${POSITION}, ${SURFACE}, ${POINT_A}, ${POINT_B}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_vertical_capsule"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_vertical_capsule"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const HEIGHT = generator.valueToCode(block, "HEIGHT", BlocklyGLSL.Order.ATOMIC);
@@ -564,7 +564,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_vertical_capsule"] = function (bl
     return [`sdVerticalCapsule(${POSITION}, ${SURFACE}, ${HEIGHT}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_vertical_capped_cylinder"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_vertical_capped_cylinder"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const HEIGHT = generator.valueToCode(block, "HEIGHT", BlocklyGLSL.Order.ATOMIC);
@@ -572,7 +572,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_vertical_capped_cylinder"] = func
     return [`sdVerticalCappedCylinder(${POSITION}, ${SURFACE}, ${HEIGHT}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_arbitrary_capped_cylinder"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_arbitrary_capped_cylinder"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const POINT_A = generator.valueToCode(block, "POINT_A", BlocklyGLSL.Order.ATOMIC);
@@ -581,7 +581,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_arbitrary_capped_cylinder"] = fun
     return [`sdArbitraryCappedCylinder(${POSITION}, ${SURFACE}, ${POINT_A}, ${POINT_B}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_rounded_cylinder"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_rounded_cylinder"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC);
@@ -590,7 +590,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_rounded_cylinder"] = function (bl
     return [`sdRoundedCylinder(${POSITION}, ${SURFACE}, ${RADIUS}, ${CORNER_RADIUS}, ${HEIGHT})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_simple_capped_cone"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_simple_capped_cone"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const HEIGHT = generator.valueToCode(block, "HEIGHT", BlocklyGLSL.Order.ATOMIC);
@@ -599,7 +599,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_simple_capped_cone"] = function (
     return [`sdSimpleCappedCone(${POSITION}, ${SURFACE}, ${HEIGHT}, ${RADIUS1}, ${RADIUS2})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_capped_cone"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_capped_cone"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const POINT_A = generator.valueToCode(block, "POINT_A", BlocklyGLSL.Order.ATOMIC);
@@ -609,7 +609,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_capped_cone"] = function (block, 
     return [`sdCappedCone(${POSITION}, ${SURFACE}, ${POINT_A}, ${POINT_B}, ${RADIUS1}, ${RADIUS2})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_solid_angle"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_solid_angle"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const ANGLE = generator.valueToCode(block, "ANGLE", BlocklyGLSL.Order.ATOMIC);
@@ -617,7 +617,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_solid_angle"] = function (block, 
     return [`sdSolidAngle(${POSITION}, ${SURFACE}, ${ANGLE}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_cut_sphere"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_cut_sphere"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC);
@@ -625,7 +625,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_cut_sphere"] = function (block, g
     return [`sdCutSphere(${POSITION}, ${SURFACE}, ${RADIUS}, ${CUT_HEIGHT})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_cut_hollow_sphere"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_cut_hollow_sphere"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC);
@@ -634,7 +634,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_cut_hollow_sphere"] = function (b
     return [`sdCutHollowSphere(${POSITION}, ${SURFACE}, ${RADIUS}, ${CUT_HEIGHT}, ${THICKNESS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_pitted_sphere"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_pitted_sphere"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADIUS = generator.valueToCode(block, "RADIUS", BlocklyGLSL.Order.ATOMIC);
@@ -643,7 +643,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_pitted_sphere"] = function (block
     return [`sdDeathStar(${POSITION}, ${SURFACE}, ${RADIUS}, ${PIT_RADIUS}, ${PIT_DEPTH})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_simple_round_cone"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_simple_round_cone"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const HEIGHT = generator.valueToCode(block, "HEIGHT", BlocklyGLSL.Order.ATOMIC);
@@ -652,7 +652,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_simple_round_cone"] = function (b
     return [`sdSimpleRoundCone(${POSITION}, ${SURFACE}, ${HEIGHT}, ${RADIUS1}, ${RADIUS2})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_round_cone"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_round_cone"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const POINT_A = generator.valueToCode(block, "POINT_A", BlocklyGLSL.Order.ATOMIC);
@@ -662,7 +662,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_round_cone"] = function (block, g
     return [`sdRoundCone(${POSITION}, ${SURFACE}, ${POINT_A}, ${POINT_B}, ${RADIUS1}, ${RADIUS2})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_vesica_segment"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_vesica_segment"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const POINT_A = generator.valueToCode(block, "POINT_A", BlocklyGLSL.Order.ATOMIC);
@@ -671,7 +671,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_vesica_segment"] = function (bloc
     return [`sdVesicaSegment(${POSITION}, ${SURFACE}, ${POINT_A}, ${POINT_B}, ${WIDTH})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_rhombus"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_rhombus"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const LA = generator.valueToCode(block, "LA", BlocklyGLSL.Order.ATOMIC);
@@ -681,21 +681,21 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_rhombus"] = function (block, gene
     return [`sdRhombus(${POSITION}, ${SURFACE}, ${LA}, ${LB}, ${HEIGHT}, ${RADIUS})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_octahedron"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_octahedron"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const SIZE = generator.valueToCode(block, "SIZE", BlocklyGLSL.Order.ATOMIC);
     return [`sdOctahedron(${POSITION}, ${SURFACE}, ${SIZE})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_pyramid"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_pyramid"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const HEIGHT = generator.valueToCode(block, "HEIGHT", BlocklyGLSL.Order.ATOMIC);
     return [`sdPyramid(${POSITION}, ${SURFACE}, ${HEIGHT})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_triangle"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_triangle"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const POINT_A = generator.valueToCode(block, "POINT_A", BlocklyGLSL.Order.ATOMIC);
@@ -704,7 +704,7 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_triangle"] = function (block, gen
     return [`udTriangle(${POSITION}, ${SURFACE}, ${POINT_A}, ${POINT_B}, ${POINT_C})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_quad"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_quad"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const POINT_A = generator.valueToCode(block, "POINT_A", BlocklyGLSL.Order.ATOMIC);
@@ -714,14 +714,14 @@ BlocklyGLSL.gLSLGenerator.forBlock["primatives_quad"] = function (block, generat
     return [`udQuad(${POSITION}, ${SURFACE}, ${POINT_A}, ${POINT_B}, ${POINT_C}, ${POINT_D})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_ellipsoid"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_ellipsoid"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const RADII = generator.valueToCode(block, "RADII", BlocklyGLSL.Order.ATOMIC);
     return [`sdEllipsoid(${POSITION}, ${SURFACE}, ${RADII})`, BlocklyGLSL.Order.NONE];
 };
 
-BlocklyGLSL.gLSLGenerator.forBlock["primatives_triangular_prism"] = function (block, generator) {
+BlocklyGLSL.gLSLGenerator.forBlock["primitives_triangular_prism"] = function (block, generator) {
     const SURFACE = generator.valueToCode(block, "SURFACE", BlocklyGLSL.Order.ATOMIC);
     const POSITION = generator.valueToCode(block, "POSITION", BlocklyGLSL.Order.ATOMIC);
     const EXTENT = generator.valueToCode(block, "EXTENT", BlocklyGLSL.Order.ATOMIC);

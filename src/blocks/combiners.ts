@@ -148,4 +148,4 @@ BlocklyGLSL.gLSLGenerator.forBlock["combiners_smooth_paint"] = function (block, 
 };
 
 // TODO: xor operation
-// i like forgot to scroll down past the primatives on this page https://iquilezles.org/articles/distfunctions/
+// i like forgot to scroll down past the primitives on this page https://iquilezles.org/articles/distfunctions/

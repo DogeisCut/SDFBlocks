@@ -7,7 +7,7 @@ const blockStyles = {
     surfaces_blocks: {
         colourPrimary: "#6fe2b2",
     },
-    primatives_blocks: {
+    primitives_blocks: {
         colourPrimary: "#5b81ff",
     },
     combiners_blocks: {

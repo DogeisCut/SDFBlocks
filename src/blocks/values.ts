@@ -101,7 +101,7 @@ Blockly.Blocks["values_sdf"] = {
         this.setInputsInline(true);
         this.appendDummyInput().appendField("sdf")
         this.setOutput(true, "SDF")
-        this.setStyle("primatives_blocks");
+        this.setStyle("primitives_blocks");
     },
 };
 

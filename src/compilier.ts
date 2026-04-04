@@ -367,7 +367,7 @@ vec3 opRepeat(vec3 p, vec3 c) {
     return mod(p, c) - 0.5 * c;
 }
 
-// 2d primatives
+// 2d primitives
 // https://iquilezles.org/articles/distfunctions2d/
 
 // 2d to 3d sdf
@@ -393,7 +393,7 @@ vec3 opRepeat(vec3 p, vec3 c) {
     
 // primative sdfs (christ almighty)
 // thank you to https://iquilezles.org/articles/distfunctions/ for like all of these
-// might be worth looking at https://www.shadertoy.com/playlist/43cXRl&from=0&num=12 for more primatives!
+// might be worth looking at https://www.shadertoy.com/playlist/43cXRl&from=0&num=12 for more primitives!
 
 SDF sdSphere( vec3 p, Surface surface, float r )
 {

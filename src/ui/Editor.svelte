@@ -8,24 +8,37 @@
     import AlphaWarning from "./AlphaWarning/AlphaWarning.svelte";
     import RaymarcherPreview from "./RaymarcherPreview/RaymarcherPreview.svelte";
     import EditorTopBar from "./EditorTopBar/EditorTopBar.svelte";
+    import EditorModal from "./EditorModal/EditorModal.svelte";
+    import EditorModalVariable from "./EditorModal/EditorModalVariable/EditorModalVariable.svelte";
 
-    Object.keys(Blockly.Blocks).forEach(key => delete Blockly.Blocks[key]);
     import.meta.glob('../blocks/*.ts', { eager: true });
 
-    let editorState:
+    let projectSettings:
+    {
+        size: [number, number]
+    }
+    = $state({
+        size: [1920, 1280]
+    })
+
+    let savedEditorState:
     {
         preview: {
             positon: [number, number],
             size: [number, number]
         },
-        projectSize: [number, number]
-    }
-    = $state({
+    } = $state({
         preview: {
             positon: [0, 0],
             size: [1920/2, 1280/2]
         },
-        projectSize: [1920, 1280]
+    })
+
+    let editorState:
+    {
+        editorModalKind: "variable" | "projectSettings" | "editorSettings" | null;
+    } = $state({
+        editorModalKind: null,
     })
 
     registerContinuousToolbox();
@@ -237,7 +250,7 @@
             <block type="scene_set_scene">
                 <value name="SDF">
                 <shadow type="values_sdf"></shadow>
-                <block type="primatives_box">
+                <block type="primitives_box">
                     <value name="SURFACE">
                     <shadow type="values_surface"></shadow>
                     </value>
@@ -287,18 +300,21 @@
     <div id="pageContainer">
         <div bind:this={blocklyDiv} id="blocklyDiv"></div>
         <RaymarcherPreview 
-        size={editorState.projectSize}
-        previewSize={editorState.preview.size}
+        size={projectSettings.size}
+        previewSize={savedEditorState.preview.size}
         />
     </div>
+    {#if editorState.editorModalKind === "variable"}
+        <EditorModalVariable
+        title="Create a Variable"
+        acceptText="Create"
+        cancelText="Cancel"
+        ></EditorModalVariable>
+    {/if}
 </div>
 <AlphaWarning />
 
 <style>
-    :global(*) {
-        box-sizing: border-box;
-    }
-
     :global(body) {
         margin: 0;
         padding: 0;
@@ -308,7 +324,7 @@
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
-    :global(#appContainer) {
+    #appContainer {
         display: flex;
         flex-direction: column;
         height: 100%;
