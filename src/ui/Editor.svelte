@@ -5,7 +5,6 @@
     import toolbox from "../toolbox";
     import theme from "../theme";
     import * as Compiler from "../compilier";
-    import "../index.css";
 
     import.meta.glob('../blocks/*.ts', { eager: true });
 
@@ -263,39 +262,38 @@
     });
 </script>
 
-<div class="container">
-    <div class="left">
-        <div bind:this={blocklyDiv} id="blocklyDiv"></div>
-    </div>
-
-    <div class="right">
-        <div id="raymarcherWidget" class="floating-widget">
-            <div id="widgetHeader">
-                <span class="widget-title">Preview</span>
-                <div class="widget-controls">
-                    <button id="fullscreenBtn" title="Fullscreen">⛶</button>
-                </div>
-            </div>
-            <div id="canvasContainer">
-                <div id="raymarcherDiv"></div>
-            </div>
-        </div>
-    </div>
+<div id="pageContainer">
+    <div bind:this={blocklyDiv} id="blocklyDiv"></div>
 </div>
 
 <style>
-    .container {
-        display: flex;
+    :global(*) {
+        box-sizing: border-box;
+    }
+
+    :global(body) {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
         height: 100vh;
+        overflow: hidden;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
-    .left {
-        flex: 1;
+
+    :global(#appContainer) {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+
+    #pageContainer {
         position: relative;
+        flex: 1;
+        width: 100%;
+        overflow: hidden;
     }
-    .right {
-        width: 920px;
-        padding: 12px;
-    }
+
     #blocklyDiv {
         width: 100%;
         height: 100%;
