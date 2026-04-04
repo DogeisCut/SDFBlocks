@@ -9,8 +9,8 @@
     "target": "ES2015",
     "strict": false,
     "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
-,
+    "resolveJsonModule": true,
+    "types": ["vite/client"]
+  },
   "include": ["src/**/*"]
 }
