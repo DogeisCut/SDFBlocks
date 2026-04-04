@@ -74,7 +74,11 @@
 
     <div class="header-right">
         {#if props.editorState.save}
-            <div class="text-button">Save as {props.editorState.save.fileName}</div>
+            {#if props.editorState.save.fileName}
+                <div class="text-button">Save as {props.editorState.save.fileName}</div>  
+            {:else}
+                <div class="text-button">Save to your computer</div>  
+            {/if}
         {/if}
         
     </div>

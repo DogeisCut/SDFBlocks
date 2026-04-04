@@ -17,7 +17,7 @@
         editorModalKind?: "variable" | "projectSettings" | "editorSettings" | null,
         save: {
             unsavedChanges: boolean,
-            fileName: string
+            fileName: string | null
         } | null
     }
 </script>
