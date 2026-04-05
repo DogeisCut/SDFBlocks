@@ -22,23 +22,21 @@
 </script>
 
 <canvas bind:this={props.editorState.canvas} use:draggable={{ bounds: 'parent' }}
-width={props.projectSettings.size[0]}
-height={props.projectSettings.size[1]}
-id="raymarcherCanvas"
-style:width='{props.savedEditorState.preview.size[0]}px'
-style:height='{props.savedEditorState.preview.size[1]}px'
+    width={props.projectSettings.size[0]}
+    height={props.projectSettings.size[1]}
+    id="raymarcherCanvas"
+    style:width='{props.savedEditorState.preview.size[0]}px'
+    style:height='{props.savedEditorState.preview.size[1]}px'
 >
 </canvas>
 
 <style>
     canvas {
-        max-width: 100%;
-        max-height: 100%;
         object-fit: contain; 
         image-rendering: pixelated;
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 16px;
+        right: 16px;
         background-color: #1e1e1e;
         border-radius: 8px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.5);
